@@ -125,7 +125,6 @@ button:focus, input:focus, select:focus {
   background-clip: content-box;
   -webkit-background-clip: text;
   background-image: linear-gradient(to right, var(--cor-7), #11e9de);
-  font-weight: 700
 }
 
 .grad-1 {
@@ -179,6 +178,33 @@ button:focus, input:focus, select:focus {
 .light .divider.left {
   margin: 10px 0;
   background-image: linear-gradient(90deg, var(--divider-bg-2));
+}
+
+.backlit {
+  position: relative;
+}
+.backlit > * {
+  position: relative;
+  z-index: 5;
+}
+
+.backlit::before {
+  content: '';
+  position: absolute;
+  display: block;
+  z-index: 0;
+  width: 50%;
+  height: auto;
+  aspect-ratio: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: radial-gradient(circle at center, #ffffff, rgba(255,255,255,0));
+  background-size: contain;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  filter: blur(200px);
 }
 
 .badge {
@@ -320,6 +346,15 @@ button:focus, input:focus, select:focus {
 
 #investimento li:not(:last-of-type) {
   margin-bottom: .5rem;
+}
+
+@media screen and (min-width:1600px) {
+  #header {
+    height: calc(428px + 20vw);
+  }
+  #modulos {
+    padding-top: 7.5vw;
+  }
 }
 
 @media screen and (max-width:1024px) {

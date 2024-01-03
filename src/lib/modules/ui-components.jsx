@@ -55,7 +55,12 @@ const Collapsible = (props) => {
 
 const Button = (props) => {
     return (
-        <button id={props.id} className={classList('border border-cyan-200 rounded-xl py-2 px-8 grad-1 font-semibold hover:scale-[101%] hover:brightness-110 hover:translate-y-[-1px] duration-100 ease-out cursor-pointer', props.className)} onClick={() => props.onClick}>
+        <button id={props.id} className={classList(
+            'border border-cyan-200 rounded-xl py-2 px-8 grad-1 font-semibold',
+            `${props.disabled ? 'saturate-0 opacity-50 cursor-not-allowed' : 'hover:scale-[101%] hover:brightness-110 hover:translate-y-[-1px] duration-100 ease-out cursor-pointer'}`,
+            props.className,
+            )} 
+            onClick={props.onClick}>
             {props.children}
         </button>
     );

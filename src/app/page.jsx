@@ -15,6 +15,10 @@ export default function Home() {
         });
     }, []);
 
+    function $(el) {
+        return document.querySelector(el)
+    }
+
     const Depoimento = (props) => {
         return (
             <div className={'flex justify-start items-end mb-8 ' + (props.reverse && 'flex-row-reverse')}>
@@ -44,19 +48,19 @@ export default function Home() {
     return (
         <div>
             <Section id='header'>
-                <Content className='relative z-10'>
+                <Content className='relative z-10 pt-16'>
                     <Content_Default>
                         <Wrapper className='max-[1024px]:justify-center'>
-                            <Container className='text-center items-center w-full max-w-[32rem]'>
+                            <Container className='text-center items-center w-full max-w-[48rem]'>
                                 <Image src='/img/svg/logo_palmilhando.svg' alt='' width='350' height='80' draggable='false' />
                                 <h2 className='mt-4 mb-4'><strong>MAIS QUE UM CONTEÚDO, UMA COMUNIDADE!</strong></h2>
                                 <p>Um programa desenvolvido para ser uma verdadeira jornada nesse universo para quem quer começar ou aprimorar o conhecimento na avaliação, prescrição e confecção de palmilhas.</p>
-                                <Button className='m-8 font-bold shadow-md w-3/4 max-[512px]:w-full py-4'>QUERO SABER MAIS</Button>
+                                <Button className='m-8 font-bold shadow-md w-3/4 max-[512px]:w-full py-4' onClick={() => $('#saiba-mais').scrollIntoView()}>QUERO SABER MAIS</Button>
                             </Container>
                         </Wrapper>
                     </Content_Default>
                 </Content>
-                <img className='absolute bottom-[-64px] max-[820px]:bottom-[-36px] max-[425px]:bottom-[-24px] w-screen z-10' src='/img/svg/white-tab.svg' alt='' draggable='false' />
+                <img className='absolute bottom-0 translate-y-[25%] w-screen z-10' src='/img/svg/white-tab.svg' alt='' draggable='false' />
             </Section>
 
             <Section id='saiba-mais' className='relative z-10 bg-white cor-4 pb-16 pt-0 max-[1024px]:pb-10'>
@@ -73,18 +77,18 @@ export default function Home() {
                                     Por isso, criamos o Palmilhando. Para reunir profissionais em um lugar onde possam aprender, aperfeiçoar técnicas, tirar todas as suas dúvidas, trocar experiências e, principalmente, a não se sentirem mais sozinhos.
                                     É o ambiente perfeito para o seu desenvolvimento profissional. Você terá acesso a um conteúdo que vai do zero ao avançado e que será atualizado todo mês!
                                 </p>
-                                <Button className='mt-4 text-white shadow-md py-4'>QUERO TER ACESSO AOS CONTEÚDOS!</Button>
+                                <Button className='mt-4 text-white shadow-md py-4' onClick={() => $('#investimento').scrollIntoView({block:'center'})}>QUERO TER ACESSO AOS CONTEÚDOS!</Button>
                             </Container>
                         </Wrapper>
                     </Content_Default>
                 </Content>
-                <img className='absolute xl:bottom-[-96px] lg:bottom-[-64px] max-[820px]:bottom-[-48px] max-[425px]:bottom-[-24px] w-screen scale-x-[-1]' src='/img/svg/tab.svg' alt='' draggable='false' />
+                <img id='tab-2' className='absolute w-screen scale-x-[-1] bottom-0 translate-y-[98%]' src='/img/svg/tab.svg' alt='' draggable='false' />
             </Section>
 
             <Section id='modulos'>
                 <Content className='pt-24 max-[820px]:pt-8'>
-                    <Content_Default>
-                        <h2 className='max-[820px]:text-center'>O que você irá aprender com o <mark className="cor-2">Palmilhando</mark>:</h2>
+                    <Content_Default className='flex flex-col items-center justify-center'>
+                        <h2 className='text-center'>O que você irá aprender com o <mark className="cor-2">Palmilhando</mark>:</h2>
                         <Container className='w-1/2 pt-8 max-[820px]:w-full relative'>
                             <Collapsible title='MÓDULO 1: O INÍCIO'>
                                 <p>É aqui que tudo começa! Preparamos um conteúdo que vai da anatomia e biomecânica até a avaliação completa e a prescrição de elementos e moldagens para quem está começando ou mesmo precisando revisar conceitos sobre o movimento, a neurociência moderna da dor, dentre outros assuntos. Finalizando esse módulo você receberá um certificado de 30h.</p>
@@ -106,7 +110,7 @@ export default function Home() {
                                 <p>Nesse módulo vamos abordar as principais condições reumatológicas com conceitos introdutórios e sugestões e palmilhas para as principais deformidades encontras nos pés desses pacientes.</p>
                             </Collapsible>
 
-                            <p className='mt-8 max-[820px]:text-center'>Todos os módulos acima serão atualizados com novas aulas ao longo do ano, fique ligado!</p>
+                            <p className='mt-8 text-center'>Todos os módulos acima serão atualizados com novas aulas ao longo do ano, fique ligado!</p>
                         </Container>
 
                     </Content_Default>
@@ -138,22 +142,18 @@ export default function Home() {
             </Section>
 
             <Section id='por-dentro' className='pt-0 pb-0 border-y-2 border-y-cyan-100 bg-[linear-gradient(#0c6b96,#1E3050)]'>
+    
+                <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 font-light'><mark className="grad-text">COMO É O PALMILHANDO POR DENTRO?</mark></h1>
 
-                <Content className='py-8'>
+                <Content className='pt-8'>
                     <Content_Default>
-                        <h1 className='text-center'>Como é o Palmilhando <mark className="grad-text">por dentro</mark>?</h1>
-                    </Content_Default>
-                </Content>
-
-                <Content className='py-4'>
-                    <Content_Default>
-                        <Wrapper className='justify-center items-center'>
-                            <div className='text-center'>
-                                <h1 className='grad-text'>Aulas <i>on-demand</i></h1>
-                                <h2>Disponíveis 24h</h2>
-                            </div>
-                            <div className='w-full max-w-[640px]'>
+                        <Wrapper className='justify-evenly items-center'>
+                            <div className='w-full max-w-[640px] backlit'>
                                 <img src="/img/curso-reformulado.webp" draggable='false' alt="" />
+                            </div>
+                            <div className='text-center '>
+                                <h1 className='grad-text'>Aulas on-demand</h1>
+                                <h2>Disponíveis 24h</h2>
                             </div>
                         </Wrapper>
                     </Content_Default>
@@ -205,7 +205,7 @@ export default function Home() {
                                     <img className='absolute bottom-[12px] left-[50%] translate-x-[-50%] w-[236px] aspect-square' src="/img/andre-avental.webp" alt="" draggable='false' />
                                     <img className='absolute bottom-[180px] left-[50%] translate-x-[-75%] w-[236px]' src="/img/andre_prop.webp" alt="" draggable='false' />
                                 </div>
-                                <Button className='relative z-10 text-white shadow-md py-4 w-full mx-auto mt-8 mb-0 text-2xl'>QUERO ASSINAR AGORA!</Button>
+                                <Button className='relative z-10 text-white shadow-md py-4 w-full mx-auto mt-8 mb-0 text-2xl' onClick={() => $('#investimento').scrollIntoView({block:'center'})}>QUERO ASSINAR AGORA!</Button>
                             </Container>
                         </Wrapper>
                     </Content_Default>
@@ -283,11 +283,14 @@ export default function Home() {
                                 <p>
                                     Além disso, você receberá em casa, <strong className='cor-7'>sem custo adicional</strong>, um dos melhores materiais para colocar em prática tudo o que aprendeu e fazer as suas próprias palmilhas!
                                     Você pode usar o material disponibilizado para fazer a palmilha de um dos seus pacientes e ter o seu investimento no curso de volta!
-                                    <br /><br />
-                                    Ou seja, com o frete grátis, os descontos exclusivos e os materiais que enviamos mensalmente até a sua casa, <strong className='cor-7'>você recupera todo o seu investimento e o clube sai de graça!</strong>
+                                </p>
+                                <br />
+                                <p>
+                                    Ou seja, com o frete grátis, os descontos exclusivos e os materiais que enviamos mensalmente até a sua casa, 
+                                    <strong className='cor-7'>você recupera todo o seu investimento e o clube sai de graça!</strong>
                                 </p>
                                 <img src='/img/kit-exclusivo.webp' alt='' draggable='false' className='m-auto w-96 h-auto my-4' />
-                                <Button className='text-white shadow-md my-8 mx-auto py-3 w-3/4'>QUERO SABER MAIS!</Button>
+                                <Button className='text-white shadow-md my-8 mx-auto py-3 w-3/4' onClick={() => $('#investimento').scrollIntoView({block:'center'})}>QUERO SABER MAIS!</Button>
                             </Container>
                         </Wrapper>
 
@@ -338,6 +341,7 @@ export default function Home() {
             </Section>
 
             <Section id='investimento' className='bg-[linear-gradient(#0c6b96,#1E3050)] border-y-2 border-y-cyan-100'>
+            <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100'><mark className="grad-text font-light">SEU INVESTIMENTO</mark></h1>
                 <Content className='pb-16'>
                     <Wrapper className='justify-center'>
                         <Container className='w-full max-w-96 max-[820px]:w-full m-4 flex flex-col justify-center max-[820px]:text-center'>
@@ -376,7 +380,7 @@ export default function Home() {
                                 <h1 className='text-3xl'><mark className="font-light text-white">3x de</mark> R$141<sup><small>,00</small></sup></h1>
                                 <h2 className='text-xs font-light my-4'>R$423,00 à vista ou<br />R$399,00 no plano trimestral<br /></h2>
                                 <a href="" target="_blank" rel="noopener noreferrer" className='cursor-not-allowed'>
-                                    <Button id="botao-assine" className='m-auto my-4 saturate-0 opacity-50 cursor-not-allowed hover:scale-100 hover:brightness-100 hover:translate-y-0'>QUERO ASSINAR!</Button>
+                                    <Button id="botao-assine" className='m-auto my-4' disabled>QUERO ASSINAR!</Button>
                                 </a>
                                 <div className="divider"></div>
                                 <p className='text-sm font-light my-4'>Compra 100% segura! Receba seu acesso imediatamente após a confirmação do pagamento</p>
@@ -397,7 +401,7 @@ export default function Home() {
                             <Container className='w-full max-w-[48rem] mx-auto'>
                                 <h1>Garantia incondicional de 7 dias.</h1>
                                 <p>Se, após a inscrição, você acreditar que o Palmilhando não é para você, basta solicitar o reembolso em até 7 dias após a inscrição que 100% do seu investimento será devolvido sem questionamentos.</p>
-                                <Button className='text-white mt-8 shadow-md w-full max-w-96 py-4 mx-auto'>QUERO ME INSCREVER!</Button>
+                                <Button className='text-white mt-8 shadow-md w-full max-w-96 py-4 mx-auto' onClick={() => $('#investimento').scrollIntoView({block:'center'})}>QUERO ME INSCREVER!</Button>
                             </Container>
                         </Content_Default>
                     </Content>
