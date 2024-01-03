@@ -120,11 +120,22 @@ button:focus, input:focus, select:focus {
   outline: none
 }
 
+@keyframes grad-slide {
+  to {
+    background-position: var(--bg-size) 0;
+  }
+}
+
 .grad-text {
+  --bg-size: 200%;
   -webkit-text-fill-color: transparent;
+  background: linear-gradient(to right, var(--cor-7), #11e9de, var(--cor-7)) 0 0 / var(--bg-size) 100%;
   background-clip: content-box;
   -webkit-background-clip: text;
-  background-image: linear-gradient(to right, var(--cor-7), #11e9de);
+}
+
+.grad-slide {
+  animation: grad-slide 3s ease infinite;
 }
 
 .grad-1 {

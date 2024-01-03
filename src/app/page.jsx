@@ -341,7 +341,7 @@ export default function Home() {
             </Section>
 
             <Section id='investimento' className='bg-[linear-gradient(#0c6b96,#1E3050)] border-y-2 border-y-cyan-100'>
-            <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100'><mark className="grad-text font-light">SEU INVESTIMENTO</mark></h1>
+            <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100'><mark className="grad-text grad-slide font-light">SEU INVESTIMENTO</mark></h1>
                 <Content className='pb-16'>
                     <Wrapper className='justify-center'>
                         <Container className='w-full max-w-96 max-[820px]:w-full m-4 flex flex-col justify-center max-[820px]:text-center'>
