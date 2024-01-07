@@ -48,4 +48,12 @@ const Box = (props) => {
     );
 }
 
-export {Section, Content, Content_Default, Container, Wrapper, Box};
+const Badge = ({children, width = 24, className = ''}) => {
+    return (
+        <div className={classList(`bg-inherit rounded-full absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center justify-center p-4 w-${width}`, className)}>
+            {children}
+        </div>
+    )
+}
+
+export {Section, Content, Content_Default, Container, Wrapper, Box, Badge};

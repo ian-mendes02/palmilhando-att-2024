@@ -259,7 +259,7 @@ export default function Home() {
                 <div className="badge top-0 w-16 bg-[var(--cor-1)] bg-[url(/img/svg/psclube-icone.svg)]"></div>
                 <Content>
                     <Content_Default className='pt-16 relative z-10'>
-                        <h1 className="text-center"><mark className="text-white font-light">COM O <mark className="cor-1">PODOSHOP CLUBE</mark></mark><br /><mark className="grad-text">TUDO ISSO SAI DE GRAÇA</mark>!</h1>
+                        <h1 className="text-center"><mark className="text-white font-light">COM O <mark className="cor-1">PODOSHOP CLUBE</mark></mark><br /><mark className="grad-text grad-slide">TUDO ISSO SAI DE GRAÇA!</mark></h1>
 
                         <Wrapper className='my-8 justify-center items-center max-[820px]:pt-0'>
                             <Container className='w-1/2 p-4 max-[820px]:w-full text-center'>
@@ -304,9 +304,9 @@ export default function Home() {
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/debora.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
-                                            <p>O clube, além de desconto na compra dos materiais e fretes grátis mensais, que só isso já seria o máximo, traz a educação continuada. Na minha prática, com o clube, além de todas as vantagens, ainda consigo economizar, pois consigo otimizar mais o uso dos materiais e incluir no frete grátis os materiais que preciso para aquele mês.</p>
+                                            <p className='font-light'>O clube, além de desconto na compra dos materiais e fretes grátis mensais, que só isso já seria o máximo, traz a educação continuada. Na minha prática, com o clube, além de todas as vantagens, ainda consigo economizar, pois consigo otimizar mais o uso dos materiais e incluir no frete grátis os materiais que preciso para aquele mês.</p>
                                             <br />
-                                            <p><i>Débora Barreto, Fisioterapeuta</i></p>
+                                            <p className='font-light'><i>Débora Barreto, Fisioterapeuta</i></p>
                                         </div>
                                     </div>
                                 </Container>
@@ -315,9 +315,9 @@ export default function Home() {
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/nilson.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6 pt-16 text-sm text-center'>
-                                            <p>Trabalho com palmilhas há 5 anos. mas sempre surgiram dúvidas e, essas, muitas das vezes não eram esclarecidas. Agora, participando da imersão e fazendo parte do Podoshop Clube, aprendo novas estratégias que nunca havia imaginado. Além dessas vantagens ganhamos descontos a cada compra. Ou seja, faço esses cursos sem pagar nada!</p>
+                                            <p className='font-light'>Trabalho com palmilhas há 5 anos. mas sempre surgiram dúvidas e, essas, muitas das vezes não eram esclarecidas. Agora, participando da imersão e fazendo parte do Podoshop Clube, aprendo novas estratégias que nunca havia imaginado. Além dessas vantagens ganhamos descontos a cada compra. Ou seja, faço esses cursos sem pagar nada!</p>
                                             <br />
-                                            <p><i>Nilson Bastos, Fisioterapeuta</i></p>
+                                            <p className='font-light'><i>Nilson Bastos, Fisioterapeuta</i></p>
                                         </div>
                                     </div>
                                 </Container>
@@ -326,9 +326,9 @@ export default function Home() {
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/renata.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
-                                            <p>Sinceridade… acho que nunca mais fico sem o Palmilhando e o Podoshop Clube! São informações valiosas que nos tornam mais seguros desde a indicação, raciocínio e confecção da palmilha! O Clayton e o André conduzem esse projeto com excelência!</p>
+                                            <p className='font-light'>Sinceridade… acho que nunca mais fico sem o Palmilhando e o Podoshop Clube! São informações valiosas que nos tornam mais seguros desde a indicação, raciocínio e confecção da palmilha! O Clayton e o André conduzem esse projeto com excelência!</p>
                                             <br />
-                                            <p><i>Renata Scaramussa, Fisioterapeuta</i></p>
+                                            <p className='font-light'><i>Renata Scaramussa, Fisioterapeuta</i></p>
                                         </div>
                                     </div>
                                 </Container>

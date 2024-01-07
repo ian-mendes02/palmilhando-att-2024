@@ -229,6 +229,20 @@ button:focus, input:focus, select:focus {
   aspect-ratio: 1;
 }
 
+.absolute-top-center {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
 .collapsible {
   max-height: 3.25rem;
   transition:
@@ -277,6 +291,11 @@ button:focus, input:focus, select:focus {
   width: .5rem;
   height: .5rem;
   border-radius: 100%;
+}
+
+.arrow li::before {
+  content: '\21E8';
+  top: 0;
 }
 
 .my-list li:not(:last-of-type) {
@@ -359,6 +378,109 @@ button:focus, input:focus, select:focus {
   margin-bottom: .5rem;
 }
 
+.chain {
+  position: relative;
+  list-style: none;
+  padding-bottom: 1rem;
+}
+
+#cp-conteudo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8rem;
+  height: 4.5rem;
+  background: #1E3050;
+  -webkit-mask-image: url(../../public/img/svg/tab_2.svg);
+  -webkit-mask-repeat: no-repeat;
+}
+
+#cp-conteudo::after {
+  content: '\25BC';
+  position: absolute;
+  display: flex;
+  padding-top: .5rem;
+  justify-content: center;
+  align-items: center;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3.5rem;
+  height: 3.5rem;
+  background: #0c6b96;
+  border-radius: 100%;
+}
+
+.chain li:not(:last-of-type) {
+  margin-bottom: 1rem;
+}
+
+.chain::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .5rem;
+  display: block;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(white 80%, transparent);
+}
+
+.chain li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.chain li::before {
+  content: '';
+  position: absolute;
+  top: .25rem;
+  left: 0;
+  transform: translateX(-50%);
+  height: 1rem;
+  width: 1rem;
+  border-radius: 100%;
+  border: solid 1px #ffffff;
+}
+
+.chain li::after {
+  content: '';
+  position: absolute;
+  top: .5rem;
+  left: 0;
+  transform: translateX(-50%);
+  height: .5rem;
+  width: .5rem;
+  border-radius: 100%;
+  background: var(--cor-3);
+}
+
+#cp-header::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url(../../public/img/foto-capa-publico-quente.webp);
+  background-position: top right;
+  background-size: cover;
+  -webkit-mask-image: linear-gradient(black, transparent)
+}
+
+#cp-sobre::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url(../../public/img/foto-andre-mendes.webp);  
+  background-position: top right;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 @media screen and (min-width:1600px) {
   #header {
     height: calc(428px + 20vw);
@@ -405,6 +527,18 @@ button:focus, input:focus, select:focus {
     right: -25%;
     -webkit-mask-image: linear-gradient(to top, transparent, black, black 80%)
   }
+
+  #cp-sobre:before {
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    background-size: 200%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100vw;
+}
+
 }
 
 @media screen and (max-width:425px) {
