@@ -26,7 +26,7 @@ const Collapsible = (props) => {
             if (content.parentElement.style.maxHeight) {
                 content.parentElement.style.maxHeight = null;
             } else {
-                content.parentElement.style.maxHeight = (content.scrollHeight * 2) + 'px';
+                content.parentElement.style.maxHeight = (content.scrollHeight * 3) + 'px';
             }
         }
         if (!container.classList.contains('active')) {

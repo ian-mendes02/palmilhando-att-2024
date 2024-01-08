@@ -7,6 +7,7 @@ const Carousel = ({
     visibleItemsCount = 1, // quantos items devem ser exibidos por vez?
     isInfinite, // o carrossel é infinito?
     withIndicator, // mostra indicador de elementos?
+    className = undefined
 }) => {
     const indicatorContainerRef = React.useRef(null);
     const [timeoutInProgress, setTimeoutInProgress] = React.useState(false); // confere se há uma pausa em andamento
@@ -188,7 +189,7 @@ const Carousel = ({
     ]);
 
     return (
-        <div>
+        <div className={className}>
             <div className={`carousel-wrapper`}>
                 {isPrevButtonVisible ? (
                     <button

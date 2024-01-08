@@ -243,6 +243,12 @@ button:focus, input:focus, select:focus {
   transform: translate(-50%,-50%);
 }
 
+.backface-hidden {
+  backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 .collapsible {
   max-height: 3.25rem;
   transition:
@@ -302,6 +308,31 @@ button:focus, input:focus, select:focus {
   margin-bottom: 1rem;
 }
 
+.checklist li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.my-list .include::before {
+  content: '\2714';
+  color: rgb(74 222 128);
+  width: 1rem;
+  height: 1rem;
+  top: 0
+}
+
+.my-list .not-include::before {
+  content: '\2718';
+  color: rgb(255, 99, 71);
+  width: 1rem;
+  height: 1rem;
+  top: 0
+}
+
+.my-list .not-include {
+  opacity: .5;
+}
+
 #header {
   background: url(../../public/img/header-bg.webp);
   background-size: cover;
@@ -313,7 +344,7 @@ button:focus, input:focus, select:focus {
   content: '';
   position: absolute;
   display: block;
-  width: 100%;
+  width: calc(100% + 10vh);
   max-width: 720px;
   aspect-ratio: 1;
   bottom: 0;
@@ -482,21 +513,15 @@ button:focus, input:focus, select:focus {
 }
 
 @media screen and (min-width:1600px) {
-  #header {
-    height: calc(428px + 20vw);
-  }
   #modulos {
     padding-top: 7.5vw;
   }
 }
 
 @media screen and (max-width:1024px) {
-  #header {
-    height: calc(428px + 720px);
-  }
   #header::after {
-    right: 50%;
-    transform: translateX(50%);
+    max-width: calc(512px + 17vw);
+    right: 0;
   }
 }
 
@@ -506,7 +531,12 @@ button:focus, input:focus, select:focus {
   }
 
   #header {
-    height: calc(428px + 85vw);
+    height: calc(428px + 50vh);
+  }
+
+  #header::after {
+    right: 50%;
+    transform: translateX(50%);
   }
 
   #criadores::before {
@@ -541,10 +571,10 @@ button:focus, input:focus, select:focus {
 
 }
 
-@media screen and (max-width:425px) {
+@media screen and (max-width:426px) {
 
   #header {
-    height: calc(428px + 100vw);
+    height: calc(428px + 50vh);
   }
 
   #criadores::before {
@@ -553,5 +583,23 @@ button:focus, input:focus, select:focus {
 
   #criadores::after {
     -webkit-mask-image: linear-gradient(to top, transparent 25%, black)
+  }
+}
+
+@media screen and (max-width:820px) and (max-height:720px) {
+  #header {
+    height: calc(428px + 70vh);
+  }
+}
+
+@media screen and (max-width:820px) and (min-height:720px) {
+  #header {
+    height: calc(428px + 55vh);
+  }
+}
+
+@media screen and (max-width:540px) and (height:720px) {
+  #header {
+    height: calc(428px + 75vh);
   }
 }

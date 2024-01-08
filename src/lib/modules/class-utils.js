@@ -5,7 +5,7 @@ export function classList(...classes) {
 export function mobile(classes) {
     var cls = classes.split(' ');
     for (let i = 0; i < cls.length; i++) {
-        cls[i] = 'max-[768px]:' + cls[i]
+        cls[i] = 'max-[820px]:' + cls[i]
     };
     return cls.join(' ').trim()
 }
