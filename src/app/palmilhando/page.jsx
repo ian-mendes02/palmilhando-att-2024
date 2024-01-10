@@ -436,7 +436,7 @@ export default function Home() {
                 <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 max-[820px]:w-[90%]'><mark className="grad-text font-light">SEU INVESTIMENTO</mark></h1>
                 <Content className='mb-16'>
                     <Wrapper className='mb-12'>
-                        <table id='tabela-planos' className='shadow-lg text-lg w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:text-xs'>
+                        <table id='tabela-planos' className='shadow-lg text-lg w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:text-xs'>
                             <thead>
                                 <tr>
                                     <th></th>
