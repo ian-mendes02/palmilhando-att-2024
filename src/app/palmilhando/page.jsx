@@ -2,19 +2,90 @@
 import {Section, Content, Content_Default, Container, Wrapper, Box, Badge} from '@/lib/modules/layout-components';
 import {Button, Collapsible, List, Caret} from '@/lib/modules/ui-components';
 import {classList, mobile, after, before} from '@/lib/modules/class-utils';
-import {useState, useEffect} from 'react';
+import React from 'react';
 import Carousel from '@/lib/modules/carousel';
 import Image from 'next/image';
 
 export default function Home() {
-    const [isMobile, setIsMobile] = useState();
 
-    useEffect(() => {
-        setIsMobile(window.innerWidth <= 768);
-        window.addEventListener('resize', () => {
-            setIsMobile(window.innerWidth <= 768);
+    const [isPlaying, setIsPlaying] = React.useState(false);
+    const iframeRef = React.useRef(null);
+
+    React.useEffect(() => {
+
+        document.querySelectorAll('.card-shine-effect').forEach(c => {
+            c.onmouseenter = () => c.classList.add('sheen');
+            c.onanimationend = () => c.classList.remove('sheen');
         });
+
+        document.querySelectorAll('.textbox').forEach(t => {
+            let textContent = t.querySelector('p');
+            if (textContent.clientHeight >= t.clientHeight) {
+                t.classList.add('fade-text');
+                t.addEventListener('scroll', () => {
+                    if (Math.abs(t.scrollHeight - t.scrollTop - t.clientHeight) < 1) {
+                        t.classList.remove('fade-text');
+                    } else {
+                        t.classList.add('fade-text');
+                    }
+                });
+            }
+        });
+
+        document.getElementById('header').classList.remove('py-16');
+
+        const setHeaderPadding = () => {
+            const viewport = window.visualViewport;
+            const header = document.getElementById('header');
+            const box = document.getElementById('header-box');
+            const pic = document.getElementById('header-pic');
+            if (viewport.width > 1280) {
+                header.style.paddingTop = box.clientHeight / 2 + 'px';
+                header.style.paddingBottom = box.clientHeight + 'px';
+                pic.style.width = header.clientHeight + 'px';
+                pic.style.right = (viewport.width / 2 - box.clientWidth / 1.8) + 'px';
+                pic.style.transform = ''
+                return;
+            };
+            if (viewport.height >= viewport.width) {
+                header.style.paddingTop = box.clientHeight / 3 + 'px';
+                header.style.paddingBottom = box.clientHeight + 'px';
+                pic.style.width = header.clientHeight / 2 + 'px';
+                pic.style.right = '50%';
+                pic.style.transform = 'translateX(50%)';
+            } else {
+                header.style.paddingTop = box.clientHeight / 3 + 'px';
+                header.style.paddingBottom = box.clientHeight / 2 + 'px';
+                pic.style.width = header.clientHeight + 'px';
+                pic.style.right = (viewport.width / 2 - box.clientWidth / 1.8) + 'px';
+                pic.style.transform = ''
+            };
+        };
+
+        setHeaderPadding();
+
+        window.visualViewport.addEventListener('resize', setHeaderPadding);
+
     }, []);
+
+
+    React.useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (iframeRef.current && !iframeRef.current.contains(event.target)) {
+                setIsPlaying(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    const togglePlayer = () => {
+        if (!isPlaying) {
+            setIsPlaying(true);
+        }
+    };
 
     function $(el) {
         return document.querySelector(el);
@@ -37,7 +108,7 @@ export default function Home() {
 
     const Vantagem = (props) => {
         return (
-            <div className='text-center flex items-center justify-center border border-cyan-100 rounded-xl shadow-md p-4 max-[820px]:p-[5%] pt-16 max-[820px]:pt-16 mx-2 w-[30%] max-[820px]:w-9/12 h-36 backdrop-blur-xl backdrop-brightness-75 relative max-[820px]:[&:not(:last-of-type)]:mb-16 max-[820px]:mx-0'>
+            <div className='text-center flex items-center justify-center border border-cyan-100 rounded-xl shadow-md p-4 max-[820px]:p-[5%] pt-16 max-[820px]:pt-16 mx-2 h-48 mb-8 w-[calc(100%/4.5)] max-[820px]:w-[95%] backdrop-blur-xl backdrop-brightness-75 relative max-[820px]:[&:not(:last-of-type)]:mb-16 max-[820px]:mx-0'>
                 <div className='w-24 h-24 flex justify-center p-4 items-center border-t border-t-cyan-100 border-b-4 border-b-slate-800 bg-[var(--cor-4)] bg-[linear-gradient(var(--cor-1),var(--cor-4))] rounded-xl absolute-top-center'>
                     <img src={props.src} alt="" draggable='false' />
                 </div>
@@ -51,45 +122,61 @@ export default function Home() {
     return (
         <div>
             <Section id='header'>
-                <Content className='relative z-10 w-96 max-[820px]:pt-0'>
+                <Content className='relative z-10 w-full'>
                     <Content_Default>
-                        <Wrapper className='max-[820px]:justify-center'>
+                        <Wrapper className='max-[1024px]:justify-center' id='header-box'>
                             <Container className='text-center items-center min-[1280px]:w-[50%] w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] ml-[5%] max-[820px]:ml-0'>
                                 <Image src='/img/svg/logo_palmilhando.svg' alt='' width='350' height='80' draggable='false' />
                                 <h2 className='mt-4 mb-4'><strong>MAIS QUE UM CONTEÚDO, UMA COMUNIDADE!</strong></h2>
                                 <p>Um programa desenvolvido para ser uma verdadeira jornada nesse universo para quem quer começar ou aprimorar o conhecimento na avaliação, prescrição e confecção de palmilhas.</p>
-                                <Button className='m-8 font-bold shadow-md w-3/4 max-[512px]:w-full py-4' onClick={() => $('#saiba-mais').scrollIntoView()}>QUERO SABER MAIS</Button>
+                                <Button className='m-8 font-bold text-2xl shadow-md w-max py-4' onClick={() => $('#saiba-mais').scrollIntoView()}>QUERO SABER MAIS</Button>
                             </Container>
                         </Wrapper>
                     </Content_Default>
                 </Content>
+                <div id='header-pic'></div>
                 <img className='absolute bottom-0 translate-y-[25%] w-screen z-10' src='/img/svg/white-tab.svg' alt='' draggable='false' />
             </Section>
 
             <Section id='saiba-mais' className='relative z-10 bg-white cor-4 pb-16 pt-0 max-[1024px]:pb-10'>
                 <Content>
                     <Content_Default>
+
                         <Wrapper className='max-[820px]:flex-col items-center justify-evenly relative bottom-6 max-[820px]:bottom-0'>
-                            <Container className='w-[32rem] max-[820px]:w-[80%] max-[426px]:w-[96%] h-auto p-4'>
-                                <img src='/img/isolated_tablet_laptop_and_smartphone_composition.webp' alt='' width='512px' height='512px' draggable='false' />
-                            </Container>
-                            <Container className='w-[32rem] max-[820px]:w-[80%] max-[426px]:w-[96%] p-4'>
-                                <h2>O <mark className="cor-1">Palmilhando</mark> está com você!</h2>
-                                <p>
-                                    O dia a dia de um clínico que trabalha com palmilhas não é fácil, afinal, cada paciente é um desafio e cada palmilha é uma solução única.
-                                    Por isso, criamos o Palmilhando. Para reunir profissionais em um lugar onde possam aprender, aperfeiçoar técnicas, tirar todas as suas dúvidas, trocar experiências e, principalmente, a não se sentirem mais sozinhos.
-                                    É o ambiente perfeito para o seu desenvolvimento profissional. Você terá acesso a um conteúdo que vai do zero ao avançado e que será atualizado todo mês!
-                                </p>
-                            </Container>
-                            <Wrapper className='items-center justify-evenly w-full flex-nowrap max-[820px]:flex-col mt-8'>
-                                <div className='w-[32rem] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
-                                    <h2 className='max-[820px]:text-center'>Confira um pouco do que você terá no Palmilhando:</h2>
-                                </div>
+
+                            <Wrapper className='items-center justify-evenly my-8 w-full'>
                                 <Container className='items-center w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%]'>
-                                    <div className='aspect-video bg-slate-500 rounded-md w-[80%] flex justify-center items-center max-[820px]:my-8'><Caret fill='#FFFFFF' width='32px' /></div>
-                                    <Button className='mt-4 text-white shadow-md py-4 w-9/12 max-[820px]:w-full' onClick={() => $('#investimento').scrollIntoView({block: 'center'})}>QUERO TER ACESSO AOS CONTEÚDOS!</Button>
+                                    <img src='/img/isolated_tablet_laptop_and_smartphone_composition.webp' alt='' width='512px' height='512px' draggable='false' />
+                                </Container>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] p-4'>
+                                    <h2>O <mark className="cor-7">Palmilhando</mark> está com você!</h2>
+                                    <br />
+                                    <p>
+                                        O dia a dia de um clínico que trabalha com palmilhas não é fácil, afinal, cada paciente é um desafio e cada palmilha é uma solução única.
+                                        Por isso, criamos o Palmilhando. Para reunir profissionais em um lugar onde possam aprender, aperfeiçoar técnicas, tirar todas as suas dúvidas, trocar experiências e, principalmente, a não se sentirem mais sozinhos.
+                                        É o ambiente perfeito para o seu desenvolvimento profissional.
+                                    </p>
                                 </Container>
                             </Wrapper>
+
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly my-8 w-full'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                                    <h2>Conteúdo para <mark className="cor-7">todos os níveis profissionais</mark></h2>
+                                    <br />
+                                    <p>
+                                        O conteúdo do Palmilhando foi desenvolvido com muita dedicação para acolher as necessidades de todos os níveis de experiência profissional. Nosso conteúdo vai do zero ao avançado, ajudando iniciantes a se estabelecerem no mercado de palmilhas terapêuticas, e também oferece oportunidades para clínicos mais experientes aperfeiçoarem sua abordagem e prática.
+                                    </p>
+                                    <Button className='mt-4 text-white shadow-md py-4 w-full' onClick={() => $('#investimento').scrollIntoView({block: 'center'})}>ASSINE JÁ O PALMILHANDO</Button>
+                                </Container>
+                                <Container
+                                    className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:my-8'
+                                >
+                                    <div className={'aspect-video shadow-lg cursor-pointer rounded-md bg-[url(/img/thumbnail.webp)] bg-cover bg-no-repeat bg-center player'} ref={iframeRef} onClick={togglePlayer}>
+                                        {isPlaying && <iframe src='https://www.youtube.com/embed/SGRkRk7JJoY?si=YlmbUvmKD89wEOS2&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none w-full h-full rounded-md'></iframe>}
+                                    </div>
+                                </Container>
+                            </Wrapper>
+
                         </Wrapper>
                     </Content_Default>
                 </Content>
@@ -98,45 +185,70 @@ export default function Home() {
 
             <Section id='modulos'>
                 <Content className='pt-24 max-[820px]:pt-8 relative z-10'>
-                    <Wrapper className='flex-col items-center justify-center py-8 border-2 border-cyan-300 rounded-xl w-full max-w-[1440px] mx-auto'>
-                        <h1 className='text-center grad-text'>O QUE VOCÊ APRENDE NO PALMILHANDO</h1>
-                        <br />
-                        <p className='text-center font-light'>Todo esse conteúdo será atualizado com novas aulas ao longo do ano, fique ligado!</p>
-                        <br />
+                    <Content_Default>
+                        <h1 className='grad-text font-normal text-center'>CONHEÇA NOSSOS CURSOS</h1>
                         <div className="divider"></div>
-                        <br />
-                        <Wrapper className='justify-center'>
-                            <div className='flex flex-col items-center justify-start w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] h-[28rem] max-[820px]:h-max rounded-xl shadow-md border-4 border-cyan-300 p-8 m-2 bg-slate-100 light cor-4'>
-                                <h2 className='grad-text'>1. O INÍCIO</h2>
-                                <div className="divider"></div>
-                                <br />
-                                <p className='opacity-80'>É aqui que tudo começa! Preparamos um conteúdo que vai da anatomia e biomecânica até a avaliação completa e a prescrição de elementos e moldagens para quem está começando ou mesmo precisando revisar conceitos sobre o movimento, a neurociência moderna da dor, dentre outros assuntos. Finalizando esse módulo você receberá um certificado de 30h.</p>
-                            </div>
-                            <div className='flex flex-col items-center justify-start w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] h-[28rem] max-[820px]:h-max rounded-xl shadow-md border-4 border-cyan-300 p-8 m-2 bg-slate-100 light cor-4'>
-                                <h2 className='grad-text'>2. PÉS DIABÉTICOS</h2>
-                                <div className="divider"></div>
-                                <br />
-                                <p className='opacity-80'>Pés em risco merecem atenção integral e, por isso, deixamos um módulo exclusivo para eles. Você terá uma introdução ao tema com diferentes especialistas para aprender conceitos básicos, a avaliação e os cuidados com essa população. Nas palmilhas, vamos te mostrar quando prescrever e te ensinar estratégias de intervenção para o tratamento e prevenção de úlceras e outras lesões.</p>                            </div>
-                            <div className='flex flex-col items-center justify-start w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] h-[28rem] max-[820px]:h-max rounded-xl shadow-md border-4 border-cyan-300 p-8 m-2 bg-slate-100 light cor-4'>
-                                <h2 className='grad-text'>3. PÉS PEDIÁTRICOS</h2>
-                                <div className="divider"></div>
-                                <br />
-                                <p className='opacity-80'>Existem muitos mitos sobre os pés pediátricos e, nesse módulo, iremos desvendar alguns e mostrar quando e como intervir em crianças sintomáticas te mostrando um tutorial completo para condições como o pé plano sintomático, a marcha em rotação interna e a marcha em ponta idiopática (equino idiopático).</p>                            </div>
-                            <div className='flex flex-col items-center justify-start w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] h-[28rem] max-[820px]:h-max rounded-xl shadow-md border-4 border-cyan-300 p-8 m-2 bg-slate-100 light cor-4'>
-                                <h2 className='grad-text'>4. PALMILHAS ESPORTIVAS</h2>
-                                <div className="divider"></div>
-                                <br />
-                                <p className='opacity-80'>Mais do que fazer palmilhas vamos te ensinar o que é uma lesão esportiva, as particularidades do tratamento de atletas, dentre outros conceitos muito importantes!</p>
-                            </div>
-                            <div className='flex flex-col items-center justify-start w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] h-[28rem] max-[820px]:h-max rounded-xl shadow-md border-4 border-cyan-300 p-8 m-2 bg-slate-100 light cor-4'>
-                                <h2 className='grad-text'>5. PÉS REUMATOIDES</h2>
-                                <div className="divider"></div>
-                                <br />
-                                <p className='opacity-80'>Nesse módulo vamos abordar as principais condições reumatológicas com conceitos introdutórios e sugestões e palmilhas para as principais deformidades encontras nos pés desses pacientes.</p>
-                            </div>
-                        </Wrapper>
+                        <Carousel isInfinite withIndicator className='mt-8'>
+                            <Wrapper className="w-full h-9/12 h-auto justify-center items-start">
+                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-[90%] h-[512px] max-[820px]:h-[calc(100%*(16/9))] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%]">
+                                    <div className="relative w-82 overflow-hidden rounded-lg shadow-xl">
+                                        <div className="card-shine-effect rounded-lg"></div>
+                                        <img src='/img/cursos/2.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto' />
+                                    </div>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-h-[80%] overflow-y-auto textbox'>
+                                        <h2 className='grad-text text-3xl'>PALMILHAS TERAPÊUTICAS: DO BÁSICO AO AVANÇADO</h2>
+                                        <div className="divider left"></div>
+                                        <p className='font-extralight'>Um curso completo, que vai do básico ao avançado, com certificado e atualizado todo mês. Dá pra acreditar? Esse conteúdo foi planejado desde a anatomia e biomecânica do pé e do tornozelo, passando pela neurociência da dor, até chegar na avaliação, prescrição e confecção de palmilhas para as principais queixas dos pés. É um curso para quem quer começar ou aperfeiçoar os conhecimentos nessa área com base em evidências científicas e muita prática clínica. As aulas são gravadas e você poderá assistir quando e como quiser, no seu tempo. <br />Concluindo este módulo inicial, você tem acesso a um certificado de 30h.</p>
+                                    </div>
+                                </div>
+                            </Wrapper>
 
-                    </Wrapper>
+                            <Wrapper className="w-full h-auto justify-center items-start">
+                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-[90%] h-[512px] max-[820px]:h-[calc(100%*(16/9))] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%]">
+                                    <div className="relative w-82 overflow-hidden rounded-lg shadow-xl">
+                                        <div className="card-shine-effect rounded-lg"></div>
+                                        <img src='/img/cursos/1.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto' />
+                                    </div>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-h-[80%] overflow-y-auto textbox'>
+                                        <div>
+                                            <h2 className='grad-text text-3xl'>PALMILHAS & NEGÓCIOS</h2>
+                                            <div className="divider left"></div>
+                                            <p className='font-extralight'>No mercado de trabalho tão dinâmico e competitivo, ser bom tecnicamente não basta. É preciso entender a estrutura do negócio e como gerar fontes de faturamento e gerar lucro ao final do mês. Nesse curso vamos te mostrar de maneira prática como criar ou evoluir o seu negócio com base em três pilares: marketing, gestão financeira e planejamento estratégico.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Wrapper>
+
+                            <Wrapper className="w-full h-auto justify-center items-start">
+                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-[90%] h-[512px] max-[820px]:h-[calc(100%*(16/9))] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%]">
+                                    <div className="relative w-82 overflow-hidden rounded-lg shadow-xl">
+                                        <div className="card-shine-effect rounded-lg"></div>
+                                        <img src='/img/cursos/3.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto' />
+                                    </div>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-h-[80%] overflow-y-auto textbox'>
+                                        <h2 className='grad-text text-3xl'>TPC & LIVES</h2>
+                                        <div className="divider left"></div>
+                                        <p className='font-extralight'>Pela correria do dia a dia, nem sempre conseguimos assistir aquela live da semana sobre um assunto que interessa muito, não é? Nessa coleção você encontrará todas as nossas lives e treinamentos ao vivo. Só o assinante tem acesso às gravações e pode assistir quantas vezes quiser, no melhor momento do dia.</p>
+                                    </div>
+                                </div>
+                            </Wrapper>
+
+                            <Wrapper className="w-full h-auto justify-center items-start">
+                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-[90%] h-[512px] max-[820px]:h-[calc(100%*(16/9))] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%]">
+                                    <div className="relative w-82 overflow-hidden rounded-lg shadow-xl">
+                                        <div className="card-shine-effect rounded-lg"></div>
+                                        <img src='/img/cursos/4.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto' />
+                                    </div>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-h-[80%] overflow-y-auto textbox'>
+                                        <h2 className='grad-text grad-slide text-3xl'>MENTORIAS AO VIVO</h2>
+                                        <div className="divider left"></div>
+                                        <p className='font-extralight'>Uma vez por mês você terá uma aula ao vivo com o André, com o Clayton ou outro convidado incrível para discutir casos clínicos que você pode levar! Imagine poder compartilhar as suas dúvidas com aquele paciente complexo! Esse é o objetivo da mentoria, passarmos um tempo valioso juntos discutindo casos, sugerindo estratégias e mostrando como é a prática baseada em evidências no mundo real. Uma grande oportunidade!</p>
+                                    </div>
+                                </div>
+                            </Wrapper>
+
+                        </Carousel>
+                    </Content_Default>
                 </Content>
             </Section>
 
@@ -164,29 +276,12 @@ export default function Home() {
                 </Content>
             </Section>
 
-            <Section id='por-dentro' className='py-16 border-y-2 border-y-cyan-100 bg-[linear-gradient(#0c6b96,#1E3050)]'>
-                <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 font-light max-[820px]:w-[90%] max-[820px]:text-lg'><mark className="grad-text">COMO É O PALMILHANDO POR DENTRO?</mark></h1>
-                <Wrapper className='justify-center items-center'>
-                    <Container>
-                        <h2 className='max-[820px]:text-center mb-6'>Aulas para você assistir <br /><strong>onde e quando quiser</strong></h2>
-                    </Container>
-                    <Container className='w-[32rem]'>
-                        <Carousel isInfinite withIndicator visibleItemsCount={1}>
-                            <div className="w-full aspect-video"><img src='/img/cursos/1.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-md m-auto' /></div>
-                            <div className="w-full aspect-video"><img src='/img/cursos/2.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-md m-auto' /></div>
-                            <div className="w-full aspect-video"><img src='/img/cursos/3.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-md m-auto' /></div>
-                            <div className="w-full aspect-video"><img src='/img/cursos/4.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-md m-auto' /></div>
-                        </Carousel>
-                    </Container>
-                </Wrapper>
-            </Section>
-
-            <Section id='com-o-palmilhando' className='bg-slate-100 cor-4 light'>
+            <Section id='com-o-palmilhando' className='bg-slate-100 cor-4 light z-30'>
                 <Content className='border-[2px] border-white px-8 max-[820px]:px-0'>
                     <Content_Default>
-                        <Wrapper className='items-center justify-evenly py-8'>
+                        <Wrapper className='items-end justify-evenly py-8'>
                             <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] px-2'>
-                                <h1 className='grad-text'>Com o Palmilhando® você pode:</h1>
+                                <h1 className='cor-7'>Com o Palmilhando® você pode:</h1>
                                 <div className="divider left"></div>
                                 <br />
                                 <List className='check-dark'>
@@ -195,24 +290,20 @@ export default function Home() {
                                     <li>Ter acesso aos melhores materiais do mercado com descontos e frete grátis</li>
                                     <li>Aumentar seus contatos profissionais</li>
                                     <li>Receber conteúdo atualizado mensalmente</li>
-                                    <li>Obter um certificado de 30h ao final do curso</li>
                                 </List>
                             </Container>
-                            <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] px-4'>
-                                <div className='w-full aspect-video rounded-xl shadow-md bg-slate-400'></div>
-                            </Container>
-                            {/*                             <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                            <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] relative'>
                                 <div className='max-[1160px]:hidden'>
-                                <img className='absolute bottom-[12px] left-[50%] translate-x-[-50%] w-[236px] aspect-square' src="/img/andre-avental.webp" alt="" draggable='false' />
-                                <img className='absolute bottom-[180px] left-[50%] translate-x-[-75%] w-[236px]' src="/img/andre_prop.webp" alt="" draggable='false' />
+                                    <img className='absolute bottom-[12px] left-[50%] translate-x-[-50%] w-[50%] aspect-square' src="/img/andre-avental.webp" alt="" draggable='false' />
+                                    <img className='absolute bottom-[240px] left-[50%] translate-x-[-75%] w-[45%]' src="/img/andre_prop.webp" alt="" draggable='false' />
                                 </div>
-                            </Container> */}
+                                <Button
+                                    className='relative z-10 text-white shadow-md py-4 w-[32rem] max-[820px]:w-[80%] max-[426px]:w-[96%] mx-auto text-2xl'
+                                    onClick={() => $('#investimento').scrollIntoView({block: 'center'})}>
+                                    ASSINE JÁ O PALMILHANDO!
+                                </Button>
+                            </Container>
                         </Wrapper>
-                        <Button
-                            className='relative z-10 text-white shadow-md py-4 w-[32rem] max-[820px]:w-[80%] max-[426px]:w-[96%] mx-auto mt-8 mb-8 text-2xl'
-                            onClick={() => $('#investimento').scrollIntoView({block: 'center'})}>
-                            ASSINE JÁ!
-                        </Button>
                     </Content_Default>
                 </Content>
             </Section>
@@ -257,9 +348,9 @@ export default function Home() {
 
                         <Wrapper className='my-8 justify-center items-center max-[820px]:pt-0'>
                             <Container className='w-[48rem] max-[820px]:w-[80%] max-[426px]:w-[96%] text-center'>
-                                <p>Ao assinar o <mark className="cor-7">Palmilhando</mark>, você se torna automaticamente membro do <mark className="cor-7">Podoshop Clube</mark>, com direito a vantagens exclusivas como:</p>
+                                <p>Assinantes do Palmilhando se tornam automaticamente membros do <strong className="cor-7">Podoshop Clube</strong>, obtendo as seguintes <strong className='grad-text'>vantagens exclusivas:</strong></p>
                             </Container>
-                            <Wrapper className='max-[820px]:flex-col justify-evenly items-center mt-24'>
+                            <Wrapper className='max-[820px]:flex-col justify-center items-center mt-24'>
                                 <Vantagem src='/img/svg/free-shipping.svg'>
                                     <p className='text-lg'><strong className='grad-text'>Frete grátis</strong> nos produtos da Podoshop</p>
                                 </Vantagem>
@@ -267,17 +358,20 @@ export default function Home() {
                                     <p className='text-lg'>Descontos<strong className='grad-text'> exclusivos</strong></p>
                                 </Vantagem>
                                 <Vantagem src='/img/svg/shopping.svg'>
-                                    <p className='text-lg'><strong className='grad-text'>Acesso antecipado</strong> a lançamentos de produtos da Podoshop</p>
+                                    <p className='text-lg'><strong className='grad-text'>Acesso antecipado</strong> a lançamentos da Podoshop</p>
+                                </Vantagem>
+                                <Vantagem src='/img/svg/gift.svg'>
+                                    <p className='text-lg'><strong className='grad-text'>Materiais de primeira</strong> enviados direto para a sua casa</p>
                                 </Vantagem>
                             </Wrapper>
                         </Wrapper>
 
-                        <Wrapper className='my-8 justify-evenly items-center max-[820px]:mt-0 flex-nowrap max-[820px]:flex-col'>
+                        <Wrapper className='justify-evenly items-center max-[820px]:mt-0 flex-nowrap max-[820px]:flex-col'>
                             <Container className="w-[32rem] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:text-center">
-                                <h1 className="grad-text">RECEBA UM KIT EXCLUSIVO</h1>
+                                <h1 className="grad-text">KIT EXCLUSIVO PODOSHOP®</h1>
                                 <br />
                                 <p className='font-extralight'>
-                                    Membros do Podoshop Clube recebem <strong className='cor-7'>sem nenhum custo adicional</strong>, um kit exclusivo contendo os melhores materiais para colocar em prática tudo o que aprendeu e fazer as suas próprias palmilhas!
+                                    Membros do Podoshop Clube recebem <strong className='cor-7'>sem nenhum custo adicional</strong>, um kit exclusivo contendo os melhores materiais para colocar em prática tudo o que aprenderam e fazerem as suas próprias palmilhas!
                                     Você pode usar o material disponibilizado para fazer a palmilha de um dos seus pacientes e ter o seu investimento no curso de volta!
                                 </p>
                                 <br />
@@ -295,10 +389,10 @@ export default function Home() {
                         <div className="divider"></div>
 
                         <Container className='pt-8'>
-                            <h1 className='grad-text text-center font-light'>Veja como nossos membros estão se beneficiando com o Podoshop Clube</h1>
-                            <Wrapper className='pt-8 justify-center'>
+                            <h1 className='grad-text text-center font-light w-[65%] max-[820px]:w-full mx-auto'>Veja o quanto nossos membros estão se beneficiando com as vantagens do Podoshop Clube:</h1>
+                            <Wrapper className='pt-8 justify-center flex-nowrap max-[820px]:flex-col'>
 
-                                <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/debora.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
@@ -309,7 +403,7 @@ export default function Home() {
                                     </div>
                                 </Container>
 
-                                <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/nilson.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6 pt-16 text-sm text-center'>
@@ -320,7 +414,7 @@ export default function Home() {
                                     </div>
                                 </Container>
 
-                                <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/renata.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
@@ -340,22 +434,52 @@ export default function Home() {
 
             <Section id='investimento' className='bg-[linear-gradient(#0c6b96,#1E3050)] border-y-2 border-y-cyan-100'>
                 <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 max-[820px]:w-[90%]'><mark className="grad-text font-light">SEU INVESTIMENTO</mark></h1>
-                <Content className='pb-16'>
+                <Content className='mb-16'>
+                    <Wrapper className='mb-12'>
+                        <table id='tabela-planos' className='shadow-lg text-lg'>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr className='bg-slate-200 bg-opacity-80 cor-4 rounded-md'>
+                                    <th className='rounded-tl-[inherit]'>Plano</th>
+                                    <th>Valor</th>
+                                    <th className='text-sky-700'>Conteúdo + Certificado</th>
+                                    <th className='text-sky-700'>TPC</th>
+                                    <th className='text-sky-700'>Palmilhas & Negócios</th>
+                                    <th className='text-sky-700 rounded-tr-[inherit]'>Mentoria</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className='bg-[#156d9f] border-b border-cyan-100'>
+                                    <td className='font-bold'>Básico</td>
+                                    <td className='font-bold'>R$ 1900</td>
+                                    <td className='text-green-500'>&#10004;</td>
+                                    <td className='text-green-500'>&#10004;</td>
+                                    <td className='text-rose-700'>&#10008;</td>
+                                    <td className='text-rose-700'>&#10008;</td>
+                                </tr>
+                                <tr className='bg-[#2e5064] border-b border-cyan-100'>
+                                    <td className='font-bold cor-3'>Business</td>
+                                    <td className='font-bold cor-3'>R$ 2400</td>
+                                    <td className='text-green-500'>&#10004;</td>
+                                    <td className='text-green-500'>&#10004;</td>
+                                    <td className='text-green-500'>&#10004;</td>
+                                    <td className='text-rose-700'>&#10008;</td>
+                                </tr>
+                                <tr className='bg-[#092b3f] rounded-md'>
+                                    <td className='font-bold grad-text grad-slide rounded-bl-[inherit]'>Premium</td>
+                                    <td className='font-bold grad-text grad-slide'>R$ 2900</td>
+                                    <td className='text-green-500'>&#10004;</td>
+                                    <td className='text-green-500'>&#10004;</td>
+                                    <td className='text-green-500'>&#10004;</td>
+                                    <td className='text-green-500 rounded-br-[inherit]'>&#10004;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </Wrapper>
                     <Wrapper className='flex-nowrap w-full max-[820px]:flex-col justify-center items-center'>
-                        {/*                         <Container className='w-full max-w-96 max-[820px]:w-full m-4 flex flex-col justify-center max-[820px]:text-center'>
-                            <h2 className='mb-4'>Tudo que você precisa saber, na prática.</h2>
-                            <p>Junte-se ao Palmilhando e destaque-se na sua área como profissional da saúde.</p>
-                            <List className='bullet-green text-left pt-4'>
-                                <li>Curso atualizado mensalmente com mais de 30 aulas</li>
-                                <li>Prática baseada em evidência</li>
-                                <li>Acesso às melhorias e atualizações futuras do curso sem custo adicional</li>
-                                <li>Acesso aos materiais enviados mensalmente para que você coloque em prática tudo o que aprendeu</li>
-                                <li>Grupo de estudos e tira dúvidas exclusivo no Whatsapp</li>
-                                <li>Frete grátis e descontos exclusivos nos produtos da Podoshop</li>
-                                <li>7 dias de garantia incondicional</li>
-                            </List>
-                        </Container> */}
-
                         <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
                             <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-125 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
                                 <h1>PLANO BÁSICO</h1>
@@ -371,15 +495,15 @@ export default function Home() {
                                 <List className='text-left pt-4 px-[10%] checklist'>
                                     <li className='include'>Acesso a todo o conteúdo teórico e prático</li>
                                     <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                    <li className='not-include'>Curso de negócios com palmilhas</li>
-                                    <li className='not-include'>Aulas ao vivo com casos clínicos e/ou convidados</li>
+                                    <li className='not-include'>Curso de Palmilhas e Negócios</li>
+                                    <li className='not-include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
                                 </List>
                             </div>
                         </Container>
-
                         <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
                             <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-saturate-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
-                                <h1 className='text-green-400'>PLANO BUSINESS</h1>
+                                <div className="card-shine-effect rounded-lg top-0 opacity-30"></div>
+                                <h1 className='cor-3'>PLANO BUSINESS</h1>
                                 <p className='font-extralight text-xs w-9/12 h-12'>Para o profissional que deseja transformar sua prática em um negócio lucrativo</p>
                                 <div className="divider"></div>
                                 <br />
@@ -392,14 +516,14 @@ export default function Home() {
                                 <List className='text-left pt-4 px-[10%] checklist'>
                                     <li className='include'>Acesso a todo o conteúdo teórico e prático</li>
                                     <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                    <li className='include'>Curso de negócios com palmilhas</li>
-                                    <li className='not-include'>Aulas ao vivo com casos clínicos e/ou convidados</li>
+                                    <li className='include'>Curso de Palmilhas e Negócios</li>
+                                    <li className='not-include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
                                 </List>
                             </div>
                         </Container>
-
                         <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
                             <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
+                                <div className="card-shine-effect rounded-lg top-0"></div>
                                 <Badge className='border border-inherit rounded-full w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
                                     <p className='grad-text grad-slide'>MAIS RECOMENDADO</p>
                                 </Badge>
@@ -416,8 +540,8 @@ export default function Home() {
                                 <List className='text-left pt-4 px-[10%] checklist'>
                                     <li className='include'>Acesso a todo o conteúdo teórico e prático</li>
                                     <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                    <li className='include'>Curso de negócios com palmilhas</li>
-                                    <li className='include'>Aulas ao vivo com casos clínicos e/ou convidados</li>
+                                    <li className='include'>Curso de Palmilhas e Negócios</li>
+                                    <li className='include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
                                 </List>
                             </div>
                         </Container>

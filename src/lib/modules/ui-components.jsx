@@ -37,7 +37,7 @@ const Collapsible = (props) => {
     };
     return (
         <div
-            className='collapsible bg-slate-200 cor-4 rounded-md overflow-hidden shadow-sm mb-2 p-4 cursor-pointer hover:bg-slate-50'
+            className='collapsible bg-slate-200 cor-4 rounded-md overflow-hidden shadow-sm mb-2 p-4 cursor-pointer hover:bg-slate-50 light'
             ref={collapsibleRef}
             onClick={() => toggle_collapse(collapsibleRef.current)}
             id={props.id}

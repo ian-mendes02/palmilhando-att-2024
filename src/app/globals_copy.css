@@ -367,22 +367,37 @@ button:focus, input:focus, select:focus {
   animation: sheen 1500ms ease forwards;
 }
 
+.textbox {
+  padding-right: 2rem;
+}
+
+.textbox.fade-text {
+  -webkit-mask-image: linear-gradient(black 80%,transparent)
+}
+
+.textbox::-webkit-scrollbar {
+  background: #1e305037;
+  width: 6px;
+}
+
+.textbox::-webkit-scrollbar-thumb {
+  background: #80b4de72;
+  border-radius: 24px;
+}
+
 #header {
   background: url(../../public/img/header-bg.webp);
   background-size: cover;
   background-position: bottom;
-  height: 720px;
 }
 
-#header::after {
+#header-pic {
   content: '';
   position: absolute;
   display: block;
-  width: calc(100% + 10vh);
   max-width: 720px;
   aspect-ratio: 1;
   bottom: 0;
-  right: 6rem;
   z-index: 5;
   background: url(../../public/img/andre+clayton.webp);
   background-repeat: no-repeat;
@@ -441,6 +456,23 @@ button:focus, input:focus, select:focus {
 
 #investimento li:not(:last-of-type) {
   margin-bottom: .5rem;
+}
+
+#tabela-planos {
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: auto;
+  max-width: 100%;
+  margin: auto;
+}
+
+#tabela-planos td, #tabela-planos th {
+  padding: .75rem;
+  text-align: center;
+}
+
+#tabela-planos th {
+  font-weight: 700;
 }
 
 .chain {
@@ -553,8 +585,7 @@ button:focus, input:focus, select:focus {
 }
 
 @media screen and (max-width:1024px) {
-  #header::after {
-    max-width: calc(512px + 17vw);
+  #header-pic {
     right: 0;
   }
 }
@@ -564,11 +595,7 @@ button:focus, input:focus, select:focus {
     text-align: center;
   }
 
-  #header {
-    height: calc(428px + 50vh);
-  }
-
-  #header::after {
+  #header-pic {
     right: 50%;
     transform: translateX(50%);
   }
@@ -607,10 +634,6 @@ button:focus, input:focus, select:focus {
 
 @media screen and (max-width:426px) {
 
-  #header {
-    height: calc(428px + 50vh);
-  }
-
   #criadores::before {
     -webkit-mask-image: linear-gradient(to top, transparent 25%, black)
   }
@@ -620,7 +643,7 @@ button:focus, input:focus, select:focus {
   }
 }
 
-@media screen and (max-width:820px) and (max-height:720px) {
+/* @media screen and (max-width:820px) and (max-height:720px) {
   #header {
     height: calc(428px + 70vh);
   }
@@ -636,4 +659,4 @@ button:focus, input:focus, select:focus {
   #header {
     height: calc(428px + 75vh);
   }
-}
+} */

@@ -215,7 +215,7 @@ const Carousel = ({
                     >
                         {isRepeating && extraPreviousItems}
                         {children.map((i, k) => 
-                            <div key={k} className='w-full aspect-video'>{i}</div>
+                            <div key={k} className='w-full h-auto'>{i}</div>
                         )}
                         {isRepeating && extraNextItems}
                     </div>
