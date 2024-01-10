@@ -13,7 +13,7 @@ const Caret = (props) => {
 const Collapsible = (props) => {
     const collapsibleRef = useRef(null);
     const toggle_collapse = (container) => {
-        var collapsibleContent = document.querySelectorAll('.collapsible .content')
+        var collapsibleContent = document.querySelectorAll('.collapsible .content');
         function collapseNeighbors() {
             for (let content of collapsibleContent) {
                 if (content.parentElement.classList.contains('active')) {
@@ -43,7 +43,9 @@ const Collapsible = (props) => {
             id={props.id}
         >
             <div className='title flex justify-between items-center'>
-                <span className='overflow-hidden whitespace-nowrap mr-4'>{props.title}</span>
+                <span className='overflow-hidden whitespace-nowrap mr-4'>
+                    {props.title}
+                </span>
                 <Caret />
             </div>
             <div className='content mt-4 pb-4'>
@@ -59,7 +61,7 @@ const Button = (props) => {
             'border border-cyan-200 rounded-xl py-2 px-8 grad-1 font-semibold',
             `${props.disabled ? 'saturate-0 opacity-50 cursor-not-allowed' : 'hover:scale-[101%] hover:brightness-110 hover:translate-y-[-1px] duration-100 ease-out cursor-pointer'}`,
             props.className,
-            )} 
+        )}
             onClick={props.onClick}>
             {props.children}
         </button>

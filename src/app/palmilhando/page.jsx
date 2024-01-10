@@ -145,10 +145,10 @@ export default function Home() {
                         <Wrapper className='max-[820px]:flex-col items-center justify-evenly relative bottom-6 max-[820px]:bottom-0'>
 
                             <Wrapper className='items-center justify-evenly my-8 w-full'>
-                                <Container className='items-center w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                                <Container className='items-center w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
                                     <img src='/img/isolated_tablet_laptop_and_smartphone_composition.webp' alt='' width='512px' height='512px' draggable='false' />
                                 </Container>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] p-4'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
                                     <h2>O <mark className="cor-7">Palmilhando</mark> está com você!</h2>
                                     <br />
                                     <p>
@@ -392,7 +392,7 @@ export default function Home() {
                             <h1 className='grad-text text-center font-light w-[65%] max-[820px]:w-full mx-auto'>Veja o quanto nossos membros estão se beneficiando com as vantagens do Podoshop Clube:</h1>
                             <Wrapper className='pt-8 justify-center flex-nowrap max-[820px]:flex-col'>
 
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-auto'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/debora.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
@@ -403,7 +403,7 @@ export default function Home() {
                                     </div>
                                 </Container>
 
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-auto'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/nilson.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6 pt-16 text-sm text-center'>
@@ -414,7 +414,7 @@ export default function Home() {
                                     </div>
                                 </Container>
 
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-auto'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/renata.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
@@ -436,7 +436,7 @@ export default function Home() {
                 <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 max-[820px]:w-[90%]'><mark className="grad-text font-light">SEU INVESTIMENTO</mark></h1>
                 <Content className='mb-16'>
                     <Wrapper className='mb-12'>
-                        <table id='tabela-planos' className='shadow-lg text-lg'>
+                        <table id='tabela-planos' className='shadow-lg text-lg w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:text-xs'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -599,7 +599,7 @@ export default function Home() {
                                 <Collapsible title='Como recebo meu acesso?'>
                                     <p>Assim que a sua compra for aprovada, <strong>enviaremos um email contendo as instruções de acesso</strong> para o endereço de email utilizado no momento da compra.</p>
                                 </Collapsible>
-                                <Collapsible title='Não sei fazer palmilhas, esse curso é para mim?'>
+                                <Collapsible className='text-s' title={<p className='max-[512px]:text-[.85rem]'>Não sei fazer palmilhas, esse curso é para mim?</p>}>
                                     <p><strong>Sim! Esse conteúdo foi planejando para iniciantes e experts.</strong> Você encontrará todo o conteúdo necessário para começar e terá o suporte para dúvidas no nosso grupo de alunos.</p>
                                 </Collapsible>
                             </Container>

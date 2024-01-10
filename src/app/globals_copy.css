@@ -619,6 +619,12 @@ button:focus, input:focus, select:focus {
     -webkit-mask-image: linear-gradient(to top, transparent, black, black 80%)
   }
 
+  #tabela-planos td, #tabela-planos th {
+    padding: .5rem .25rem;
+    font-weight: 400;
+    font-size: .8rem;
+  }
+
   #cp-sobre:before {
     background-position: 100% 0;
     background-repeat: no-repeat;
