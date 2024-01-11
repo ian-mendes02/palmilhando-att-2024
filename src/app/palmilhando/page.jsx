@@ -1,7 +1,6 @@
 'use client';
-import {Section, Content, Content_Default, Container, Wrapper, Box, Badge} from '@/lib/modules/layout-components';
-import {Button, Collapsible, List, Caret} from '@/lib/modules/ui-components';
-import {classList, mobile, after, before} from '@/lib/modules/class-utils';
+import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
+import {Button, Collapsible, List} from '@/lib/modules/ui-components';
 import React from 'react';
 import Carousel from '@/lib/modules/carousel';
 import Image from 'next/image';
@@ -20,7 +19,7 @@ export default function Home() {
 
         document.querySelectorAll('.textbox').forEach(t => {
             let textContent = t.querySelector('p');
-            if (textContent.clientHeight >= t.clientHeight) {
+            if (textContent.clientHeight > t.clientHeight) {
                 t.classList.add('fade-text');
                 t.addEventListener('scroll', () => {
                     if (Math.abs(t.scrollHeight - t.scrollTop - t.clientHeight) < 1) {
@@ -40,25 +39,25 @@ export default function Home() {
             const box = document.getElementById('header-box');
             const pic = document.getElementById('header-pic');
             if (viewport.width > 1280) {
-                header.style.paddingTop = box.clientHeight / 2 + 'px';
+                header.style.paddingTop = box.clientHeight / 4 + 'px';
                 header.style.paddingBottom = box.clientHeight + 'px';
                 pic.style.width = header.clientHeight + 'px';
                 pic.style.right = (viewport.width / 2 - box.clientWidth / 1.8) + 'px';
-                pic.style.transform = ''
+                pic.style.transform = '';
                 return;
             };
             if (viewport.height >= viewport.width) {
-                header.style.paddingTop = box.clientHeight / 3 + 'px';
+                header.style.paddingTop = box.clientHeight / 4 + 'px';
                 header.style.paddingBottom = box.clientHeight + 'px';
                 pic.style.width = header.clientHeight / 2 + 'px';
                 pic.style.right = '50%';
                 pic.style.transform = 'translateX(50%)';
             } else {
-                header.style.paddingTop = box.clientHeight / 3 + 'px';
-                header.style.paddingBottom = box.clientHeight / 2 + 'px';
+                header.style.paddingTop = box.clientHeight / 4 + 'px';
+                header.style.paddingBottom = box.clientHeight + 'px';
                 pic.style.width = header.clientHeight + 'px';
                 pic.style.right = (viewport.width / 2 - box.clientWidth / 1.8) + 'px';
-                pic.style.transform = ''
+                pic.style.transform = '';
             };
         };
 
@@ -124,7 +123,7 @@ export default function Home() {
             <Section id='header'>
                 <Content className='relative z-10 w-full'>
                     <Content_Default>
-                        <Wrapper className='max-[1024px]:justify-center' id='header-box'>
+                        <Wrapper className='max-[820px]:justify-center' id='header-box'>
                             <Container className='text-center items-center min-[1280px]:w-[50%] w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] ml-[5%] max-[820px]:ml-0'>
                                 <Image src='/img/svg/logo_palmilhando.svg' alt='' width='350' height='80' draggable='false' />
                                 <h2 className='mt-4 mb-4'><strong>MAIS QUE UM CONTEÚDO, UMA COMUNIDADE!</strong></h2>
@@ -190,13 +189,14 @@ export default function Home() {
                         <div className="divider"></div>
                         <Carousel isInfinite withIndicator className='mt-8'>
                             <Wrapper className="w-full h-9/12 h-auto justify-center items-start">
-                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-[90%] h-[512px] max-[820px]:h-[calc(100%*(16/9))] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%]">
-                                    <div className="relative w-82 overflow-hidden rounded-lg shadow-xl">
+                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
+                                    <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
                                         <div className="card-shine-effect rounded-lg"></div>
-                                        <img src='/img/cursos/2.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto' />
+                                        <img src='/img/cursos/2.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                        <img src='/img/cursos/mobile/2.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                     </div>
-                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-h-[80%] overflow-y-auto textbox'>
-                                        <h2 className='grad-text text-3xl'>PALMILHAS TERAPÊUTICAS: DO BÁSICO AO AVANÇADO</h2>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-full max-[820px]:h-[50%] max-[820px]:mt-8 overflow-y-auto textbox'>
+                                        <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS TERAPÊUTICAS: DO BÁSICO AO AVANÇADO</h2>
                                         <div className="divider left"></div>
                                         <p className='font-extralight'>Um curso completo, que vai do básico ao avançado, com certificado e atualizado todo mês. Dá pra acreditar? Esse conteúdo foi planejado desde a anatomia e biomecânica do pé e do tornozelo, passando pela neurociência da dor, até chegar na avaliação, prescrição e confecção de palmilhas para as principais queixas dos pés. É um curso para quem quer começar ou aperfeiçoar os conhecimentos nessa área com base em evidências científicas e muita prática clínica. As aulas são gravadas e você poderá assistir quando e como quiser, no seu tempo. <br />Concluindo este módulo inicial, você tem acesso a um certificado de 30h.</p>
                                     </div>
@@ -204,29 +204,29 @@ export default function Home() {
                             </Wrapper>
 
                             <Wrapper className="w-full h-auto justify-center items-start">
-                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-[90%] h-[512px] max-[820px]:h-[calc(100%*(16/9))] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%]">
-                                    <div className="relative w-82 overflow-hidden rounded-lg shadow-xl">
+                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
+                                    <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
                                         <div className="card-shine-effect rounded-lg"></div>
-                                        <img src='/img/cursos/1.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto' />
+                                        <img src='/img/cursos/1.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                        <img src='/img/cursos/mobile/1.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                     </div>
-                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-h-[80%] overflow-y-auto textbox'>
-                                        <div>
-                                            <h2 className='grad-text text-3xl'>PALMILHAS & NEGÓCIOS</h2>
-                                            <div className="divider left"></div>
-                                            <p className='font-extralight'>No mercado de trabalho tão dinâmico e competitivo, ser bom tecnicamente não basta. É preciso entender a estrutura do negócio e como gerar fontes de faturamento e gerar lucro ao final do mês. Nesse curso vamos te mostrar de maneira prática como criar ou evoluir o seu negócio com base em três pilares: marketing, gestão financeira e planejamento estratégico.</p>
-                                        </div>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:mt-8 overflow-y-auto textbox'>
+                                        <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS & NEGÓCIOS</h2>
+                                        <div className="divider left"></div>
+                                        <p className='font-extralight'>No mercado de trabalho tão dinâmico e competitivo, ser bom tecnicamente não basta. É preciso entender a estrutura do negócio e como gerar fontes de faturamento e gerar lucro ao final do mês. Nesse curso vamos te mostrar de maneira prática como criar ou evoluir o seu negócio com base em três pilares: marketing, gestão financeira e planejamento estratégico.</p>
                                     </div>
                                 </div>
                             </Wrapper>
 
                             <Wrapper className="w-full h-auto justify-center items-start">
-                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-[90%] h-[512px] max-[820px]:h-[calc(100%*(16/9))] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%]">
-                                    <div className="relative w-82 overflow-hidden rounded-lg shadow-xl">
+                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
+                                    <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
                                         <div className="card-shine-effect rounded-lg"></div>
-                                        <img src='/img/cursos/3.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto' />
+                                        <img src='/img/cursos/3.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                        <img src='/img/cursos/mobile/3.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                     </div>
-                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-h-[80%] overflow-y-auto textbox'>
-                                        <h2 className='grad-text text-3xl'>TPC & LIVES</h2>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:mt-8 overflow-y-auto textbox'>
+                                        <h2 className='grad-text text-3xl max-[426px]:text-xl'>TPC & LIVES</h2>
                                         <div className="divider left"></div>
                                         <p className='font-extralight'>Pela correria do dia a dia, nem sempre conseguimos assistir aquela live da semana sobre um assunto que interessa muito, não é? Nessa coleção você encontrará todas as nossas lives e treinamentos ao vivo. Só o assinante tem acesso às gravações e pode assistir quantas vezes quiser, no melhor momento do dia.</p>
                                     </div>
@@ -234,13 +234,14 @@ export default function Home() {
                             </Wrapper>
 
                             <Wrapper className="w-full h-auto justify-center items-start">
-                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-[90%] h-[512px] max-[820px]:h-[calc(100%*(16/9))] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%]">
-                                    <div className="relative w-82 overflow-hidden rounded-lg shadow-xl">
+                                <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
+                                    <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
                                         <div className="card-shine-effect rounded-lg"></div>
-                                        <img src='/img/cursos/4.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto' />
+                                        <img src='/img/cursos/4.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                        <img src='/img/cursos/mobile/4.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                     </div>
-                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-h-[80%] overflow-y-auto textbox'>
-                                        <h2 className='grad-text grad-slide text-3xl'>MENTORIAS AO VIVO</h2>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:mt-8 overflow-y-auto textbox'>
+                                        <h2 className='grad-text grad-slide text-3xl max-[426px]:text-xl'>MENTORIAS AO VIVO</h2>
                                         <div className="divider left"></div>
                                         <p className='font-extralight'>Uma vez por mês você terá uma aula ao vivo com o André, com o Clayton ou outro convidado incrível para discutir casos clínicos que você pode levar! Imagine poder compartilhar as suas dúvidas com aquele paciente complexo! Esse é o objetivo da mentoria, passarmos um tempo valioso juntos discutindo casos, sugerindo estratégias e mostrando como é a prática baseada em evidências no mundo real. Uma grande oportunidade!</p>
                                     </div>
@@ -361,7 +362,7 @@ export default function Home() {
                                     <p className='text-lg'><strong className='grad-text'>Acesso antecipado</strong> a lançamentos da Podoshop</p>
                                 </Vantagem>
                                 <Vantagem src='/img/svg/gift.svg'>
-                                    <p className='text-lg'><strong className='grad-text'>Materiais de primeira</strong> enviados direto para a sua casa</p>
+                                    <p className='text-base'><strong className='grad-text'>Materiais de qualidade internacional</strong> enviados direto para a sua casa</p>
                                 </Vantagem>
                             </Wrapper>
                         </Wrapper>
@@ -436,7 +437,7 @@ export default function Home() {
                 <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 max-[820px]:w-[90%]'><mark className="grad-text font-light">SEU INVESTIMENTO</mark></h1>
                 <Content className='mb-16'>
                     <Wrapper className='mb-12'>
-                        <table id='tabela-planos' className='shadow-lg text-lg w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:text-xs'>
+                        <table id='tabela-planos' className='shadow-lg text-lg w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:text-xs select-none'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -488,7 +489,7 @@ export default function Home() {
                                 <br />
                                 <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$ 158<sup><small>,34</small></sup></h1>
                                 <h2 className='text-xs font-light my-4'>R$ 1900 à vista</h2>
-                                <a target="_blank" rel="noopener noreferrer" className='w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
+                                <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90O0O8' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
                                 <br />
                                 <div className="divider"></div>
                                 <h2 className='font-extralight'>Vantagens</h2>
@@ -509,7 +510,7 @@ export default function Home() {
                                 <br />
                                 <h1 className=' text-3xl'><mark className="font-light text-white">12x de</mark> R$ 200<sup><small>,00</small></sup></h1>
                                 <h2 className='text-xs font-light my-4'>R$ 2400 à vista</h2>
-                                <a target="_blank" rel="noopener noreferrer" className='w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
+                                <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90JO08' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
                                 <br />
                                 <div className="divider"></div>
                                 <h2 className='font-extralight'>Vantagens</h2>
@@ -533,7 +534,7 @@ export default function Home() {
                                 <br />
                                 <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$ 241<sup><small>,67</small></sup></h1>
                                 <h2 className='text-xs font-light my-4'>R$ 2900 à vista</h2>
-                                <a target="_blank" rel="noopener noreferrer" className='w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
+                                <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90JO0J' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
                                 <br />
                                 <div className="divider"></div>
                                 <h2 className='font-extralight'>Vantagens</h2>
