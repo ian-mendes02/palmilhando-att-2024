@@ -1,6 +1,5 @@
 'use client';
 import React, {Children, useMemo} from "react";
-import '@/lib/css/carousel.css'
 
 const Carousel = ({
     children = [],

@@ -2,8 +2,59 @@
 import {Section, Content, Content_Default, Container, Wrapper, Box, Badge} from '@/lib/modules/layout-components';
 import {Button, Collapsible, List, Caret} from '@/lib/modules/ui-components';
 import {classList, mobile, after, before} from '@/lib/modules/class-utils';
+import React from 'react';
 import Carousel from '@/lib/modules/carousel';
 export default function Page() {
+
+    const [option, setOption] = React.useState('select');
+    const [optionData, setOptionData] = React.useState({
+        cityName: '',
+        location: '',
+        purchaseLink: ''
+    });
+    React.useEffect(() => {
+        switch (option) {
+            case "select":
+                setOptionData({
+                    cityName: '',
+                    location: '',
+                    purchaseLink: ''
+                });
+                break;
+            case "sao_jose_dos_campos":
+                setOptionData({
+                    cityName: 'São José dos Campos',
+                    location: '',
+                    eventDuration: '23 e 24 de Fevereiro',
+                    purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299829'
+                });
+                break;
+            case "curitiba":
+                setOptionData({
+                    cityName: 'Curitiba',
+                    location: '',
+                    eventDuration: '15 e 16 de Março',
+                    purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299832'
+                });
+                break;
+            case "belo_horizonte":
+                setOptionData({
+                    cityName: 'Belo Horizonte',
+                    location: '',
+                    eventDuration: '5 e 6 de Abril',
+                    purchaseLink: 'https://wa.me/553181075257'
+                });
+                break;
+            case "porto_alegre":
+                setOptionData({
+                    cityName: 'Porto Alegre',
+                    location: '',
+                    eventDuration: '18 e 19 de Maio',
+                    purchaseLink: ''
+                });
+                break;
+        }
+    }, [option]);
 
     return (
         <div>
@@ -28,15 +79,12 @@ export default function Page() {
                                         Serão dois dias intensos de teoria e muita prática de avaliação e confecção de palmilhas com diferentes técnicas de moldagem e configurações de elementos.
                                     </p>
                                 </Container>
-                                <Container className='w-[32rem] max-[1024px]:w-96 max-[820px]:w-full px-8'>
+                                <Container className='w-[48rem] max-[1024px]:w-96 max-[820px]:w-full px-8'>
                                     <Carousel isInfinite withIndicator visibleItemsCount={1}>
-                                        <div className='w-full aspect-video bg-blue-500'></div>
-                                        <div className='w-full aspect-video bg-green-500'></div>
-                                        <div className='w-full aspect-video bg-yellow-500'></div>
-                                        <div className='w-full aspect-video bg-orange-500'></div>
-                                        <div className='w-full aspect-video bg-red-500'></div>
-                                        <div className='w-full aspect-video bg-pink-500'></div>
-                                        <div className='w-full aspect-video bg-purple-500'></div>
+                                        <div className='w-full aspect-video'><img src='/img/[cursos_presenciais]_palmilha_1.webp' alt='' draggable='false' className='w-1/2 h-auto m-auto' /></div>
+                                        <div className='w-full aspect-video'><img src='/img/[cursos_presenciais]_palmilha_2.webp' alt='' draggable='false' className='w-1/2 h-auto m-auto' /></div>
+                                        <div className='w-full aspect-video'><img src='/img/[cursos_presenciais]_palmilha_3.webp' alt='' draggable='false' className='w-1/2 h-auto m-auto' /></div>
+                                        <div className='w-full aspect-video'><img src='/img/[cursos_presenciais]_palmilha_4.webp' alt='' draggable='false' className='w-1/2 h-auto m-auto' /></div>
                                     </Carousel>
                                 </Container>
                             </Wrapper>
@@ -48,7 +96,7 @@ export default function Page() {
             <Section id='cp-conteudo' className='bg-[linear-gradient(#0c6b96,transparent)]'>
                 <Content>
                     <Content_Default>
-                        <Wrapper className='items-center justify-evenly'>
+                        <Wrapper className='items-start justify-evenly'>
                             <Container className='w-[90%] max-w-[32rem]'>
                                 <h1 className='grad-text'>CONTEÚDO DO CURSO</h1>
                                 <br />
@@ -65,19 +113,50 @@ export default function Page() {
                                     <li className='font-light'>Confecção de palmilhas moldadas sob molde</li>
                                 </ul>
                             </Container>
-                            <Container className='w-[32rem] max-[1024px]:w-96 max-[820px]:w-full m-4'>
-                                <div className="flex flex-col items-center justify-between p-8 border border-cyan-100 rounded-xl backdrop-brightness-125 shadow-md text-center text-white">
-                                    <img src="/img/svg/logo_palmilhando.svg" draggable="false" className='w-1/2 h-auto' />
+                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                                <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative duration-200 ease-out">
+                                    <Badge className='border border-inherit rounded-full w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
+                                        <p className='grad-text grad-slide'>SEU INVESTIMENTO</p>
+                                    </Badge>
                                     <div className="divider"></div>
-                                    <p className='my-4'>Seu investimento:</p>
-                                    <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$250<sup><small>,00</small></sup></h1>
-                                    <h2 className='text-xs font-light my-4'>ou R$3000,00 à vista</h2>
-                                    <a target="_blank" rel="noopener noreferrer">
-                                        <Button id="botao-assine" className='m-auto my-4'>QUERO ASSINAR!</Button>
-                                    </a>
+                                    <br />
+                                    <h1 className='text-3xl'><mark className="font-light text-white">até 12x de</mark> R$ 250<sup><small>,00</small></sup></h1>
+                                    <h2 className='text-xs font-light my-4'>ou R$ 3000 à vista</h2>
+                                    <br />
+                                    <h2 className='font-extralight'>RESERVE SUA VAGA</h2>
                                     <div className="divider"></div>
-                                    <p className='text-sm font-light my-4'>Compra 100% segura! Receba seu acesso imediatamente após a confirmação do pagamento</p>
-                                    <img src="/img/pagamento.webp" draggable="false" className='w-1/2 h-auto opacity-50' />
+                                    <br />
+                                    <select name="localCurso" defaultValue='select' className='cor-4 rounded-lg shadow-md w-9/12 p-2 cursor-pointer' onChange={(e) => setOption(e.target.value)}>
+                                        <option value="select">Selecione sua cidade...</option>
+                                        <option value="sao_jose_dos_campos">São José Dos Campos - SP</option>
+                                        <option value="curitiba">Curitiba - PR</option>
+                                        <option value="belo_horizonte">Belo Horizonte - MG</option>
+                                        <option value="porto_alegre">Porto Alegre - RS</option>
+                                    </select>
+                                    <br />
+                                    {option != 'select' ? (
+                                        <Container className='w-full items-center'>
+                                            <Wrapper className='flex-nowrap justify-center w-9/12'>
+                                                <Wrapper className="items-center flex-nowrap w-1/2">
+                                                    <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-2' />
+                                                    <p className='font-extralight'>{optionData.cityName}</p>
+                                                </Wrapper>
+                                                <div className='w-4 h-4'></div>
+                                                <Wrapper className="items-center flex-nowrap w-1/2">
+                                                    <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-2' />
+                                                    <p className='font-extralight'>{optionData.eventDuration}</p>
+                                                </Wrapper>
+                                            </Wrapper>
+                                            <div className='bg-slate-400 rounded-md w-9/12 aspect-video mx-auto my-4 relative'><p className="absolute-center">[mapa do local]</p></div>
+                                        </Container>
+                                    ) : <p className='text-sm font-extralight w-9/12'>(Selecione uma opção para ver detalhes sobre o local do evento)</p>}
+                                    <br />
+                                    <a href={optionData.purchaseLink} target="_blank"
+                                        className={
+                                            `relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none
+                                                ${option == 'select' ? 'saturate-0 opacity-50 cursor-not-allowed' : 'hover:scale-[101%] hover:brightness-110 hover:translate-y-[-1px] duration-100 ease-out cursor-pointer'}`
+                                        }>GARANTIR MINHA VAGA</a>
+                                    <br />
                                 </div>
                             </Container>
                         </Wrapper>
@@ -85,7 +164,7 @@ export default function Page() {
                 </Content>
             </Section>
 
-            <Section id="cp-sobre" className='flex items-center py-64 max-[820px]:pt-[120vw] max-[820px]:pb-8'>
+            <Section id="cp-sobre" className='flex items-center pb-64 max-[820px]:pt-[120vw] max-[820px]:pb-8'>
                 <Content className='relative z-10'>
                     <Content_Default>
                         <Container className='w-full max-w-[32rem] max-[820px]:mx-auto'>
@@ -96,26 +175,6 @@ export default function Page() {
                     </Content_Default>
                 </Content>
             </Section>
-
-            <Section id='cp-prox-cursos' className='bg-[linear-gradient(#0c6b96,transparent)] border-t-2 border-t-cyan-50'>
-                <Content>
-                    <Content_Default className='flex flex-col items-center'>
-                        <Container className='max-w-[32rem] items-center'>
-                            <h1 className='text-center mb-8 grad-text'>PRÓXIMOS CURSOS</h1>
-                            <List className='chain'>
-                                <li><strong>SÃO JOSÉ DOS CAMPOS (SP)</strong> -  DIAS 23 E 24 DE FEVEREIRO DE 2024</li>
-                                <li><strong>CURITIBA (PR)</strong> - DIAS 15 E 16 DE MARÇO DE 2024</li>
-                                <li><strong>BELO HORIZONTE (MG)</strong> - DIAS 5 E 6 DE ABRIL DE 2024</li>
-                                <li><strong>PORTO ALEGRE (RS)</strong> - DIAS 18 E 19 DE MAIO DE 2024</li>
-                            </List>
-                            <a className='my-8 w-full'>
-                                <Button className='w-full'>QUERO GARANTIR MINHA VAGA</Button>
-                            </a>
-                        </Container>
-                    </Content_Default>
-                </Content>
-            </Section>
-
         </div>
     );
 }
