@@ -496,7 +496,7 @@ button:focus, input:focus, select:focus {
 }
 
 #cp-conteudo::after {
-  content: '\25BC';
+  content: '';
   position: absolute;
   display: flex;
   padding-top: .5rem;
@@ -504,10 +504,14 @@ button:focus, input:focus, select:focus {
   align-items: center;
   top: -2rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) rotate(90deg);
   width: 3.5rem;
   height: 3.5rem;
-  background: #0c6b96;
+  background-color: #0c6b96;
+  background-image: url(../../public/img/svg/caret-light.svg);
+  background-position: 55% 50%;
+  background-repeat: no-repeat;
+  background-size: 15%;
   border-radius: 100%;
 }
 
@@ -567,12 +571,7 @@ button:focus, input:focus, select:focus {
   -webkit-mask-image: linear-gradient(black, transparent)
 }
 
-#cp-sobre::before {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: absolute;
+#cp-sobre {
   background: url(../img/foto-andre-mendes.webp);  
   background-position: top right;
   background-size: cover;
