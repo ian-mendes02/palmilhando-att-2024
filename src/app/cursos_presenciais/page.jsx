@@ -1,7 +1,6 @@
 'use client';
-import {Section, Content, Content_Default, Container, Wrapper, Box, Badge} from '@/lib/modules/layout-components';
-import {Button, Collapsible, List, Caret} from '@/lib/modules/ui-components';
-import {classList, mobile, after, before} from '@/lib/modules/class-utils';
+import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
+import {Button, List} from '@/lib/modules/ui-components';
 import React from 'react';
 import Carousel from '@/lib/modules/carousel';
 export default function Page() {
@@ -12,6 +11,7 @@ export default function Page() {
         location: '',
         purchaseLink: ''
     });
+
     React.useEffect(() => {
         switch (option) {
             case "select":
@@ -70,7 +70,7 @@ export default function Page() {
                         <Content_Default>
                             <Wrapper className='pt-8'>
                                 <Container className='w-[32rem] max-[1024px]:w-96 max-[820px]:w-full px-8 mb-8'>
-                                    <img src='/img/imersao-logo-new.webp' alt='' draggable='false'/>
+                                    <img src='/img/svg/logo_cursos_presenciais.svg' alt='' draggable='false' />
                                     <br />
                                     <p>
                                         O curso de Palmilhas Terapêuticas foi planejado para ser uma experiência completa para quem quer aprender a avaliar, prescrever e confeccionar palmilhas terapêuticas.
@@ -91,39 +91,54 @@ export default function Page() {
 
             <Section id='cp-conteudo' className='bg-[linear-gradient(#0c6b96,transparent)] pb-0'>
                 <Content>
-                    <Wrapper className='items-center justify-evenly'>
-                        <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
-                            <h1 className='grad-text'>CONTEÚDO DO CURSO</h1>
-                            <br />
-                            <ul id='cp-lista-conteudo' className='chain'>
-                                <li className='font-light'>Anatomia e biomecânica para a prescrição de palmilhas</li>
-                                <li className='font-light'>Prescrição de palmilhas para as diferentes queixas dos pés (fasciopatias, metatarsalgias, pés diabéticos, dentre outras)</li>
-                                <li className='font-light'>Avaliação do pé/tornozelo para a prescrição de palmilhas</li>
-                                <li className='font-light'>Prescrição de elementos e tipos de moldagens</li>
-                                <li className='font-light'>Estudo de casos e discussão das prescrições dos diferentes tipos de palmilhas</li>
-                                <li className='font-light'>Apresentação dos materiais e ferramentas (lixadeira, microrretífica, termoprensa, soprador e moldadores)</li>
-                                <li className='font-light'>Confecção de palmilhas planas termo soldadas</li>
-                                <li className='font-light'>Confecção de palmilhas termomoldáveis com carga</li>
-                                <li className='font-light'>Confecção de palmilhas moldadas sem carga</li>
-                                <li className='font-light'>Confecção de palmilhas moldadas sob molde</li>
-                            </ul>
-                        </Container>
-                        <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
-                            <Carousel isInfinite withIndicator visibleItemsCount={1}>
-                                <div className='w-full h-auto'><img src='/img/[cursos_presenciais]_palmilha_1.webp' alt='' draggable='false' className='w-1/2 h-auto m-auto' /></div>
-                                <div className='w-full h-auto'><img src='/img/[cursos_presenciais]_palmilha_2.webp' alt='' draggable='false' className='w-1/2 h-auto m-auto' /></div>
-                                <div className='w-full h-auto'><img src='/img/[cursos_presenciais]_palmilha_3.webp' alt='' draggable='false' className='w-1/2 h-auto m-auto' /></div>
-                                <div className='w-full h-auto'><img src='/img/[cursos_presenciais]_palmilha_4.webp' alt='' draggable='false' className='w-1/2 h-auto m-auto' /></div>
-                            </Carousel>
-                        </Container>
-                    </Wrapper>
+                    <Content_Default>
+                        <div className="w-full text-center">
+                            <h1 className='grad-text mx-auto my-4'>CONTEÚDO DO CURSO</h1>
+                            <p className='font-extralight w-1/2 mx-auto max-[820px]:w-full'>Confira aqui tudo o que você vai aprender sobre prescrição, confecção e aplicação de palmilhas terapêuticas:</p>
+                        </div>
+                        <br />
+                        <div className="divider max-[820px]:mb-8"></div>
+                        <Wrapper className='items-center justify-evenly'>
+                            <Container className='w-full'>
+                                <Carousel isInfinite withIndicator visibleItemsCount={1}>
+                                    <div className='w-full h-auto'><img src='/img/[cursos_presenciais]_palmilha_1.webp' alt='' draggable='false' className='w-3/4 max-[820px]:w-full h-auto m-auto' /></div>
+                                    <div className='w-full h-auto'><img src='/img/[cursos_presenciais]_palmilha_2.webp' alt='' draggable='false' className='w-3/4 max-[820px]:w-full h-auto m-auto' /></div>
+                                    <div className='w-full h-auto'><img src='/img/[cursos_presenciais]_palmilha_3.webp' alt='' draggable='false' className='w-3/4 max-[820px]:w-full h-auto m-auto' /></div>
+                                    <div className='w-full h-auto'><img src='/img/[cursos_presenciais]_palmilha_4.webp' alt='' draggable='false' className='w-3/4 max-[820px]:w-full h-auto m-auto' /></div>
+                                </Carousel>
+                            </Container>
+                        </Wrapper>
+                        <Wrapper className='justify-evenly items-center'>
+                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                                <h2 className='grad-text'>Além da confecção de palmilhas, ainda teremos:</h2>
+                                <div className="divider left"></div>
+                                <br />
+                                <List className="chain">
+                                    <li>Anatomia e biomecânica para a prescrição de palmilhas</li>
+                                    <li>Prescrição de palmilhas para as diferentes queixas dos pés (fasciopatias, metatarsalgias, pés diabéticos, dentre outras)</li>
+                                    <li>Avaliação do pé/tornozelo para a prescrição de palmilhas</li>
+                                    <li>Prescrição de elementos e tipos de moldagens</li>
+                                    <li>Estudo de casos e discussão das prescrições dos diferentes tipos de palmilhas</li>
+                                    <li>Apresentação dos materiais e ferramentas (lixadeira, microrretífica, termoprensa, soprador e moldadores)</li>
+                                </List>
+                            </Container>
+                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 relative max-[820px]:hidden'>
+                                <div className='w-9/12 aspect-square absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)_perspective(800px)_rotateY(-8deg)]'>
+                                    <video autoPlay muted loop width={480} height={480} className='rounded-lg shadow-[20px_70px_40px_-20px_rgba(0,0,0,0.2)]'>
+                                        <source src='/img/slideshow_cursos.mp4' type='video/mp4' />
+                                    </video>
+                                </div>
+                            </Container>
+                        </Wrapper>
+
+                    </Content_Default>
                 </Content>
             </Section>
 
             <Section id="cp-sobre" className='py-32 px-8 flex items-center max-[820px]:pt-[120vw] max-[820px]:pb-8 border-b border-cyan-100'>
-                <Content>
+                <Content className='relative z-10'>
                     <Content_Default>
-                        <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] pt-8'>
+                        <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] pt-8 max-[820px]:pt-0'>
                             <p className='font-extralight'>Olá, meu nome é</p>
                             <h1 className='text-left grad-text'>ANDRÉ MENDES</h1>
                             <div className="divider left"></div>
@@ -147,12 +162,12 @@ export default function Page() {
                                         <Wrapper className='flex-col justify-center w-9/12 my-4'>
                                             <Wrapper className="items-center flex-nowrap w-full">
                                                 <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                                <h2 className='font-extralight'>{optionData.location}</h2>
+                                                <h2 className='font-extralight max-[820px]:text-base'>{optionData.location}</h2>
                                             </Wrapper>
                                             <div className='w-4 h-4'></div>
                                             <Wrapper className="items-center flex-nowrap w-full">
                                                 <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                                <h2 className='font-extralight'>{optionData.eventDuration}</h2>
+                                                <h2 className='font-extralight max-[820px]:text-base'>{optionData.eventDuration}</h2>
                                             </Wrapper>
                                         </Wrapper>
                                         <div className='bg-slate-400 rounded-md w-full aspect-video my-4 relative'><p className="absolute-center">[ mapa do local ]</p></div>
@@ -166,12 +181,12 @@ export default function Page() {
                                         <Wrapper className='flex-col justify-center w-9/12 my-4'>
                                             <Wrapper className="items-center flex-nowrap w-full">
                                                 <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                                <h2 className='font-extralight'>{upcomingLocation.location}</h2>
+                                                <h2 className='font-extralight max-[820px]:text-base'>{upcomingLocation.location}</h2>
                                             </Wrapper>
                                             <div className='w-4 h-4'></div>
                                             <Wrapper className="items-center flex-nowrap w-full">
                                                 <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                                <h2 className='font-extralight'>{upcomingLocation.eventDuration}</h2>
+                                                <h2 className='font-extralight max-[820px]:text-base'>{upcomingLocation.eventDuration}</h2>
                                             </Wrapper>
                                         </Wrapper>
                                         <div className='bg-slate-400 rounded-md w-full aspect-video my-4 relative'><p className="absolute-center">[ mapa do local ]</p></div>
@@ -184,7 +199,7 @@ export default function Page() {
                                     <Badge className='border border-inherit rounded-full w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
                                         <p className='grad-text grad-slide'>SEU INVESTIMENTO</p>
                                     </Badge>
-                                    <img src='/img/imersao-logo-new.webp' alt='' draggable='false' className='w-1/2'/>
+                                    <img src='/img/svg/logo_cursos_presenciais.svg' alt='' draggable='false' className='w-1/2' />
                                     <br />
                                     <div className="divider"></div>
                                     <br />
@@ -209,7 +224,7 @@ export default function Page() {
                                             `relative z-10 w-9/12 mx-auto py-4 px-8 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none
                                                 ${option == 'select' ? 'saturate-0 opacity-50 cursor-not-allowed pointer-events-none' : 'hover:scale-[101%] hover:brightness-110 hover:translate-y-[-1px] duration-100 ease-out cursor-pointer'}`
                                         }>GARANTIR MINHA VAGA</a>
-                                    <img src='/img/pagamento.webp' alt='' draggable='false' className='w-9/12 opacity-30 mt-8'/>
+                                    <img src='/img/pagamento.webp' alt='' draggable='false' className='w-9/12 opacity-30 mt-8' />
                                 </div>
                             </Container>
                         </Wrapper>

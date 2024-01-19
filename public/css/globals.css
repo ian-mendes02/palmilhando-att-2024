@@ -571,7 +571,14 @@ button:focus, input:focus, select:focus {
   -webkit-mask-image: linear-gradient(black, transparent)
 }
 
-#cp-sobre {
+#cp-sobre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
   background: url(../img/foto-andre-mendes.webp);  
   background-position: top right;
   background-size: cover;
