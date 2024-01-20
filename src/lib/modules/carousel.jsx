@@ -8,7 +8,7 @@ const Carousel = ({
     withIndicator, // mostra indicador de elementos?
     className = undefined,
     autoScrollEnabled = true,
-    autoScrollTimeout = 5000
+    autoScrollTimeout = 3000
 }) => {
     const indicatorContainerRef = React.useRef(null);
     const [timeoutInProgress, setTimeoutInProgress] = React.useState(false); // confere se há uma pausa em andamento
@@ -47,17 +47,7 @@ const Carousel = ({
         }
     }, [currentIndex, isRepeating, visibleItemsCount, originalItemsLength]);
 
-    React.useEffect(() => {
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'hidden') {
-                setTabHasFocus(false);
-                console.log('hidden');
-            } else {
-                setTabHasFocus(true);
-                console.log('visible');
-            }
-        });
-    }, []);
+    React.useEffect(() => document.addEventListener('visibilitychange', () => document.visibilityState === 'hidden' ? setTabHasFocus(false) : setTabHasFocus(true)), []);
 
     React.useEffect(() => {
         if (withIndicator) {
@@ -204,7 +194,7 @@ const Carousel = ({
 
     React.useEffect(()=>{
         const doAutoScroll = autoScrollEnabled && setTimeout(() => {
-            if (tabHasFocus) {
+            if (tabHasFocus && !timeoutInProgress) {
                 var i = currentIndex + 1;
                 if (i > originalItemsLength + 1) {i = 0};
                 setCurrentIndex(i)

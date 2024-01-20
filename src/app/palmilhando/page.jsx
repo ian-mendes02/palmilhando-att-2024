@@ -1,6 +1,4 @@
 'use client';
-import Head from 'next/head';
-import Link from 'next/link';
 import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
 import {Button, Collapsible, List} from '@/lib/modules/ui-components';
 import React from 'react';
@@ -13,6 +11,11 @@ export default function Home() {
 
     const [isPlaying, setIsPlaying] = React.useState(false);
     const iframeRef = React.useRef(null);
+
+    React.useEffect(()=> {
+        !function(e,t,a,n,g){e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"});var m=t.getElementsByTagName(a)[0],r=t.createElement(a);r.async=!0,r.src="https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4",m.parentNode.insertBefore(r,m)}(window,document,"script","dataLayer");
+        document.title = 'Palmilhando® | Tudo o que você precisa saber, na prática.';
+    },[])
 
     React.useEffect(() => {
 
@@ -191,7 +194,7 @@ export default function Home() {
                     <Content_Default>
                         <h1 className='grad-text font-normal text-center'>CONHEÇA NOSSOS CURSOS</h1>
                         <div className="divider"></div>
-                        <Carousel isInfinite withIndicator className='mt-8'>
+                        <Carousel isInfinite withIndicator autoScrollEnabled={false} className='mt-8'>
                             <Wrapper className="w-full h-9/12 h-auto justify-center items-start">
                                 <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
                                     <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
@@ -199,7 +202,7 @@ export default function Home() {
                                         <img src='/img/cursos/2.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
                                         <img src='/img/cursos/mobile/2.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                     </div>
-                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-full max-[820px]:h-[50%] max-[820px]:mt-8 overflow-y-auto textbox'>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                         <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS TERAPÊUTICAS: DO BÁSICO AO AVANÇADO</h2>
                                         <div className="divider left"></div>
                                         <p className='font-extralight'>Um curso completo, que vai do básico ao avançado, com certificado e atualizado todo mês. Dá pra acreditar? Esse conteúdo foi planejado desde a anatomia e biomecânica do pé e do tornozelo, passando pela neurociência da dor, até chegar na avaliação, prescrição e confecção de palmilhas para as principais queixas dos pés. É um curso para quem quer começar ou aperfeiçoar os conhecimentos nessa área com base em evidências científicas e muita prática clínica. As aulas são gravadas e você poderá assistir quando e como quiser, no seu tempo. <br />Concluindo este módulo inicial, você tem acesso a um certificado de 30h.</p>
@@ -214,7 +217,7 @@ export default function Home() {
                                         <img src='/img/cursos/1.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
                                         <img src='/img/cursos/mobile/1.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                     </div>
-                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:mt-8 overflow-y-auto textbox'>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                         <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS & NEGÓCIOS</h2>
                                         <div className="divider left"></div>
                                         <p className='font-extralight'>No mercado de trabalho tão dinâmico e competitivo, ser bom tecnicamente não basta. É preciso entender a estrutura do negócio e como gerar fontes de faturamento e gerar lucro ao final do mês. Nesse curso vamos te mostrar de maneira prática como criar ou evoluir o seu negócio com base em três pilares: marketing, gestão financeira e planejamento estratégico.</p>
@@ -229,7 +232,7 @@ export default function Home() {
                                         <img src='/img/cursos/3.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
                                         <img src='/img/cursos/mobile/3.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                     </div>
-                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:mt-8 overflow-y-auto textbox'>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                         <h2 className='grad-text text-3xl max-[426px]:text-xl'>TPC & LIVES</h2>
                                         <div className="divider left"></div>
                                         <p className='font-extralight'>Pela correria do dia a dia, nem sempre conseguimos assistir aquela live da semana sobre um assunto que interessa muito, não é? Nessa coleção você encontrará todas as nossas lives e treinamentos ao vivo. Só o assinante tem acesso às gravações e pode assistir quantas vezes quiser, no melhor momento do dia.</p>
@@ -244,7 +247,7 @@ export default function Home() {
                                         <img src='/img/cursos/4.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
                                         <img src='/img/cursos/mobile/4.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                     </div>
-                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:mt-8 overflow-y-auto textbox'>
+                                    <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                         <h2 className='grad-text grad-slide text-3xl max-[426px]:text-xl'>MENTORIAS AO VIVO</h2>
                                         <div className="divider left"></div>
                                         <p className='font-extralight'>Uma vez por mês você terá uma aula ao vivo com o André, com o Clayton ou outro convidado incrível para discutir casos clínicos que você pode levar! Imagine poder compartilhar as suas dúvidas com aquele paciente complexo! Esse é o objetivo da mentoria, passarmos um tempo valioso juntos discutindo casos, sugerindo estratégias e mostrando como é a prática baseada em evidências no mundo real. Uma grande oportunidade!</p>
@@ -491,8 +494,8 @@ export default function Home() {
                                 <p className='font-extralight text-xs w-9/12 h-12'>O essencial para você se destacar como profissional</p>
                                 <div className="divider"></div>
                                 <br />
-                                <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$ 158<sup><small>,34</small></sup></h1>
-                                <h2 className='text-xs font-light my-4'>R$ 1900 à vista</h2>
+                                <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$ 197<sup><small>,33</small></sup></h1>
+                                <h2 className='text-xs font-light my-4'>(R$ 1900 à vista)</h2>
                                 <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90O0O8' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
                                 <br />
                                 <div className="divider"></div>
@@ -512,8 +515,8 @@ export default function Home() {
                                 <p className='font-extralight text-xs w-9/12 h-12'>Para o profissional que deseja transformar sua prática em um negócio lucrativo</p>
                                 <div className="divider"></div>
                                 <br />
-                                <h1 className=' text-3xl'><mark className="font-light text-white">12x de</mark> R$ 200<sup><small>,00</small></sup></h1>
-                                <h2 className='text-xs font-light my-4'>R$ 2400 à vista</h2>
+                                <h1 className=' text-3xl'><mark className="font-light text-white">12x de</mark> R$ 248<sup><small>,22</small></sup></h1>
+                                <h2 className='text-xs font-light my-4'>(R$ 2400 à vista)</h2>
                                 <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90JO08' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
                                 <br />
                                 <div className="divider"></div>
@@ -536,8 +539,8 @@ export default function Home() {
                                 <p className='font-extralight text-xs w-9/12 h-12'>Tenha acesso a todas as vantagens de ser um membro premium do Palmilhando®</p>
                                 <div className="divider"></div>
                                 <br />
-                                <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$ 241<sup><small>,67</small></sup></h1>
-                                <h2 className='text-xs font-light my-4'>R$ 2900 à vista</h2>
+                                <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$ 299<sup><small>,93</small></sup></h1>
+                                <h2 className='text-xs font-light my-4'>(R$ 2900 à vista)</h2>
                                 <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90JO0J' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
                                 <br />
                                 <div className="divider"></div>

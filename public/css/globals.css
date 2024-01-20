@@ -643,6 +643,10 @@ button:focus, input:focus, select:focus {
     width: 100vw;
 }
 
+#cp-header::before {
+  filter: blur(15px) brightness(60%);
+}
+
 }
 
 @media screen and (max-width:426px) {

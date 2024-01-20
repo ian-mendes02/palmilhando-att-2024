@@ -5,12 +5,21 @@ import React from 'react';
 import Carousel from '@/lib/modules/carousel';
 export default function Page() {
 
+    function $(el) {
+        return document.querySelector(el);
+    }
+
     const [option, setOption] = React.useState('select');
     const [optionData, setOptionData] = React.useState({
         cityName: '',
         location: '',
         purchaseLink: ''
     });
+
+    React.useEffect(()=> {
+        !function(e,t,a,n,g){e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"});var m=t.getElementsByTagName(a)[0],r=t.createElement(a);r.async=!0,r.src="https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4",m.parentNode.insertBefore(r,m)}(window,document,"script","dataLayer");
+        document.title = 'Cursos Presenciais | Palmilhas Terapêuticas';
+    },[])
 
     React.useEffect(() => {
         switch (option) {
@@ -69,15 +78,18 @@ export default function Page() {
                     <Content className='relative z-10'>
                         <Content_Default>
                             <Wrapper className='pt-8'>
-                                <Container className='w-[32rem] max-[1024px]:w-96 max-[820px]:w-full px-8 mb-8'>
+                                <Container className='w-[32rem] max-[1024px]:w-96 max-[820px]:w-full px-8 mb-8 max-[820px]:text-center'>
                                     <img src='/img/svg/logo_cursos_presenciais.svg' alt='' draggable='false' />
                                     <br />
                                     <p>
-                                        O curso de Palmilhas Terapêuticas foi planejado para ser uma experiência completa para quem quer aprender a avaliar, prescrever e confeccionar palmilhas terapêuticas.
-                                        Serão dois dias intensos de teoria e muita prática de avaliação e confecção de palmilhas com diferentes técnicas de moldagem e configurações de elementos.
+                                        O curso de Palmilhas Terapêuticas é uma experiência completa para quem quer aprender a avaliar, prescrever e confeccionar palmilhas terapêuticas.
                                     </p>
                                     <br />
-                                    <Button onClick={() => document.getElementById('cp-investimento').scrollIntoView({block: 'center'})}>GARANTA JÁ A SUA VAGA!</Button>
+                                    <p>
+                                        Dois dias intensos de teoria e muita prática de avaliação e confecção de palmilhas com diferentes técnicas de moldagem e configurações de elementos.
+                                    </p>
+                                    <br />
+                                    <Button onClick={() => document.getElementById('cp-investimento').scrollIntoView({block: 'start'})}>GARANTA JÁ A SUA VAGA!</Button>
                                 </Container>
                             </Wrapper>
                         </Content_Default>
@@ -151,21 +163,20 @@ export default function Page() {
             <Section id='cp-investimento'>
                 <Content>
                     <Content_Default>
-                        <Wrapper className='items-center justify-evenly'>
-                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                        <Wrapper className='items-center justify-evenly max-[820px]:flex-col-reverse'>
+                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-0' id='location-info'>
                                 {option != 'select' ? (
                                     <Container className='w-full max-[820px]:items-center'>
                                         <h1>LOCAL SELECIONADO:</h1>
                                         <br />
                                         <h1 className='grad-text max-[820px]:text-2xl'>{optionData.cityName}</h1>
                                         <div className="divider"></div>
-                                        <Wrapper className='flex-col justify-center w-9/12 my-4'>
-                                            <Wrapper className="items-center flex-nowrap w-full">
+                                        <Wrapper className='items-center justify-start max-[820px]:justify-center w-full my-4'>
+                                            <Wrapper className="items-center flex-nowrap w-max m-2">
                                                 <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
                                                 <h2 className='font-extralight max-[820px]:text-base'>{optionData.location}</h2>
                                             </Wrapper>
-                                            <div className='w-4 h-4'></div>
-                                            <Wrapper className="items-center flex-nowrap w-full">
+                                            <Wrapper className="items-center flex-nowrap w-max m-2">
                                                 <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
                                                 <h2 className='font-extralight max-[820px]:text-base'>{optionData.eventDuration}</h2>
                                             </Wrapper>
@@ -178,13 +189,12 @@ export default function Page() {
                                         <br />
                                         <h1 className='grad-text max-[820px]:text-2xl'>{upcomingLocation.cityName}</h1>
                                         <div className="divider"></div>
-                                        <Wrapper className='flex-col justify-center w-9/12 my-4'>
-                                            <Wrapper className="items-center flex-nowrap w-full">
+                                        <Wrapper className='items-center justify-start max-[820px]:justify-center w-full my-4'>
+                                            <Wrapper className="items-center flex-nowrap w-max m-2">
                                                 <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
                                                 <h2 className='font-extralight max-[820px]:text-base'>{upcomingLocation.location}</h2>
                                             </Wrapper>
-                                            <div className='w-4 h-4'></div>
-                                            <Wrapper className="items-center flex-nowrap w-full">
+                                            <Wrapper className="items-center flex-nowrap w-max m-2">
                                                 <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
                                                 <h2 className='font-extralight max-[820px]:text-base'>{upcomingLocation.eventDuration}</h2>
                                             </Wrapper>
@@ -194,7 +204,7 @@ export default function Page() {
                                 )}
                                 <br />
                             </Container>
-                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-0'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative duration-200 ease-out">
                                     <Badge className='border border-inherit rounded-full w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
                                         <p className='grad-text grad-slide'>SEU INVESTIMENTO</p>
@@ -209,7 +219,10 @@ export default function Page() {
                                     <h2 className='font-extralight'>RESERVE SUA VAGA</h2>
                                     <div className="divider"></div>
                                     <br />
-                                    <select name="localCurso" defaultValue='select' className='cor-4 rounded-lg shadow-md w-9/12 p-2 cursor-pointer' onChange={(e) => setOption(e.target.value)}>
+                                    <select name="localCurso" defaultValue='select' className='cor-4 rounded-lg shadow-md w-9/12 p-2 cursor-pointer' onChange={(e) => {
+                                            setOption(e.target.value); 
+                                            if (window.visualViewport.width <= 820) {$('#location-info').scrollIntoView({block: 'start'})}
+                                        }}>
                                         <option value="select">Selecione sua cidade...</option>
                                         <option value="sao_jose_dos_campos">São José Dos Campos - SP</option>
                                         <option value="curitiba">Curitiba - PR</option>
@@ -225,6 +238,7 @@ export default function Page() {
                                                 ${option == 'select' ? 'saturate-0 opacity-50 cursor-not-allowed pointer-events-none' : 'hover:scale-[101%] hover:brightness-110 hover:translate-y-[-1px] duration-100 ease-out cursor-pointer'}`
                                         }>GARANTIR MINHA VAGA</a>
                                     <img src='/img/pagamento.webp' alt='' draggable='false' className='w-9/12 opacity-30 mt-8' />
+                                    <br />
                                 </div>
                             </Container>
                         </Wrapper>
