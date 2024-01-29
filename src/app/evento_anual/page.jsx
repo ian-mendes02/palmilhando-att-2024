@@ -81,7 +81,7 @@ export default function Page(props) {
             <Section id='topnav' className='h-48 max-[820px]:h-8'>
                 <Content>
                     <Content_Default className='flex justify-between'>
-                        <Container className='h-8 w-auto max-[820px]:mx-auto max-[820px]:h-16'>
+                        <Container className='h-8 w-auto max-[820px]:mx-auto max-[820px]:h-12'>
                             <img src='/img/svg/logo_palmilhando.svg' alt='' draggable='false' className='h-full w-auto' />
                         </Container>
                         <Wrapper id='navlinks' className='max-[820px]:hidden'>
@@ -98,7 +98,7 @@ export default function Page(props) {
 
             <Section id='evt-header'>
                 <Content>
-                    <Content_Default className='flex justify-between max-[820px]:text-center max-[820px]:flex-col'>
+                    <Content_Default className='flex justify-between max-[820px]:text-center max-[820px]:flex-col max-[820px]:items-center'>
                         <Container className='h-full w-[50%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
                             <Container>
                                 <p className='text-3xl max-[820px]:text-xl max-[820px]:mb-4'>Encontro anual</p>
@@ -136,190 +136,210 @@ export default function Page(props) {
                         </Container>
                         
                         <Schedule title='DIA 1'>
-                            <tr>
-                                <td className='p-4 text-center bg-sky-700 font-bold' colSpan='3'>AVALIAÇÃO E RACIOCÍNIO</td>
+                            <tr className='text-center bg-sky-700 font-bold'>
+                                <td className='p-4' colSpan='3'>AVALIAÇÃO E RACIOCÍNIO</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>
+                                <td className='w-[25%] p-4 '>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4 '>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 text-center bg-[var(--cor-1)]'>00:00</td>
-                                <td className='p-4 text-center bg-[var(--cor-1)] font-bold' colSpan='2'><img src='/img/svg/coffee.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' /></td>
-                            </tr>
-
-                            <tr>
-                                <td className='p-4 text-center bg-sky-700 font-bold' colSpan='3'>PEDIATRIA</td>
-                            </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-teal-600'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>Fulano da Silva</td>
-                            </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-teal-600'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>Fulano da Silva</td>
-                            </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-teal-600'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>Fulano da Silva</td>
-                            </tr>
-                            <tr>
-                                <td className='p-4 text-center bg-teal-600'>00:00</td>
-                                <td className='p-4 text-center bg-teal-600 font-bold' colSpan='2'><img src='/img/svg/lunch.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' /></td>
+                            <tr className='text-center bg-[var(--cor-1)]'>
+                                <td className='p-4'>00:00</td>
+                                <td className='p-4 font-bold'>
+                                    <img src='/img/svg/coffee.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' />
+                                </td>
+                                <td></td>
                             </tr>
 
-                            <tr>
-                                <td className='p-4 text-center bg-sky-700 font-bold' colSpan='3'>PÉS EM RISCO</td>
+                            <tr className='text-center bg-sky-700'>
+                                <td className='p-4 font-bold' colSpan='3'>PEDIATRIA</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-cyan-500'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-teal-600'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-cyan-500'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-teal-600'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-cyan-500'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-teal-600'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 text-center bg-cyan-500'>00:00</td>
-                                <td className='p-4 text-center bg-cyan-500 font-bold' colSpan='2'><img src='/img/svg/coffee.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' /></td>
+                            <tr className='text-center bg-teal-600'>
+                                <td className='p-4'>00:00</td>
+                                <td className='p-4 font-bold'>
+                                    <img src='/img/svg/lunch.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' />
+                                </td>
+                                <td></td>
                             </tr>
 
-                            <tr>
-                                <td className='p-4 text-center bg-sky-700 font-bold' colSpan='3'>ESPORTES</td>
+                            <tr className='text-center bg-sky-700'>
+                                <td className='p-4 font-bold' colSpan='3'>PÉS EM RISCO</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-violet-400'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-cyan-500'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-violet-400'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-cyan-500'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-violet-400'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-cyan-500'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-x-0 text-center    bg-violet-400 rounded-bl-lg'>00:00</td>
-                                <td className='p-4 border-x-0 text-center font-bold bg-violet-400 rounded-br-lg' colSpan='2'>ENCERRAMENTO</td>
+                            <tr className='text-center bg-cyan-500'>
+                                <td className='p-4'>00:00</td>
+                                <td className='p-4 font-bold'>
+                                    <img src='/img/svg/coffee.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' />
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            <tr className='text-center bg-sky-700'>
+                                <td className='p-4 font-bold' colSpan='3'>ESPORTES</td>
+                            </tr>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-violet-400'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
+                            </tr>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-violet-400'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
+                            </tr>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-violet-400'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
+                            </tr>
+                            <tr className='text-center bg-violet-400 rounded-br-lg rounded-bl-lg'>
+                                <td className='p-4 rounded-bl-lg'>00:00</td>
+                                <td className='p-4 font-bold'>ENCERRAMENTO</td>
+                                <td className='rounded-br-lg'></td>
                             </tr>
                         </Schedule>
-
+                        
                         <Schedule title='DIA 2'>
-                            <tr>
-                                <td className='p-4 text-center bg-sky-700 font-bold' colSpan='3'>AVALIAÇÃO E RACIOCÍNIO</td>
+                            <tr className='text-center bg-sky-700 font-bold'>
+                                <td className='p-4' colSpan='3'>AVALIAÇÃO E RACIOCÍNIO</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-[var(--cor-1)]'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-[var(--cor-1)]'>
+                                <td className='w-[25%] p-4 '>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4 '>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 text-center bg-[var(--cor-1)]'>00:00</td>
-                                <td className='p-4 text-center bg-[var(--cor-1)] font-bold' colSpan='2'><img src='/img/svg/coffee.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' /></td>
-                            </tr>
-
-                            <tr>
-                                <td className='p-4 text-center bg-sky-700 font-bold' colSpan='3'>PEDIATRIA</td>
-                            </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-teal-600'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>Fulano da Silva</td>
-                            </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-teal-600'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>Fulano da Silva</td>
-                            </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-teal-600'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-teal-600'>Fulano da Silva</td>
-                            </tr>
-                            <tr>
-                                <td className='p-4 text-center bg-teal-600'>00:00</td>
-                                <td className='p-4 text-center bg-teal-600 font-bold' colSpan='2'><img src='/img/svg/lunch.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' /></td>
+                            <tr className='text-center bg-[var(--cor-1)]'>
+                                <td className='p-4'>00:00</td>
+                                <td className='p-4 font-bold'>
+                                    <img src='/img/svg/coffee.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' />
+                                </td>
+                                <td></td>
                             </tr>
 
-                            <tr>
-                                <td className='p-4 text-center bg-sky-700 font-bold' colSpan='3'>PÉS EM RISCO</td>
+                            <tr className='text-center bg-sky-700'>
+                                <td className='p-4 font-bold' colSpan='3'>PEDIATRIA</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-cyan-500'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-teal-600'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-cyan-500'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-teal-600'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-cyan-500'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-cyan-500'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-teal-600'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 text-center bg-cyan-500'>00:00</td>
-                                <td className='p-4 text-center bg-cyan-500 font-bold' colSpan='2'><img src='/img/svg/coffee.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' /></td>
+                            <tr className='text-center bg-teal-600'>
+                                <td className='p-4'>00:00</td>
+                                <td className='p-4 font-bold'>
+                                    <img src='/img/svg/lunch.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' />
+                                </td>
+                                <td></td>
                             </tr>
 
-                            <tr>
-                                <td className='p-4 text-center bg-sky-700 font-bold' colSpan='3'>ESPORTES</td>
+                            <tr className='text-center bg-sky-700'>
+                                <td className='p-4 font-bold' colSpan='3'>PÉS EM RISCO</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-violet-400'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-cyan-500'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-violet-400'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-cyan-500'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>00:00</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 text-center bg-violet-400'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
-                                <td className='p-4 border-b border-x-0 border-slate-100 w-[25%] text-center bg-violet-400'>Fulano da Silva</td>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-cyan-500'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
                             </tr>
-                            <tr>
-                                <td className='p-4 text-center bg-violet-400 rounded-bl-lg'>00:00</td>
-                                <td className='p-4 text-center font-bold bg-violet-400 rounded-br-lg' colSpan='3'>ENCERRAMENTO</td>
+                            <tr className='text-center bg-cyan-500'>
+                                <td className='p-4'>00:00</td>
+                                <td className='p-4 font-bold'>
+                                    <img src='/img/svg/coffee.svg' width='24px' height='24px' alt='' draggable='false' className='m-auto' />
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            <tr className='text-center bg-sky-700'>
+                                <td className='p-4 font-bold' colSpan='3'>ESPORTES</td>
+                            </tr>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-violet-400'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
+                            </tr>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-violet-400'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
+                            </tr>
+                            <tr className='border-b border-x-0 border-slate-100 text-center bg-violet-400'>
+                                <td className='w-[25%] p-4'>00:00</td>
+                                <td className='p-4'>Tema da palestra lorem ipsum dolor sit amet[...]</td>
+                                <td className='w-[25%] p-4'>Fulano da Silva</td>
+                            </tr>
+                            <tr className='text-center bg-violet-400 rounded-br-lg rounded-bl-lg'>
+                                <td className='p-4 rounded-bl-lg'>00:00</td>
+                                <td className='p-4 font-bold'>ENCERRAMENTO</td>
+                                <td className='rounded-br-lg'></td>
                             </tr>
                         </Schedule>
 
