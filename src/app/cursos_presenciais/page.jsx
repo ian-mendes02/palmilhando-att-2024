@@ -7,69 +7,63 @@ export default function Page() {
 
     function $(el) {
         return document.querySelector(el);
-    }
-
-    const [option, setOption] = React.useState('select');
-    const [optionData, setOptionData] = React.useState({
-        cityName: '',
-        location: '',
-        purchaseLink: ''
-    });
-
-    React.useEffect(()=> {
-        !function(e,t,a,n,g){e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"});var m=t.getElementsByTagName(a)[0],r=t.createElement(a);r.async=!0,r.src="https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4",m.parentNode.insertBefore(r,m)}(window,document,"script","dataLayer");
-        document.title = 'Cursos Presenciais | Palmilhas Terapêuticas';
-    },[])
+    };
 
     React.useEffect(() => {
-        switch (option) {
-            case "select":
-                setOptionData({
-                    cityName: '',
-                    location: '',
-                    purchaseLink: ''
-                });
-                break;
-            case "sao_jose_dos_campos":
-                setOptionData({
-                    cityName: 'São José dos Campos - SP',
-                    location: '[ local do evento ]',
-                    eventDuration: '23 e 24 de Fevereiro',
-                    purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299829'
-                });
-                break;
-            case "curitiba":
-                setOptionData({
-                    cityName: 'Curitiba - PR',
-                    location: '[ local do evento ]',
-                    eventDuration: '15 e 16 de Março',
-                    purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299832'
-                });
-                break;
-            case "belo_horizonte":
-                setOptionData({
-                    cityName: 'Belo Horizonte - MG',
-                    location: '[ local do evento ]',
-                    eventDuration: '5 e 6 de Abril',
-                    purchaseLink: 'https://wa.me/553181075257'
-                });
-                break;
-            case "porto_alegre":
-                setOptionData({
-                    cityName: 'Porto Alegre - RS',
-                    location: '[ local do evento ]',
-                    eventDuration: '18 e 19 de Maio',
-                    purchaseLink: ''
-                });
-                break;
+        !function(e, t, a, n, g) {e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"}); var m = t.getElementsByTagName(a)[0], r = t.createElement(a); r.async = !0, r.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4", m.parentNode.insertBefore(r, m);}(window, document, "script", "dataLayer");
+        document.title = 'Cursos Presenciais | Palmilhas Terapêuticas';
+    }, []);
+
+    const locations = {
+        select: {
+            cityName: '',
+            location: '',
+            purchaseLink: '',
+            mapData: undefined
+        },
+        sao_jose_dos_campos: {
+            cityName: 'São José dos Campos - SP',
+            location: 'Grupo Equality',
+            eventDuration: '23 e 24 de Fevereiro',
+            purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299829',
+            mapData: <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.682361024928!2d-45.91256568822172!3d-23.21824374899062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc358248ce2ec5%3A0x74eaa5023e4ca7eb!2sGrupo%20Equality!5e0!3m2!1sen!2sbr!4v1706649149402!5m2!1sen!2sbr" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" className='w-full h-full rounded-md'></iframe>
+        },
+        curitiba: {
+            cityName: 'Curitiba - PR',
+            location: '[ local do evento ]',
+            eventDuration: '15 e 16 de Março',
+            purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299832',
+            mapData: undefined
+        },
+        belo_horizonte: {
+            cityName: 'Belo Horizonte - MG',
+            location: '[ local do evento ]',
+            eventDuration: '5 e 6 de Abril',
+            purchaseLink: 'https://wa.me/553181075257',
+            mapData: undefined
+        },
+        porto_alegre: {
+            cityName: 'Porto Alegre - RS',
+            location: '[ local do evento ]',
+            eventDuration: '18 e 19 de Maio',
+            purchaseLink: '',
+            mapData: undefined
+        }
+    };
+
+    const nextLocation = locations.sao_jose_dos_campos;
+
+    const [option, setOption] = React.useState(Object.keys(locations)[1]);
+
+    const [optionData, setOptionData] = React.useState(nextLocation);
+
+    React.useEffect(() => {
+        if (option == "select") {
+            setOptionData(nextLocation)
+        } else {
+            setOptionData(locations[option]);
         }
     }, [option]);
-
-    const upcomingLocation = {
-        cityName: 'São José dos Campos - SP',
-        location: '[ local do evento ]',
-        eventDuration: '23 e 24 de Fevereiro',
-    };
 
     return (
         <div>
@@ -165,43 +159,25 @@ export default function Page() {
                     <Content_Default>
                         <Wrapper className='items-center justify-evenly max-[820px]:flex-col-reverse'>
                             <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-0' id='location-info'>
-                                {option != 'select' ? (
-                                    <Container className='w-full max-[820px]:items-center'>
-                                        <h1>LOCAL SELECIONADO:</h1>
-                                        <br />
-                                        <h1 className='grad-text max-[820px]:text-2xl'>{optionData.cityName}</h1>
-                                        <div className="divider"></div>
-                                        <Wrapper className='items-center justify-start max-[820px]:justify-center w-full my-4'>
-                                            <Wrapper className="items-center flex-nowrap w-max m-2">
-                                                <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                                <h2 className='font-extralight max-[820px]:text-base'>{optionData.location}</h2>
-                                            </Wrapper>
-                                            <Wrapper className="items-center flex-nowrap w-max m-2">
-                                                <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                                <h2 className='font-extralight max-[820px]:text-base'>{optionData.eventDuration}</h2>
-                                            </Wrapper>
+                                <Container className='w-full max-[820px]:items-center'>
+                                    <h1>{option == "select" ? 'PRÓXIMO CURSO:' : 'LOCAL SELECIONADO:'}</h1>
+                                    <br />
+                                    <h1 className='grad-text max-[820px]:text-2xl'>{optionData.cityName}</h1>
+                                    <div className="divider"></div>
+                                    <Wrapper className='items-center justify-start max-[820px]:justify-center w-full my-4'>
+                                        <Wrapper className="items-center flex-nowrap w-max m-2">
+                                            <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
+                                            <h2 className='font-extralight max-[820px]:text-base'>{optionData.location}</h2>
                                         </Wrapper>
-                                        <div className='bg-slate-400 rounded-md w-full aspect-video my-4 relative'><p className="absolute-center">[ mapa do local ]</p></div>
-                                    </Container>
-                                ) : (
-                                    <Container className='w-full max-[820px]:items-center'>
-                                        <h1>PRÓXIMO CURSO:</h1>
-                                        <br />
-                                        <h1 className='grad-text max-[820px]:text-2xl'>{upcomingLocation.cityName}</h1>
-                                        <div className="divider"></div>
-                                        <Wrapper className='items-center justify-start max-[820px]:justify-center w-full my-4'>
-                                            <Wrapper className="items-center flex-nowrap w-max m-2">
-                                                <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                                <h2 className='font-extralight max-[820px]:text-base'>{upcomingLocation.location}</h2>
-                                            </Wrapper>
-                                            <Wrapper className="items-center flex-nowrap w-max m-2">
-                                                <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                                <h2 className='font-extralight max-[820px]:text-base'>{upcomingLocation.eventDuration}</h2>
-                                            </Wrapper>
+                                        <Wrapper className="items-center flex-nowrap w-max m-2">
+                                            <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
+                                            <h2 className='font-extralight max-[820px]:text-base'>{optionData.eventDuration}</h2>
                                         </Wrapper>
-                                        <div className='bg-slate-400 rounded-md w-full aspect-video my-4 relative'><p className="absolute-center">[ mapa do local ]</p></div>
-                                    </Container>
-                                )}
+                                    </Wrapper>
+                                    <div className='rounded-md w-full aspect-video my-4 relative'>
+                                        {optionData.mapData}
+                                    </div>
+                                </Container>
                                 <br />
                             </Container>
                             <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-0'>
@@ -220,14 +196,14 @@ export default function Page() {
                                     <div className="divider"></div>
                                     <br />
                                     <select name="localCurso" defaultValue='select' className='cor-4 rounded-lg shadow-md w-9/12 p-2 cursor-pointer' onChange={(e) => {
-                                            setOption(e.target.value); 
-                                            if (window.visualViewport.width <= 820) {$('#location-info').scrollIntoView({block: 'start'})}
-                                        }}>
+                                        setOption(e.target.value);
+                                        if (window.visualViewport.width <= 820) {$('#location-info').scrollIntoView({block: 'start'});}
+                                    }}>
                                         <option value="select">Selecione sua cidade...</option>
                                         <option value="sao_jose_dos_campos">São José Dos Campos - SP</option>
-                                        <option value="curitiba">Curitiba - PR</option>
+                                        {/* <option value="curitiba">Curitiba - PR</option>
                                         <option value="belo_horizonte">Belo Horizonte - MG</option>
-                                        <option value="porto_alegre">Porto Alegre - RS</option>
+                                        <option value="porto_alegre">Porto Alegre - RS</option> */}
                                     </select>
                                     <br />
                                     <p className='text-sm font-extralight w-9/12'>Selecione uma opção para ver detalhes sobre o local do evento</p>
