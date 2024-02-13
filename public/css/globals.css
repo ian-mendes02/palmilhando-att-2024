@@ -585,6 +585,21 @@ button:focus, input:focus, select:focus {
   background-repeat: no-repeat;
 }
 
+#evt-valor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: .5;
+  background-image: url(../img/chuva-palmilhas.webp);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+  filter: blur(12px);
+  mix-blend-mode: screen;
+}
+
 @media screen and (min-width:1600px) {
   #modulos {
     padding-top: 7.5vw;

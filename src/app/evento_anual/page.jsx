@@ -2,13 +2,56 @@
 import React, {useEffect} from 'react';
 import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
 import {Button, List, Caret} from '@/lib/modules/ui-components';
+import {validateAtendee, validateMember} from '@/lib/modules/validate-purchase';
+import {TEInput} from 'tw-elements-react';
 
 export default function Page(props) {
-
     React.useEffect(() => {
         !function(e, t, a, n, g) {e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"}); var m = t.getElementsByTagName(a)[0], r = t.createElement(a); r.async = !0, r.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4", m.parentNode.insertBefore(r, m);}(window, document, "script", "dataLayer");
         document.title = 'Evento Palmilhas e Ciência Aplicada 2024';
     }, []);
+
+    function $(el) {return document.querySelector(el);};
+
+    const statusMessage = {
+        error_no_input: <span className='text-red-500 text-center'>Parece que há campos em branco, tente novamente.</span>,
+        user_not_found: <span className='text-white text-center font-light text-sm'>Ops! Não encontramos nenhum registro com esse endereço de email. Confira se o endereço informado está correto e tente novamente, ou <a href="" className='!underline'>entre em contato conosco</a>.</span>,
+        is_member: <span className='grad-text text-center'>Confirmamos sua assinatura do Palmilhando®! Clique no link acima para adquirir seu ingresso com um desconto exclusivo.</span>,
+        is_atendee: <span className='text-white text-center'>Confirmamos sua presença no Encontro de 2023! Clique no link acima para adquirir seu ingresso com um desconto exclusivo.</span>,
+        server_error: <span className='text-orange-500 text-center font-light text-sm'>Servidor indisponível no momento, tente novamente mais tarde.</span>,
+        default: <span className='text-white text-center'>Obrigado! Clique no link acima para continuar.</span>,
+    };
+
+    const link = {
+        discount: '',
+        default: ''
+    };
+
+    const [requireValidation, setRequireValidation] = React.useState(false);
+    const [isMember, setIsMember] = React.useState(false);
+    const [isReturning, setIsReturning] = React.useState(false);
+    const [userName, setUserName] = React.useState('');
+    const [userEmail, setUserEmail] = React.useState('');
+    const [displayMessage, setDisplayMessage] = React.useState(null);
+    const [buttonText, setButtonText] = React.useState('ENVIAR');
+    const [purchaseLink, setPurchaseLink] = React.useState('');
+    const [showPurchaseLink, setShowPurchaseLink] = React.useState(false);
+    const [validationPending, setValidationPending] = React.useState(true);
+
+    function resetModal() {
+        setShowPurchaseLink(false);
+        setDisplayMessage(null);
+        if (!validationPending) {
+            setValidationPending(true);
+        }
+    }
+
+    React.useEffect(() => {
+        setRequireValidation(isMember || isReturning);
+        resetModal();
+    }, [isMember, isReturning]);
+
+    React.useEffect(() => {resetModal();}, [userName, userEmail]);
 
     const iframeRef = React.useRef(null);
     const [isPlaying, setIsPlaying] = React.useState(false);
@@ -111,6 +154,44 @@ export default function Page(props) {
         };
     }, []);
 
+    async function handleVerification() {
+        if (userEmail == '' || userName == '') {
+            setDisplayMessage(statusMessage.error_no_input);
+            return
+        } else {
+            if (requireValidation) {
+                try {
+                    setDisplayMessage(null);
+                    setButtonText(<img src='/img/gif/loading.gif' alt='' draggable='false' width={32} height={32} className='mx-auto' />);
+                    var validAtendee = isReturning && await validateAtendee(userEmail);
+                    var validMember = isMember && await validateMember(userEmail);
+                    if (validMember) {
+                        setDisplayMessage(statusMessage.is_member);
+                    } else if (validAtendee) {
+                        setDisplayMessage(statusMessage.is_atendee);
+                    } else {
+                        setDisplayMessage(statusMessage.user_not_found);
+                    };
+                    if (validMember || validAtendee) {
+                        setPurchaseLink(link.discount);
+                        setValidationPending(false);
+                        setShowPurchaseLink(true);
+                    }
+                } catch {
+                    console.log('erro: falha na comunicação com o servidor');
+                    setDisplayMessage(statusMessage.server_error)
+                } finally {
+                    setButtonText('ENVIAR');
+                }
+            } else {
+                setDisplayMessage(statusMessage.default);
+                setPurchaseLink(link.default);
+                setShowPurchaseLink(true);
+            }
+        }
+
+    }
+
     return (
         <div>
 
@@ -129,7 +210,12 @@ export default function Page(props) {
                                 <li className='font-bold my-auto'>HOME</li>
                                 <li className='font-bold my-auto'>ASSINE O PALIMILHANDO</li>
                                 <li className='font-bold my-auto'>CONTATO</li>
-                                <li><span className='font-bold  bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] rounded-full shadow-md m-auto p-3 cursor-pointer'>GARANTA SEU INGRESSO</span></li>
+                                <li>
+                                    <span 
+                                        className='font-bold bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] rounded-full shadow-md m-auto p-3 cursor-pointer hover:brightness-110 hover:scale-[102%] duration-200'
+                                        onClick={() => $('#evt-valor').scrollIntoView({block:'center'})}
+                                        >GARANTA SEU INGRESSO</span>
+                                </li>
                             </List>
                         </Wrapper>
                     </Content_Default>
@@ -394,17 +480,54 @@ export default function Page(props) {
                 </Content>
             </Section>
 
-            <Section id='evt-valor' className='bg-[var(--cor-4)] border-t-2 border-cyan-100'>
-                <Badge className='border-2 border-cyan-100'>
-                    <img src='/img/svg/ticket.svg' alt='' draggable='false' className='w-full aspect-square' />
-                </Badge>
+            <Section id='evt-valor' className='bg-[var(--cor-4)] border-t-2 border-cyan-100 mt-2 overflow-clip'>
+
                 <Content>
                     <Content_Default>
-                        <h1 className='text-center grad-text'>GARANTA SEU INGRESSO</h1>
+                        <Wrapper className='w-full items-center justify-center'>
+                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] relative pt-16 mx-auto max-[820px]:mx-0 p-8  rounded-lg shadow-lg border border-cyan-100 bg-[color:#0e1b2c] bg-opacity-75 backdrop-blur-xl' id='location-info'>
+                                <Badge className='border-2 border-cyan-100 !bg-[color:#0e1b2c]'>
+                                    <img src='/img/svg/ticket.svg' alt='' draggable='false' className='w-full aspect-square' />
+                                </Badge>
+                                <h1 className='text-center grad-text text-xl font-bold'>GARANTA SEU INGRESSO</h1>
+                                <p className='text-center text-sm font-extralight my-2'>Preencha os campos a seguir para liberar o link de compra</p>
+                                <div className="divider"></div>
+                                <form id='compra-ingresso' onSubmit={(e) => e.preventDefault()}>
+                                    <Container className='px-4'>
+                                        <Container className="my-2">
+                                            <TEInput type="text" id="user_name" onChange={(e) => setUserName(e.target.value)} label='Nome completo' className='text-white !outline-none'></TEInput>
+                                        </Container>
+                                        <Container className='my-2'>
+                                            <TEInput type='email' id='user_email' onChange={(e) => setUserEmail(e.target.value)} label='Email' className='text-white !outline-none'></TEInput>
+                                        </Container>
+                                    </Container>
+                                    {validationPending &&
+                                        <Container className='px-4 w-full items-center'>
+                                            <Wrapper className='items-center my-2'>
+                                                <input type="checkbox" checked={isMember} className='scale-125 cursor-pointer' onChange={() => setIsMember(!isMember)} />
+                                                <label className='ml-2 cursor-pointer' onClick={() => setIsMember(!isMember)}>Sou assinante do Palmilhando®</label>
+                                            </Wrapper>
+                                            <Wrapper className='items-center my-2'>
+                                                <input type="checkbox" checked={isReturning} className='scale-125 cursor-pointer' onChange={() => setIsReturning(!isReturning)} />
+                                                <label className='ml-2 cursor-pointer' onClick={() => setIsReturning(!isReturning)}>Participei do Encontro 2023</label>
+                                            </Wrapper>
+                                        </Container>
+                                    }
+                                    <Container className='items-center'>
+                                        {validationPending && <Button className='my-4 w-9/12' onClick={() => handleVerification()}>{buttonText}</Button>}
+                                        {showPurchaseLink && <a href={purchaseLink} className='w-9/12'><Button className='my-4 w-full flex items-center justify-center'>
+                                            <span>CONTINUAR</span>
+                                            <img src='/img/svg/external-link.svg' alt='' draggable='false' className='w-4 mx-2' />
+                                        </Button>
+                                        </a>}
+                                        {displayMessage}
+                                    </Container>
+                                </form>
+                            </Container>
+                        </Wrapper>
                     </Content_Default>
                 </Content>
             </Section>
-
         </div>
     );
 }
