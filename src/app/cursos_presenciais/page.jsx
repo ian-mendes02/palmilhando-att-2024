@@ -1,5 +1,5 @@
 'use client';
-import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
+import {Section, Content, Content_Default, Container, Wrapper, Badge, Loading} from '@/lib/modules/layout-components';
 import {Button, List} from '@/lib/modules/ui-components';
 import React from 'react';
 import Carousel from '@/lib/modules/carousel';
@@ -19,50 +19,72 @@ export default function Page() {
             cityName: '',
             location: '',
             purchaseLink: '',
-            mapData: undefined
+            mapData: null
         },
         sao_jose_dos_campos: {
             cityName: 'São José dos Campos - SP',
             location: 'Grupo Equality',
-            eventDuration: '23 e 24 de Fevereiro',
+            eventDate: '23 e 24 de Fevereiro',
+            endDate: Date.parse('2024-02-24T00:00:00.000-03:00'),
             purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299829',
-            mapData: <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.682361024928!2d-45.91256568822172!3d-23.21824374899062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc358248ce2ec5%3A0x74eaa5023e4ca7eb!2sGrupo%20Equality!5e0!3m2!1sen!2sbr!4v1706649149402!5m2!1sen!2sbr" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" className='w-full h-full rounded-md'></iframe>
+            mapData: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.682361024928!2d-45.91256568822172!3d-23.21824374899062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc358248ce2ec5%3A0x74eaa5023e4ca7eb!2sGrupo%20Equality!5e0!3m2!1sen!2sbr!4v1706649149402!5m2!1sen!2sbr"
         },
         curitiba: {
             cityName: 'Curitiba - PR',
-            location: '[ local do evento ]',
-            eventDuration: '15 e 16 de Março',
+            location: 'Confidence Hotel Batel',
+            eventDate: '15 e 16 de Março',
+            endDate: Date.parse('2024-03-16T00:00:00.000-03:00'),
             purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299832',
-            mapData: undefined
+            mapData: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.1268876561558!2d-49.28252522258879!3d-25.43402104471572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce40ac8a88ea9%3A0xfe6a996ac4f7f5fd!2sAlameda%20Dr.%20Carlos%20de%20Carvalho%2C%20784%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080430-180!5e0!3m2!1sen!2sbr!4v1708037069655!5m2!1sen!2sbr"
         },
         belo_horizonte: {
             cityName: 'Belo Horizonte - MG',
-            location: '[ local do evento ]',
-            eventDuration: '5 e 6 de Abril',
+            location: null,
+            eventDate: '5 e 6 de Abril',
+            endDate: Date.parse('2024-04-06T00:00:00.000-03:00'),
             purchaseLink: 'https://wa.me/553181075257',
-            mapData: undefined
+            mapData: null
         },
         porto_alegre: {
             cityName: 'Porto Alegre - RS',
-            location: '[ local do evento ]',
-            eventDuration: '18 e 19 de Maio',
+            location: null,
+            eventDate: '18 e 19 de Maio',
+            endDate: Date.parse('2024-05-19T00:00:00.000-03:00'),
             purchaseLink: '',
-            mapData: undefined
+            mapData: null
         }
     };
+    
+    const date = React.useRef(Date.now());
 
-    const nextLocation = locations.sao_jose_dos_campos;
+    const nextLocation = () => {
+        for (const [location, property] of Object.entries(locations)) {
+            if (property.endDate) {
+                if (date.current < property.endDate) {
+                    return locations[location]
+                }
+            }
+        };
+    }
 
-    const [option, setOption] = React.useState(Object.keys(locations)[1]);
+    const [option, setOption] = React.useState('select');
 
     const [optionData, setOptionData] = React.useState(nextLocation);
 
+    const MapContent = () => {
+        if (optionData.mapData) {
+            return <iframe src={optionData.mapData} style={{border: 0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className='w-full h-full rounded-md'></iframe>;
+        } else {
+            return <span className='absolute-center text-center'>&#x26A0;<br />Mapa indisponível</span>;
+        };
+    };
+
     React.useEffect(() => {
         if (option == "select") {
-            setOptionData(nextLocation)
+            setOptionData(nextLocation);
         } else {
             setOptionData(locations[option]);
-        }
+        };
     }, [option]);
 
     return (
@@ -75,13 +97,9 @@ export default function Page() {
                                 <Container className='w-[32rem] max-[1024px]:w-96 max-[820px]:w-full px-8 mb-8 max-[820px]:text-center'>
                                     <img src='/img/svg/logo_cursos_presenciais.svg' alt='' draggable='false' />
                                     <br />
-                                    <p>
-                                        O curso de Palmilhas Terapêuticas é uma experiência completa para quem quer aprender a avaliar, prescrever e confeccionar palmilhas terapêuticas.
-                                    </p>
+                                    <p>O curso de Palmilhas Terapêuticas é uma experiência completa para quem quer aprender a avaliar, prescrever e confeccionar palmilhas terapêuticas.</p>
                                     <br />
-                                    <p>
-                                        Dois dias intensos de teoria e muita prática de avaliação e confecção de palmilhas com diferentes técnicas de moldagem e configurações de elementos.
-                                    </p>
+                                    <p>Dois dias intensos de teoria e muita prática de avaliação e confecção de palmilhas com diferentes técnicas de moldagem e configurações de elementos.</p>
                                     <br />
                                     <Button onClick={() => document.getElementById('cp-investimento').scrollIntoView({block: 'start'})}>GARANTA JÁ A SUA VAGA!</Button>
                                 </Container>
@@ -99,7 +117,7 @@ export default function Page() {
                 <Content>
                     <Content_Default>
                         <div className="w-full text-center">
-                            <h1 className='grad-text mx-auto my-4'>CONTEÚDO DO CURSO</h1>
+                            <h1 className='grad-text mx-auto my-4 font-bold text-3xl'>CONTEÚDO DO CURSO</h1>
                             <p className='font-extralight w-1/2 mx-auto max-[820px]:w-full'>Confira aqui tudo o que você vai aprender sobre prescrição, confecção e aplicação de palmilhas terapêuticas:</p>
                         </div>
                         <br />
@@ -116,7 +134,7 @@ export default function Page() {
                         </Wrapper>
                         <Wrapper className='justify-evenly items-center'>
                             <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
-                                <h2 className='grad-text'>Além da confecção de palmilhas, ainda teremos:</h2>
+                                <h2 className='grad-text font-bold text-xl'>Além da confecção de palmilhas, ainda teremos:</h2>
                                 <div className="divider left"></div>
                                 <br />
                                 <List className="chain">
@@ -128,7 +146,7 @@ export default function Page() {
                                     <li>Apresentação dos materiais e ferramentas (lixadeira, microrretífica, termoprensa, soprador e moldadores)</li>
                                 </List>
                             </Container>
-                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 relative max-[820px]:hidden'>
+                            <Container className='w-[40%] h-[480px] max-[425px]:h-[240px] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 relative max-[820px]:hidden'>
                                 <div className='w-9/12 aspect-square absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)_perspective(800px)_rotateY(-8deg)]'>
                                     <video autoPlay muted loop width={480} height={480} className='rounded-lg shadow-[20px_70px_40px_-20px_rgba(0,0,0,0.2)]'>
                                         <source src='/img/slideshow_cursos.mp4' type='video/mp4' />
@@ -146,7 +164,7 @@ export default function Page() {
                     <Content_Default>
                         <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] pt-8 max-[820px]:pt-0'>
                             <p className='font-extralight'>Olá, meu nome é</p>
-                            <h1 className='text-left grad-text'>ANDRÉ MENDES</h1>
+                            <h1 className='text-left grad-text font-bold text-3xl'>ANDRÉ MENDES</h1>
                             <div className="divider left"></div>
                             <p>Sou fisioterapeuta especialista em fisioterapia ortopédica com 20 anos de carreira. Sou mestre e doutorando em fisioterapia e autor do livro <i>Palmilhas Terapêuticas: Ciência e Prática Clínica</i>, sócio-criador da Podoshop® e do Palmilhando® com 15 anos de experiência na prescrição e confecção de palmilhas terapêuticas.</p>
                         </Container>
@@ -157,52 +175,29 @@ export default function Page() {
             <Section id='cp-investimento'>
                 <Content>
                     <Content_Default>
-                        <Wrapper className='items-center justify-evenly max-[820px]:flex-col-reverse'>
-                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-0' id='location-info'>
-                                <Container className='w-full max-[820px]:items-center'>
-                                    <h1>{option == "select" ? 'PRÓXIMO CURSO:' : 'LOCAL SELECIONADO:'}</h1>
-                                    <br />
-                                    <h1 className='grad-text max-[820px]:text-2xl'>{optionData.cityName}</h1>
-                                    <div className="divider"></div>
-                                    <Wrapper className='items-center justify-start max-[820px]:justify-center w-full my-4'>
-                                        <Wrapper className="items-center flex-nowrap w-max m-2">
-                                            <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                            <h2 className='font-extralight max-[820px]:text-base'>{optionData.location}</h2>
-                                        </Wrapper>
-                                        <Wrapper className="items-center flex-nowrap w-max m-2">
-                                            <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
-                                            <h2 className='font-extralight max-[820px]:text-base'>{optionData.eventDuration}</h2>
-                                        </Wrapper>
-                                    </Wrapper>
-                                    <div className='rounded-md w-full aspect-video my-4 relative'>
-                                        {optionData.mapData}
-                                    </div>
-                                </Container>
-                                <br />
-                            </Container>
+                        <Wrapper className='items-center justify-evenly'>
                             <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-0'>
-                                <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative duration-200 ease-out">
-                                    <Badge className='border border-inherit rounded-full w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
+                                <div className="flex flex-col items-center justify-between px-2 pb-[5%] pt-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative endDate-200 ease-out">
+                                    <Badge className='border border-inherit rounded-full !w-max py-2 px-4 !bg-[color:#0e1b2c]'>
                                         <p className='grad-text grad-slide'>SEU INVESTIMENTO</p>
                                     </Badge>
                                     <img src='/img/svg/logo_cursos_presenciais.svg' alt='' draggable='false' className='w-1/2' />
                                     <br />
                                     <div className="divider"></div>
-                                    <br />
-                                    <h1 className='text-3xl'><mark className="font-light text-white">até 12x de</mark> R$ 250<sup><small>,00</small></sup></h1>
-                                    <h2 className='text-xs font-light my-4'>ou R$ 3000 à vista</h2>
-                                    <br />
-                                    <h2 className='font-extralight'>RESERVE SUA VAGA</h2>
+                                    <Container className="my-4">
+                                        <h1 className='text-3xl font-bold'><mark className="font-light text-white">até 12x de</mark> R$ 250<sup><small>,00</small></sup></h1>
+                                        <h2 className='text-xs font-light mt-4'>ou R$ 3000 à vista</h2>
+                                    </Container>
                                     <div className="divider"></div>
                                     <br />
                                     <select name="localCurso" defaultValue='select' className='cor-4 rounded-lg shadow-md w-9/12 p-2 cursor-pointer' onChange={(e) => {
                                         setOption(e.target.value);
                                         if (window.visualViewport.width <= 820) {$('#location-info').scrollIntoView({block: 'start'});}
                                     }}>
-                                        <option value="select">Selecione sua cidade...</option>
+                                        <option value="select" className='cursor-pointer'>Selecione sua cidade...</option>
                                         <option value="sao_jose_dos_campos">São José Dos Campos - SP</option>
-                                        {/* <option value="curitiba">Curitiba - PR</option>
-                                        <option value="belo_horizonte">Belo Horizonte - MG</option>
+                                        <option value="curitiba">Curitiba - PR</option>
+                                        {/* <option value="belo_horizonte">Belo Horizonte - MG</option>
                                         <option value="porto_alegre">Porto Alegre - RS</option> */}
                                     </select>
                                     <br />
@@ -211,11 +206,32 @@ export default function Page() {
                                     <a href={optionData.purchaseLink} target="_blank"
                                         className={
                                             `relative z-10 w-9/12 mx-auto py-4 px-8 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none
-                                                ${option == 'select' ? 'saturate-0 opacity-50 cursor-not-allowed pointer-events-none' : 'hover:scale-[101%] hover:brightness-110 hover:translate-y-[-1px] duration-100 ease-out cursor-pointer'}`
+                                                ${option == 'select' ? 'saturate-0 opacity-50 cursor-not-allowed pointer-events-none' : 'hover:scale-[101%] hover:brightness-110 hover:translate-y-[-1px] endDate-100 ease-out cursor-pointer'}`
                                         }>GARANTIR MINHA VAGA</a>
-                                    <img src='/img/pagamento.webp' alt='' draggable='false' className='w-9/12 opacity-30 mt-8' />
+                                    <img src='/img/pagamento.webp' alt='' draggable='false' className='w-1/2 opacity-30 mt-8' />
                                     <br />
                                 </div>
+                            </Container>
+                            <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-0' id='location-info'>
+                                <Container className='w-full max-[820px]:items-center'>
+                                    <h1 className='font-bold text-3xl'>{option == "select" ? 'PRÓXIMO CURSO:' : 'LOCAL SELECIONADO:'}</h1>
+                                    <h1 className='grad-text text-3xl max-[820px]:text-2xl my-4'>{optionData.cityName}</h1>
+                                    <div className="divider"></div>
+                                    <Wrapper className='items-center justify-start max-[820px]:justify-center w-full'>
+                                        <Wrapper className="items-center flex-nowrap w-max m-2">
+                                            <img src='/img/svg/map_pin.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
+                                            <h2 className='font-extralight max-[820px]:text-base'>{optionData.location || 'Local indisponível'}</h2>
+                                        </Wrapper>
+                                        <Wrapper className="items-center flex-nowrap w-max m-2">
+                                            <img src='/img/svg/calendar.svg' alt='' draggable='false' className='w-6 h-6 mr-4' />
+                                            <h2 className='font-extralight max-[820px]:text-base'>{optionData.eventDate || 'Data indisponível'}</h2>
+                                        </Wrapper>
+                                    </Wrapper>
+                                    <div className='rounded-md w-full aspect-video my-4 relative bg-[color:#0e1b2c]'>
+                                        <MapContent />
+                                    </div>
+                                </Container>
+                                <br />
                             </Container>
                         </Wrapper>
                     </Content_Default>

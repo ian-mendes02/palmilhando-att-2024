@@ -48,4 +48,8 @@ const Badge = ({children, width = 24, className = ''}) => {
     )
 }
 
-export {Section, Content, Content_Default, Container, Wrapper, Badge};
+const Loading = ({width = 32}) => {
+    return <img src='/img/gif/loading.gif' alt='' draggable='false' width={width} height={width} className='absolute-center'/>
+}
+
+export {Section, Content, Content_Default, Container, Wrapper, Badge, Loading};
