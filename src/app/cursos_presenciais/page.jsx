@@ -57,7 +57,7 @@ export default function Page() {
     
     const date = React.useRef(Date.now());
 
-    const nextLocation = () => {
+/*     const nextLocation = () => {
         for (const [location, property] of Object.entries(locations)) {
             if (property.endDate) {
                 if (date.current < property.endDate) {
@@ -65,7 +65,9 @@ export default function Page() {
                 }
             }
         };
-    }
+    } */
+
+    const nextLocation = locations.curitiba;
 
     const [option, setOption] = React.useState('select');
 
@@ -185,8 +187,8 @@ export default function Page() {
                                     <br />
                                     <div className="divider"></div>
                                     <Container className="my-4">
-                                        <h1 className='text-3xl font-bold'><mark className="font-light text-white">até 12x de</mark> R$ 250<sup><small>,00</small></sup></h1>
-                                        <h2 className='text-xs font-light mt-4'>ou R$ 3000 à vista</h2>
+                                        <h1 className='text-3xl font-bold'><mark className="font-light text-white">R$</mark> 3000<sup><small>,00</small></sup></h1>
+                                        <h2 className='text-xs font-light mt-4'>ou em até 12x (Parcelado pelo Sympla)</h2>
                                     </Container>
                                     <div className="divider"></div>
                                     <br />
@@ -195,7 +197,7 @@ export default function Page() {
                                         if (window.visualViewport.width <= 820) {$('#location-info').scrollIntoView({block: 'start'});}
                                     }}>
                                         <option value="select" className='cursor-pointer'>Selecione sua cidade...</option>
-                                        <option value="sao_jose_dos_campos">São José Dos Campos - SP</option>
+                                        {/* <option value="sao_jose_dos_campos">São José Dos Campos - SP</option> */}
                                         <option value="curitiba">Curitiba - PR</option>
                                         {/* <option value="belo_horizonte">Belo Horizonte - MG</option>
                                         <option value="porto_alegre">Porto Alegre - RS</option> */}

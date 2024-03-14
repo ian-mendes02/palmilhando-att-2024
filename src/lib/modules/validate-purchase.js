@@ -1,5 +1,5 @@
 export async function validateAtendee(email, name) {
-    const v = await fetch('http://localhost:8081/projects/2024/palmilhando/src/lib/modules/request.php/', {
+    const v = await fetch(`${process.env.NEXT_PUBLIC_APACHE_LOCALHOST}src/lib/modules/request.php/`, {
         method: 'POST',
         headers: {
             "Content-type": "application/json"

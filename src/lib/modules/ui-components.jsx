@@ -43,7 +43,7 @@ const Collapsible = (props) => {
             id={props.id}
         >
             <div className='title flex justify-between items-center'>
-                <span className='overflow-hidden whitespace-nowrap mr-4'>
+                <span className='overflow-hidden whitespace-nowrap mr-4 font-bold'>
                     {props.title}
                 </span>
                 <Caret />

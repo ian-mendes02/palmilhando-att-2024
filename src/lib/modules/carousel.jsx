@@ -7,8 +7,10 @@ const Carousel = ({
     isInfinite, // o carrossel é infinito?
     withIndicator, // mostra indicador de elementos?
     className = undefined,
+    id = undefined,
     autoScrollEnabled = true,
-    autoScrollTimeout = 3000
+    autoScrollTimeout = 3000,
+    isFullWidth = false
 }) => {
     const indicatorContainerRef = React.useRef(null);
     const [timeoutInProgress, setTimeoutInProgress] = React.useState(false); // confere se há uma pausa em andamento
@@ -192,19 +194,21 @@ const Carousel = ({
         currentIndex
     ]);
 
-    React.useEffect(()=>{
-        const doAutoScroll = autoScrollEnabled && setTimeout(() => {
-            if (tabHasFocus && !timeoutInProgress) {
-                var i = currentIndex + 1;
-                if (i > originalItemsLength + 1) {i = 0};
-                setCurrentIndex(i)
-            }
-        }, autoScrollTimeout);
-        return () => clearTimeout(doAutoScroll)
-    },[currentIndex])
+    const scroll = () => {
+        if (tabHasFocus && !timeoutInProgress) {
+            var i = currentIndex + 1;
+            if (i > originalItemsLength + 1) {i = 0;};
+            setCurrentIndex(i);
+        }
+    }
+
+    React.useEffect(() => {
+        const doAutoScroll = autoScrollEnabled && setTimeout(scroll, autoScrollTimeout);
+        return () => clearTimeout(doAutoScroll);
+    }, [currentIndex]);
 
     return (
-        <div className={className}>
+        <div className={className} id={id}>
             <div className={`carousel-wrapper`}>
                 {isPrevButtonVisible ? (
                     <button
@@ -229,9 +233,14 @@ const Carousel = ({
                         onTransitionEnd={() => handleTransitionEnd()}
                     >
                         {isRepeating && extraPreviousItems}
-                        {children.map((i, k) =>
-                            <div key={k} className='w-full h-auto'>{i}</div>
-                        )}
+                        {isFullWidth
+                            ? children.map((i, k) =>
+                                <div key={k} className='w-full h-auto'>{i}</div>
+                            )
+                            : children.map((i, k) =>
+                                <div key={k} className='w-auto h-auto'>{i}</div>
+                            )
+                        }
                         {isRepeating && extraNextItems}
                     </div>
                 </div>

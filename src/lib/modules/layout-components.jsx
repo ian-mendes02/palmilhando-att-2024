@@ -2,7 +2,7 @@ import {classList, mobile} from './class-utils';
 
 const Section = (props) => {
     return (
-        <section id={props.id} className={classList('py-16 m-auto w-full relative', props.className)}>
+        <section id={props.id} className={classList('py-16 m-auto w-full relative', props.className)} style={props.style}>
             {props.children}
         </section>
     );
