@@ -101,7 +101,7 @@ export default function Home() {
                                 </p>
                                 <button
                                     className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                                    onClick={() => $('#investimento').scrollIntoView()}>
+                                    onClick={() => $('#investimento').scrollIntoView({block:'center'})}>
                                     QUERO ENTRAR NO PROGRAMA
                                 </button>
                                 <p className='text-sm font-extralight my-4'>Continue lendo para saber mais</p>
@@ -189,7 +189,7 @@ export default function Home() {
 
                                 <Container className='items-start'>
                                     <Wrapper className='flex-nowrap max-[820px]:flex-col justify-evenly items-center'>
-                                        <Container className='basis-[100%]'>
+                                        <Container className='basis-[100%] mx-8 max-[820px]:mx-0'>
                                             <h1 className='m-8 mb-0'>Pra quem é o <mark className="grad-text">Palmilhando</mark>?</h1>
                                             <List className='chain mx-auto max-w-[480px] my-8'>
                                                 <li>Profissionais que desejam <strong>proporcionar um tratamento mais eficiente</strong> para os seus pacientes.</li>
@@ -407,7 +407,7 @@ export default function Home() {
                             </Wrapper>
                         </Wrapper> */}
 
-                        <Wrapper className='justify-evenly items-center max-[820px]:mt-0 flex-nowrap max-[820px]:flex-col fade' >
+                        <Wrapper className='justify-evenly items-center max-[820px]:mt-0 flex-nowrap max-[820px]:flex-col' >
                             <Container className="w-[48rem] max-[820px]:w-[80%] max-[426px]:w-full m-4" id="kit-exclusivo">
                                 <h1 className="grad-text">KIT EXCLUSIVO PODOSHOP®</h1>
                                 <br />
@@ -415,7 +415,7 @@ export default function Home() {
                                     Cada aluno do Palmilhando receberá um kit mensalmente, <mark className="cor-7">sem custo adicional</mark>, para colocar em prática todo o aprendizado e fazer as suas próprias palmilhas.
                                     <br /><br />
                                 </p>
-                                <Container className='w-[36rem] min-[821px]:hidden max-[820px]:w-9/12 max-[426px]:w-[80%] m-4'>
+                                <Container className='w-[36rem] min-[821px]:hidden max-[820px]:w-9/12 max-[426px]:w-[80%] mx-auto'>
                                     <img src='/img/kit-exclusivo.webp' alt='' draggable='false' className='m-auto w-full h-auto my-4' />
                                 </Container>
                                 <p>
@@ -494,7 +494,7 @@ export default function Home() {
                                     <li>Transmite a informação científica com propriedade</li>
                                 </List>
                                 <button
-                                    className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
+                                    className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-4 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
                                     onClick={() => $('#investimento').scrollIntoView()}>
                                     JUNTE-SE AO PALMILHANDO
                                 </button>
@@ -718,9 +718,9 @@ export default function Home() {
                                 <div className="divider"></div>
                                 <List className='check-light pt-4 mx-auto'>
                                     <li>Fisioterapeuta</li>
-                                    <li>Especialista em Terapia manual e morfofisiologia humana</li>
+                                    <li>Especialista em terapia manual e morfofisiologia humana</li>
                                     <li>MBA em gestão empresarial</li>
-                                    <li>Sócio fundador da Podoshop® e do Palmilhando</li>
+                                    <li>Sócio fundador da Podoshop® e do Palmilhando®</li>
                                 </List>
                             </Container>
                         </Wrapper>
