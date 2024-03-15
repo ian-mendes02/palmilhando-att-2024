@@ -192,7 +192,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "244fbb4779f1f54e"; }
+/******/ 		__webpack_require__.h = function() { return "ea736ccb4a653468"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -701,7 +701,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	!function() {
-/******/ 		__webpack_require__.p = "http://localhost:3000/_next/";
+/******/ 		__webpack_require__.p = "/_next/";
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/react refresh */

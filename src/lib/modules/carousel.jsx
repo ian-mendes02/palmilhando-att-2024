@@ -1,5 +1,5 @@
 'use client';
-import React, {Children, useMemo} from "react";
+import React, {Children, useMemo, useRef} from "react";
 
 const Carousel = ({
     children = [],
@@ -15,6 +15,9 @@ const Carousel = ({
     const indicatorContainerRef = React.useRef(null);
     const [timeoutInProgress, setTimeoutInProgress] = React.useState(false); // confere se há uma pausa em andamento
     const [tabHasFocus, setTabHasFocus] = React.useState(true);
+    const [elementWidth, setElementWidth] = React.useState(null);
+
+    const carouselRef = React.useRef(null)
 
     /**número total de elementos*/
     const originalItemsLength = React.useMemo(() => Children.count(children), [
@@ -65,6 +68,15 @@ const Carousel = ({
             }
         }
     }, [withIndicator, currentIndex]);
+
+    React.useEffect(() => {
+        function vw() {
+            let el = carouselRef.current.querySelectorAll('.carousel-element')[0].clientWidth;
+            setElementWidth(el);
+        } vw();
+        window.visualViewport.addEventListener('resize', vw);
+        return () => window.visualViewport.removeEventListener('resize', vw);
+    }, []);
 
     /**avança para o próximo item*/
     const nextItem = () => {
@@ -200,7 +212,7 @@ const Carousel = ({
             if (i > originalItemsLength + 1) {i = 0;};
             setCurrentIndex(i);
         }
-    }
+    };
 
     React.useEffect(() => {
         const doAutoScroll = autoScrollEnabled && setTimeout(scroll, autoScrollTimeout);
@@ -208,7 +220,7 @@ const Carousel = ({
     }, [currentIndex]);
 
     return (
-        <div className={className} id={id}>
+        <div className={className} id={id} ref={carouselRef}>
             <div className={`carousel-wrapper`}>
                 {isPrevButtonVisible ? (
                     <button
@@ -227,7 +239,7 @@ const Carousel = ({
                     <div
                         className={`carousel-content *:w-[calc(100% / ${visibleItemsCount})]`}
                         style={{
-                            transform: `translateX(-${currentIndex * (100 / visibleItemsCount)}%)`,
+                            transform: `translateX(-${currentIndex * elementWidth}px)`,
                             transition: !isTransitionEnabled ? "none" : undefined
                         }}
                         onTransitionEnd={() => handleTransitionEnd()}
@@ -235,10 +247,10 @@ const Carousel = ({
                         {isRepeating && extraPreviousItems}
                         {isFullWidth
                             ? children.map((i, k) =>
-                                <div key={k} className='w-full h-auto'>{i}</div>
+                                <div key={k} className='w-full h-auto carousel-element'>{i}</div>
                             )
                             : children.map((i, k) =>
-                                <div key={k} className='w-auto h-auto'>{i}</div>
+                                <div key={k} className='w-auto h-auto carousel-element'>{i}</div>
                             )
                         }
                         {isRepeating && extraNextItems}

@@ -11,6 +11,8 @@ export default function Home() {
 
     const $ = (el) => document.querySelector(el);
 
+    const [viewportWidth, setViewportWidth] = React.useState(null);
+
     React.useEffect(() => {
         !function(e, t, a, n, g) {e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"}); var m = t.getElementsByTagName(a)[0], r = t.createElement(a); r.async = !0, r.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4", m.parentNode.insertBefore(r, m);}(window, document, "script", "dataLayer");
         document.title = 'Palmilhando® | Tudo o que você precisa saber, na prática.';
@@ -39,7 +41,7 @@ export default function Home() {
 
         function isVisible(el) {
             var rect = el.getBoundingClientRect();
-            return (rect.top >= 0 && rect.bottom <= window.innerHeight + 128);
+            return (rect.top >= 0 && rect.bottom <= window.innerHeight * 1.5);
         }
 
         function fadeIn() {
@@ -59,28 +61,36 @@ export default function Home() {
 
     }, []);
 
+    React.useEffect(() => {
+        function vw() {
+            setViewportWidth(window.visualViewport.width);
+        } vw();
+        window.visualViewport.addEventListener('resize', vw);
+        return () => window.visualViewport.removeEventListener('resize', vw);
+    }, []);
+
     const Depoimento = (props) => {
         return (
             <div className='flex justify-between items-center bg-[var(--cor-4)] border border-cyan-100 shadow-md rounded-xl px-[3%] py-4 max-[820px]:py-[10%] mb-4 w-[85%] max-[820px]:w-full max-[820px]:flex-col max-[820px]:pt-[15%] max-[820px]:[&:not(:last-of-type)]:mb-24 relative'>
                 <div className='w-[15%] max-[820px]:w-1/4 rounded-md max-[820px]:absolute max-[820px]:top-0 max-[820px]:left-1/2 max-[820px]:-translate-y-1/2 max-[820px]:-translate-x-1/2 max-[820px]:border max-[820px]:border-cyan-100'>
                     <img src={props.src} alt="" draggable='false' className='rounded-[inherit]' />
                 </div>
-                <div className='w-[80%]'>
+                <div className='w-[80%] max-[820px]:w-full'>
                     <h2>{props.title}</h2>
                     <div className="divider left"></div>
                     <p>{props.children}</p>
                 </div>
             </div>
         );
-    }
+    };
 
     return (
         <div>
-            <Section id='header' className='h-[55rem]'>
+            <Section id='header' className='h-[55rem] max-[820px]:h-[90vh]'>
                 <Content className='relative z-10 w-full'>
                     <Content_Default>
                         <Wrapper className='justify-center' id='header-box'>
-                            <Container className='items-center w-[65%] max-[820px]:w-[80%] max-[426px]:w-[96%] max-w-[820px]'>
+                            <Container className='items-center w-[65%] max-[820px]:w-[80%] max-[426px]:w-full max-w-[820px]'>
                                 <Image src='/img/svg/logo_palmilhando.svg' alt='' className='w-full mb-4 max-w-[640px]' width='350' height='80' draggable='false' />
                                 <div className="divider"></div>
                                 <p className='text-2xl text-center max-[1024px]:text-sm my-4'>
@@ -108,55 +118,55 @@ export default function Home() {
 
                         <Wrapper className='max-[820px]:flex-col items-center justify-evenly relative bottom-6 max-[820px]:bottom-0'>
 
-                            <Wrapper className='items-center justify-evenly w-9/12 fade'>
-                                <Container className='items-center w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                            <Wrapper className='items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                                <Container className='items-center w-[45%] max-[820px]:w-[80%] max-[426px]:w-full'>
                                     <img src='/img/isolated_tablet_laptop_and_smartphone_composition.webp' className='fade' alt='' width='512px' height='512px' draggable='false' />
                                 </Container>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>O que é o <mark className="cor-7">Palmilhando</mark>?</h2>
                                     <br />
                                     <p>O Palmilhando é o único lugar que reúne <mark className="cor-7 font-semibold">absolutamente tudo</mark> o que você precisa para aprender a prescrever, confeccionar e empreender com palmilhas terapêuticas, fazendo delas o carro-chefe do seu consultório.</p>
                                 </Container>
                             </Wrapper>
 
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 fade'>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Conteúdo <mark className="cor-7">passo a passo</mark></h2>
                                     <br />
                                     <p>Para todos os níveis. Seja você um <mark className="cor-7 font-semibold">iniciante</mark> buscando aprender o básico sobre a confecção de palmilhas, ou um <mark className="cor-7 font-semibold">profissional experiente</mark> que deseja aprimorar sua prática e elevar seus lucros, <mark className="cor-7 font-semibold">o Palmilhando é o lugar certo para você</mark>.</p>
                                 </Container>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:my-8'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <img src='/img/svg/passo-a-passo.svg' width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
                             </Wrapper>
 
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 fade'>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:my-8'>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <img src='/img/svg/comunidade-ativa.svg' width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Comunidade <mark className="cor-7">ativa</mark> de membros</h2>
                                     <br />
                                     <p>Para você tirar todas as suas dúvidas, discutir casos clínicos, trocar indicações de pacientes e receber apoio para seguir mais forte. <mark className="cor-7 font-semibold">Com o Palmilhando, você não fica sozinho</mark>.</p>
                                 </Container>
                             </Wrapper>
 
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 fade'>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Kit de palmilha <mark className="cor-7">enviado para a sua casa</mark></h2>
                                     <br />
                                     <p>Todo mês você receberá um <mark className="cor-7 font-semibold">kit completo de materiais da Podoshop</mark> para confeccionar as suas palmilhas, chegando no total de 24 palmilhas no período de um ano. <span onClick={() => $('#kit-exclusivo').scrollIntoView({block: 'center'})} className='underline inline cursor-pointer'>Saiba mais</span></p>
                                 </Container>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:my-8'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <img src='/img/svg/entrega-pacote.svg' width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
                             </Wrapper>
 
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 fade'>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:my-8'>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <img src='/img/svg/vantagem-compras.svg' width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
-                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-[96%]'>
+                                <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Vantagens de compra de produtos e <mark className="cor-7">frete grátis</mark> durante todo o curso</h2>
                                     <br />
                                     <p>Para você aproveitar os nossos produtos da Podoshop e fazer as suas palmilhas com os <mark className="cor-7 font-semibold">melhores materiais</mark>.</p>
@@ -170,7 +180,7 @@ export default function Home() {
                 <img id='tab-2' className='absolute w-screen scale-x-[-1] bottom-0 translate-y-[98%] z-20' src='/img/svg/tab.svg' alt='' draggable='false' />
             </Section>
 
-            <div id='modulos' className='relative pt-24'>
+            <div id='modulos' className='relative pt-24 max-[820px]:pt-0'>
 
                 <Section className='pb-0'>
                     <Content>
@@ -237,7 +247,7 @@ export default function Home() {
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS TERAPÊUTICAS: DO BÁSICO AO AVANÇADO</h2>
                                             <div className="divider left"></div>
-                                            <p className='font-extralight'>Um curso completo, que vai do básico ao avançado, com certificado e atualizado todo mês. Dá pra acreditar? Esse conteúdo foi planejado desde a anatomia e biomecânica do pé e do tornozelo, passando pela neurociência da dor, até chegar na avaliação, prescrição e confecção de palmilhas para as principais queixas dos pés. É um curso para quem quer começar ou aperfeiçoar os conhecimentos nessa área com base em evidências científicas e muita prática clínica. As aulas são gravadas e você poderá assistir quando e como quiser, no seu tempo. <br />Concluindo este módulo inicial, você tem acesso a um certificado de 30h.</p>
+                                            <p className='font-light max-[820px]:text-lg'>Um curso completo, que vai do básico ao avançado, com certificado e atualizado todo mês. Dá pra acreditar? Esse conteúdo foi planejado desde a anatomia e biomecânica do pé e do tornozelo, passando pela neurociência da dor, até chegar na avaliação, prescrição e confecção de palmilhas para as principais queixas dos pés. É um curso para quem quer começar ou aperfeiçoar os conhecimentos nessa área com base em evidências científicas e muita prática clínica. As aulas são gravadas e você poderá assistir quando e como quiser, no seu tempo. <br />Concluindo este módulo inicial, você tem acesso a um certificado de 30h.</p>
                                         </div>
                                     </div>
                                 </Wrapper>
@@ -252,7 +262,7 @@ export default function Home() {
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS & NEGÓCIOS</h2>
                                             <div className="divider left"></div>
-                                            <p className='font-extralight'>No mercado de trabalho tão dinâmico e competitivo, ser bom tecnicamente não basta. É preciso entender a estrutura do negócio e como gerar fontes de faturamento e gerar lucro ao final do mês. Nesse curso vamos te mostrar de maneira prática como criar ou evoluir o seu negócio com base em três pilares: marketing, gestão financeira e planejamento estratégico.</p>
+                                            <p className='font-light max-[820px]:text-lg'>No mercado de trabalho tão dinâmico e competitivo, ser bom tecnicamente não basta. É preciso entender a estrutura do negócio e como gerar fontes de faturamento e gerar lucro ao final do mês. Nesse curso vamos te mostrar de maneira prática como criar ou evoluir o seu negócio com base em três pilares: marketing, gestão financeira e planejamento estratégico.</p>
                                         </div>
                                     </div>
                                 </Wrapper>
@@ -267,7 +277,7 @@ export default function Home() {
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>TPC & LIVES</h2>
                                             <div className="divider left"></div>
-                                            <p className='font-extralight'>Pela correria do dia a dia, nem sempre conseguimos assistir aquela live da semana sobre um assunto que interessa muito, não é? Nessa coleção você encontrará todas as nossas lives e treinamentos ao vivo. Só o assinante tem acesso às gravações e pode assistir quantas vezes quiser, no melhor momento do dia.</p>
+                                            <p className='font-light max-[820px]:text-lg'>Pela correria do dia a dia, nem sempre conseguimos assistir aquela live da semana sobre um assunto que interessa muito, não é? Nessa coleção você encontrará todas as nossas lives e treinamentos ao vivo. Só o assinante tem acesso às gravações e pode assistir quantas vezes quiser, no melhor momento do dia.</p>
                                         </div>
                                     </div>
                                 </Wrapper>
@@ -282,7 +292,7 @@ export default function Home() {
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text grad-slide text-3xl max-[426px]:text-xl'>MENTORIAS AO VIVO</h2>
                                             <div className="divider left"></div>
-                                            <p className='font-extralight'>Uma vez por mês você terá uma aula ao vivo com o André, com o Clayton ou outro convidado incrível para discutir casos clínicos que você pode levar! Imagine poder compartilhar as suas dúvidas com aquele paciente complexo! Esse é o objetivo da mentoria, passarmos um tempo valioso juntos discutindo casos, sugerindo estratégias e mostrando como é a prática baseada em evidências no mundo real. Uma grande oportunidade!</p>
+                                            <p className='font-light max-[820px]:text-lg'>Uma vez por mês você terá uma aula ao vivo com o André, com o Clayton ou outro convidado incrível para discutir casos clínicos que você pode levar! Imagine poder compartilhar as suas dúvidas com aquele paciente complexo! Esse é o objetivo da mentoria, passarmos um tempo valioso juntos discutindo casos, sugerindo estratégias e mostrando como é a prática baseada em evidências no mundo real. Uma grande oportunidade!</p>
                                         </div>
                                     </div>
                                 </Wrapper>
@@ -324,41 +334,41 @@ export default function Home() {
                         <h1 className='grad-text grad-slide text-center'>Tudo o que você precisa, num lugar só.</h1>
                         <h3 className='text-center'>Confira a seguir algumas das aulas que o Palmilhando oferece</h3>
                         <div className="divider"></div>
-                        <Carousel isInfinite withIndicator autoScrollEnabled={false} visibleItemsCount={7} className='mt-8 backlit' id='aulas-carrossel'>
-                            <div className="rounded-lg shadow-md m-4">
+                        <Carousel isInfinite withIndicator autoScrollEnabled={false} visibleItemsCount={viewportWidth <= 820 ? 1 : 7} className='mt-8 backlit' id='aulas-carrossel'>
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_1.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_2.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_3.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_4.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_5.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_6.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_7.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_8.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_9.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_10.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_11.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
-                            <div className="rounded-lg shadow-md m-4">
+                            <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
                                 <img src='/img/aulas/capa_12.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                         </Carousel>
@@ -378,7 +388,7 @@ export default function Home() {
                         {/*                         <h1 className="text-center"><mark className="text-white font-light">COM O <mark className="cor-1">PODOSHOP CLUBE</mark></mark><br /><mark className="grad-text grad-slide">TUDO ISSO SAI DE GRAÇA!</mark></h1>
 
                         <Wrapper className='my-8 justify-center items-center max-[820px]:pt-0'>
-                            <Container className='w-[48rem] max-[820px]:w-[80%] max-[426px]:w-[96%] text-center'>
+                            <Container className='w-[48rem] max-[820px]:w-[80%] max-[426px]:w-full text-center'>
                                 <p>Assinantes do Palmilhando se tornam automaticamente membros do <strong className="cor-7">Podoshop Clube</strong>, obtendo as seguintes <strong className='grad-text'>vantagens exclusivas:</strong></p>
                             </Container>
                             <Wrapper className='max-[820px]:flex-col justify-center items-center mt-24'>
@@ -398,12 +408,17 @@ export default function Home() {
                         </Wrapper> */}
 
                         <Wrapper className='justify-evenly items-center max-[820px]:mt-0 flex-nowrap max-[820px]:flex-col fade' >
-                            <Container className="w-[48rem] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:text-center" id="kit-exclusivo">
+                            <Container className="w-[48rem] max-[820px]:w-[80%] max-[426px]:w-full m-4" id="kit-exclusivo">
                                 <h1 className="grad-text">KIT EXCLUSIVO PODOSHOP®</h1>
                                 <br />
                                 <p>
                                     Cada aluno do Palmilhando receberá um kit mensalmente, <mark className="cor-7">sem custo adicional</mark>, para colocar em prática todo o aprendizado e fazer as suas próprias palmilhas.
                                     <br /><br />
+                                </p>
+                                <Container className='w-[36rem] min-[821px]:hidden max-[820px]:w-9/12 max-[426px]:w-[80%] m-4'>
+                                    <img src='/img/kit-exclusivo.webp' alt='' draggable='false' className='m-auto w-full h-auto my-4' />
+                                </Container>
+                                <p>
                                     No período de um ano, você poderá fazer 24 palmilhas com o material disponibilizado e <mark className="cor-7">recuperar todo o seu investimento no curso</mark>.
                                     Além disso, você terá <mark className="cor-7">descontos</mark> em todos os produtos e <mark className="cor-7">frete grátis</mark> para economizar de verdade.
                                     <br /><br />
@@ -415,7 +430,7 @@ export default function Home() {
                                     <small>* O envio do kit é exclusivo para território nacional.</small>
                                 </p>
                             </Container>
-                            <Container className='w-[36rem] max-[820px]:w-9/12 max-[426px]:w-[80%] m-4'>
+                            <Container className='w-[36rem] max-[820px]:hidden m-4'>
                                 <img src='/img/kit-exclusivo.webp' alt='' draggable='false' className='m-auto w-full h-auto my-4' />
                             </Container>
                         </Wrapper>
@@ -426,7 +441,7 @@ export default function Home() {
                             <h1 className='grad-text text-center font-light w-[65%] max-[820px]:w-full mx-auto'>Veja o quanto nossos membros estão se beneficiando com as vantagens do Podoshop Clube:</h1>
                             <Wrapper className='pt-8 justify-center flex-nowrap max-[820px]:flex-col'>
 
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-auto'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-full m-4 max-[820px]:mx-auto'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/debora.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
@@ -437,7 +452,7 @@ export default function Home() {
                                     </div>
                                 </Container>
 
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-auto'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-full m-4 max-[820px]:mx-auto'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/nilson.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6 pt-16 text-sm text-center'>
@@ -448,7 +463,7 @@ export default function Home() {
                                     </div>
                                 </Container>
 
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-auto'>
+                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-full m-4 max-[820px]:mx-auto'>
                                     <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
                                         <img src="/img/renata.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
                                         <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
@@ -478,14 +493,14 @@ export default function Home() {
                                     <li>Tem mais segurança e assertividade para diagnosticar e tratar os seus pacientes.</li>
                                     <li>Transmite a informação científica com propriedade</li>
                                 </List>
-                                    <button
-                                        className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
-                                        onClick={() => $('#investimento').scrollIntoView()}>
-                                        JUNTE-SE AO PALMILHANDO
-                                    </button>
+                                <button
+                                    className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
+                                    onClick={() => $('#investimento').scrollIntoView()}>
+                                    JUNTE-SE AO PALMILHANDO
+                                </button>
                             </Container>
-                            <Container className='w-[36rem] max-[820px]:w-9/12 max-[426px]:w-[80%] m-4 backlit'>
-                                <img src='/img/png/pbe_venn.png' alt='' draggable='false' className='m-auto w-full h-auto my-4' />
+                            <Container className='w-[36rem] max-[820px]:w-9/12 max-[426px]:w-full m-4 backlit'>
+                                <img src='/img/png/pbe_venn.png' alt='' draggable='false' className='m-auto w-full h-auto my-4 fade' />
                             </Container>
                         </Wrapper>
                     </Content_Default>
@@ -496,7 +511,7 @@ export default function Home() {
                 <Content className='border-[2px] border-white px-8 max-[820px]:px-0'>
                     <Content_Default>
                         <Wrapper className='items-end justify-evenly py-8'>
-                            <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] px-2'>
+                            <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-full px-2'>
                                 <h1 className='cor-7'>Com o Palmilhando® você vai:</h1>
                                 <div className="divider left"></div>
                                 <br />
@@ -507,13 +522,13 @@ export default function Home() {
                                     <li>Ter acesso aos melhores materiais do mercado com descontos e frete grátis, enviados direto pra você sem nenhum custo adicional</li>
                                 </List>
                             </Container>
-                            <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] relative'>
-                                <div className='max-[1160px]:hidden'>
+                            <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-full relative'>
+                                <div className='max-[820px]:hidden'>
                                     <img className='absolute bottom-[12px] left-[50%] translate-x-[-50%] w-[50%] aspect-square' src="/img/andre-avental.webp" alt="" draggable='false' />
                                     <img className='absolute bottom-[240px] left-[50%] translate-x-[-75%] w-[45%]' src="/img/andre_prop.webp" alt="" draggable='false' />
                                 </div>
                                 <Button
-                                    className='relative z-10 text-white shadow-md py-4 w-[32rem] max-[820px]:w-[80%] max-[426px]:w-[96%] mx-auto text-2xl'
+                                    className='relative z-10 text-white shadow-md py-4 w-max max-[820px]:w-[80%] max-[426px]:w-full mx-auto text-2xl max-[820px]:my-8'
                                     onClick={() => $('#investimento').scrollIntoView({block: 'center'})}>
                                     JUNTE-SE AO PALMILHANDO!
                                 </Button>
@@ -523,11 +538,11 @@ export default function Home() {
                 </Content>
             </Section>
 
-            <Section id='seu-investimento' className='bg-[linear-gradient(#0c6b96,#1E3050)] border-y-2 border-y-cyan-100 z-30'>
+            <Section id='seu-investimento' className='bg-[linear-gradient(#0c6b96,#1E3050)] border-y-2 border-y-cyan-100 z-30 max-[820px]:pt-4'>
                 <h1 className='z-20 text-center absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 max-[820px]:w-[90%]'><mark className="grad-text font-light">SEU INVESTIMENTO</mark></h1>
                 <Content className='mb-16'>
                     <Wrapper className='mb-12'>
-                        <table id='tabela-planos' className='shadow-lg text-lg max-w-[820px] w-[75%] max-[820px]:w-[80%] max-[426px]:w-[96%] max-[820px]:text-xs select-none'>
+                        <table id='tabela-planos' className='shadow-lg text-lg max-w-[820px] w-[75%] max-[820px]:hidden select-none'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -572,7 +587,7 @@ export default function Home() {
                     </Wrapper>
                     <div id="investimento">
                         <Wrapper className='flex-nowrap w-full max-[820px]:flex-col justify-center items-center'>
-                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-125 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
                                     <h1>PLANO BÁSICO</h1>
                                     <p className='font-extralight text-xs w-9/12 h-12'>O essencial para você se destacar como profissional</p>
@@ -592,7 +607,7 @@ export default function Home() {
                                     </List>
                                 </div>
                             </Container>
-                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
                                     <div className="card-shine-effect rounded-lg top-0"></div>
                                     <Badge className='border border-inherit rounded-full w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
@@ -616,7 +631,7 @@ export default function Home() {
                                     </List>
                                 </div>
                             </Container>
-                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-[96%] m-4'>
+                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-saturate-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
                                     <div className="card-shine-effect rounded-lg top-0 opacity-30"></div>
                                     <h1 className='cor-3'>PLANO BUSINESS</h1>
@@ -686,7 +701,7 @@ export default function Home() {
                     <Content_Default>
                         <h1 className='text-center'>Conheça os criadores do <mark className="cor-2">Palmilhando</mark>!</h1>
                         <Wrapper className='justify-center pt-32'>
-                            <Container className='relative w-[40%] max-[820px]:w-full max-[820px]:mb-32 p-8 pt-28 border-2 border-cyan-100 bg-[var(--cor-1-5)] grad-light rounded-lg shadow-md mx-4'>
+                            <Container className='relative w-[40%] max-[820px]:w-full max-[820px]:mb-32 p-8 pt-28 border-2 border-cyan-100 bg-[var(--cor-1-5)] grad-light rounded-lg shadow-md mx-4 max-[820px]:mx-0'>
                                 <div className='rounded-full shadow-md border-2 border-cyan-100 w-1/2 max-w-48 min-w-32 aspect-square absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-[var(--cor-2)] bg-[url(/img/andre-banner.webp)] bg-top bg-cover'></div>
                                 <h2 className='text-center'>André Mendes</h2>
                                 <div className="divider"></div>
@@ -697,7 +712,7 @@ export default function Home() {
                                     <li>Sócio fundador da Podoshop® e do Palmilhando®</li>
                                 </List>
                             </Container>
-                            <Container className='relative w-[40%] max-[820px]:w-full p-8 pt-28 border-2 border-cyan-100 bg-[var(--cor-1-5)] grad-light rounded-lg shadow-md mx-4'>
+                            <Container className='relative w-[40%] max-[820px]:w-full p-8 pt-28 border-2 border-cyan-100 bg-[var(--cor-1-5)] grad-light rounded-lg shadow-md mx-4 max-[820px]:mx-0'>
                                 <div className='rounded-full shadow-md border-2 border-cyan-100 w-1/2 max-w-48 min-w-32 aspect-square absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-[var(--cor-2)] bg-[url(/img/clayton-banner.webp)] bg-top bg-cover'></div>
                                 <h2 className='text-center'>Clayton Fuzetti</h2>
                                 <div className="divider"></div>

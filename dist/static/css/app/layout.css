@@ -3,248 +3,248 @@
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 100;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/0662b626da5db789-s.woff2) format('woff2');
+  src: url(/_next/static/media/0662b626da5db789-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 100;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/1fe84a733deddad4-s.woff2) format('woff2');
+  src: url(/_next/static/media/1fe84a733deddad4-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 100;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/7a78f1ce0329757f-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/7a78f1ce0329757f-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 200;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/ac614beb32f7a7c2-s.woff2) format('woff2');
+  src: url(/_next/static/media/ac614beb32f7a7c2-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 200;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/aefc8ad6d88b3354-s.woff2) format('woff2');
+  src: url(/_next/static/media/aefc8ad6d88b3354-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 200;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/d36a2a2bb416f59e-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/d36a2a2bb416f59e-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/e025c64520263018-s.woff2) format('woff2');
+  src: url(/_next/static/media/e025c64520263018-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/953974ac5e9ff354-s.woff2) format('woff2');
+  src: url(/_next/static/media/953974ac5e9ff354-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/c04551857776278f-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/c04551857776278f-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/87c72f23c47212b9-s.woff2) format('woff2');
+  src: url(/_next/static/media/87c72f23c47212b9-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/591327bf3b62a611-s.woff2) format('woff2');
+  src: url(/_next/static/media/591327bf3b62a611-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/916d3686010a8de2-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/916d3686010a8de2-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/839135d04a097cea-s.woff2) format('woff2');
+  src: url(/_next/static/media/839135d04a097cea-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/370d1cc320ec5619-s.woff2) format('woff2');
+  src: url(/_next/static/media/370d1cc320ec5619-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/7777133e901cd5ed-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/7777133e901cd5ed-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/3828f203592f7603-s.woff2) format('woff2');
+  src: url(/_next/static/media/3828f203592f7603-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/10939feefdad71be-s.woff2) format('woff2');
+  src: url(/_next/static/media/10939feefdad71be-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/d869208648ca5469-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/d869208648ca5469-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/20b8b8f6f47c1e10-s.woff2) format('woff2');
+  src: url(/_next/static/media/20b8b8f6f47c1e10-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/f93b79c1ea023ab6-s.woff2) format('woff2');
+  src: url(/_next/static/media/f93b79c1ea023ab6-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/9a881e2ac07d406b-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/9a881e2ac07d406b-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/8d1a51bb45dd4d14-s.woff2) format('woff2');
+  src: url(/_next/static/media/8d1a51bb45dd4d14-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/1b097aa12b72d9f9-s.woff2) format('woff2');
+  src: url(/_next/static/media/1b097aa12b72d9f9-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/376dd8dc38524313-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/376dd8dc38524313-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* devanagari */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/51051a7edfeea436-s.woff2) format('woff2');
+  src: url(/_next/static/media/51051a7edfeea436-s.woff2) format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 /* latin-ext */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/9b44cfc48addbfc9-s.woff2) format('woff2');
+  src: url(/_next/static/media/9b44cfc48addbfc9-s.woff2) format('woff2');
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: '__Poppins_1b0dcf';
+  font-family: '__Poppins_dd2ae8';
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url(http://localhost:3000/_next/static/media/bd427f25ac24d036-s.p.woff2) format('woff2');
+  src: url(/_next/static/media/bd427f25ac24d036-s.p.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}@font-face {font-family: '__Poppins_Fallback_1b0dcf';src: local("Arial");ascent-override: 92.33%;descent-override: 30.78%;line-gap-override: 8.79%;size-adjust: 113.73%
-}.__className_1b0dcf {font-family: '__Poppins_1b0dcf', '__Poppins_Fallback_1b0dcf';font-style: normal
+}@font-face {font-family: '__Poppins_Fallback_dd2ae8';src: local("Arial");ascent-override: 92.33%;descent-override: 30.78%;line-gap-override: 8.79%;size-adjust: 113.73%
+}.__className_dd2ae8 {font-family: '__Poppins_dd2ae8', '__Poppins_Fallback_dd2ae8';font-style: normal
 }
 
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
@@ -1141,6 +1141,21 @@ video {
 .max-w-\[820px\] {
   max-width: 820px;
 }
+.max-w-\[16rem\] {
+  max-width: 16rem;
+}
+.max-w-\[32rem\] {
+  max-width: 32rem;
+}
+.max-w-\[24rem\] {
+  max-width: 24rem;
+}
+.max-w-\[28rem\] {
+  max-width: 28rem;
+}
+.max-w-\[320px\] {
+  max-width: 320px;
+}
 .basis-\[100\%\] {
   flex-basis: 100%;
 }
@@ -1202,6 +1217,9 @@ video {
      -moz-user-select: none;
           user-select: none;
 }
+.resize {
+  resize: both;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -1240,9 +1258,6 @@ video {
 }
 .overflow-y-auto {
   overflow-y: auto;
-}
-.whitespace-nowrap {
-  white-space: nowrap;
 }
 .rounded-\[inherit\] {
   border-radius: inherit;
@@ -2046,12 +2061,22 @@ button:focus, input:focus, select:focus {
     background-color 200ms ease-out;
 }
 
+.collapsible span {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .caret {
   transition: 300ms ease-out;
 }
 
 .collapsible.active .caret {
   transform: rotate(90deg);
+}
+
+.collapsible.active span {
+  overflow: visible;
+  white-space: wrap;
 }
 
 .my-list {
@@ -2074,11 +2099,11 @@ button:focus, input:focus, select:focus {
 }
 
 .check-light li::before {
-  background-image: url(http://localhost:3000/_next/static/media/check.c01e8a54.svg);
+  background-image: url(/_next/static/media/check.c01e8a54.svg);
 }
 
 .check-dark li::before {
-  background-image: url(http://localhost:3000/_next/static/media/check-dark.184ed151.svg);
+  background-image: url(/_next/static/media/check-dark.184ed151.svg);
 }
 
 .bullet-green li::before {
@@ -2176,7 +2201,7 @@ button:focus, input:focus, select:focus {
 }
 
 #header {
-  background: url(http://localhost:3000/_next/static/media/palmilhando-header-bg.2493a26d.webp);
+  background: url(/_next/static/media/palmilhando-header-bg.2493a26d.webp);
   background-size: cover;
   background-position: top;
 }
@@ -2186,7 +2211,7 @@ button:focus, input:focus, select:focus {
   position: absolute;
   top: 0;
   left: 0;
-  background: url(http://localhost:3000/_next/static/media/andre-banner.c9a976ff.webp);
+  background: url(/_next/static/media/andre-banner.c9a976ff.webp);
   background-size: cover;
   background-position: top right;
   height: 100%;
@@ -2202,7 +2227,7 @@ button:focus, input:focus, select:focus {
   position: absolute;
   top: 0;
   right: 0;
-  background: url(http://localhost:3000/_next/static/media/clayton-banner.eb2636d7.webp);
+  background: url(/_next/static/media/clayton-banner.eb2636d7.webp);
   background-size: cover;
   background-position: top left;
   height: 100%;
@@ -2221,7 +2246,7 @@ button:focus, input:focus, select:focus {
   display: block;
   width: 100%;
   height: 100%;
-  background: url(http://localhost:3000/_next/static/media/chuva-palmilhas.3cdbcfe7.webp);
+  background: url(/_next/static/media/chuva-palmilhas.3cdbcfe7.webp);
   opacity: .3;
   filter: blur(15px);
   -webkit-mask-image: linear-gradient(to bottom, black, transparent)
@@ -2230,6 +2255,13 @@ button:focus, input:focus, select:focus {
 #aulas-carrossel .carousel-content-wrapper {
   mask-image: linear-gradient(0deg,transparent,black 15%,black 85%,transparent);
   -webkit-mask-image: -webkit-linear-gradient(0deg,transparent,black 15%,black 85%,transparent);
+}
+
+@media screen and (max-width:820px) {
+  #aulas-carrossel .carousel-content-wrapper {
+    mask-image: none;
+    -webkit-mask-image: none
+  }
 }
 
 #investimento li {
@@ -2272,7 +2304,7 @@ button:focus, input:focus, select:focus {
   width: 8rem;
   height: 4.5rem;
   background: #1E3050;
-  -webkit-mask-image: url(http://localhost:3000/_next/static/media/tab_2.3c3b91f3.svg);
+  -webkit-mask-image: url(/_next/static/media/tab_2.3c3b91f3.svg);
   -webkit-mask-repeat: no-repeat;
 }
 
@@ -2289,7 +2321,7 @@ button:focus, input:focus, select:focus {
   width: 3.5rem;
   height: 3.5rem;
   background-color: #0c6b96;
-  background-image: url(http://localhost:3000/_next/static/media/caret-light.f83551b0.svg);
+  background-image: url(/_next/static/media/caret-light.f83551b0.svg);
   background-position: 55% 50%;
   background-repeat: no-repeat;
   background-size: 15%;
@@ -2346,7 +2378,7 @@ button:focus, input:focus, select:focus {
   width: 100%;
   height: 100%;
   position: absolute;
-  background-image: url(http://localhost:3000/_next/static/media/foto-capa-publico-quente.d949ebdc.webp);
+  background-image: url(/_next/static/media/foto-capa-publico-quente.d949ebdc.webp);
   background-position: top right;
   background-size: cover;
   -webkit-mask-image: linear-gradient(black, transparent)
@@ -2360,7 +2392,7 @@ button:focus, input:focus, select:focus {
   display: block;
   height: 100%;
   width: 100%;
-  background: url(http://localhost:3000/_next/static/media/foto-andre-mendes.8f396ba0.webp);  
+  background: url(/_next/static/media/foto-andre-mendes.8f396ba0.webp);  
   background-position: top right;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2375,7 +2407,7 @@ button:focus, input:focus, select:focus {
   width: 100%;
   height: 100%;
   opacity: .5;
-  background-image: url(http://localhost:3000/_next/static/media/chuva-palmilhas.3cdbcfe7.webp);
+  background-image: url(/_next/static/media/chuva-palmilhas.3cdbcfe7.webp);
   -webkit-mask-image: linear-gradient(to bottom, black, transparent);
   filter: blur(12px);
   mix-blend-mode: screen;
@@ -2662,6 +2694,10 @@ button:focus, input:focus, select:focus {
     flex-direction: column;
   }
 
+  .max-\[820px\]\:flex-col-reverse {
+    flex-direction: column-reverse;
+  }
+
   .max-\[820px\]\:items-center {
     align-items: center;
   }
@@ -2721,6 +2757,10 @@ button:focus, input:focus, select:focus {
     padding-top: 6rem;
   }
 
+  .max-\[820px\]\:pt-4 {
+    padding-top: 1rem;
+  }
+
   .max-\[820px\]\:pt-8 {
     padding-top: 2rem;
   }
@@ -2751,6 +2791,11 @@ button:focus, input:focus, select:focus {
     font-size: 0.75rem;
     line-height: 1rem;
   }
+
+  .max-\[820px\]\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media (max-width: 426px) {
@@ -2761,6 +2806,10 @@ button:focus, input:focus, select:focus {
 
   .max-\[426px\]\:w-\[96\%\] {
     width: 96%;
+  }
+
+  .max-\[426px\]\:w-full {
+    width: 100%;
   }
 
   .max-\[426px\]\:text-xl {
