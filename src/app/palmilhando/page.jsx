@@ -86,22 +86,22 @@ export default function Home() {
 
     return (
         <div>
-            <Section id='header' className='h-[55rem] max-[820px]:h-[90vh]'>
+            <Section id='header' className='h-[55rem] max-[820px]:h-[95vh]'>
                 <Content className='relative z-10 w-full'>
                     <Content_Default>
                         <Wrapper className='justify-center' id='header-box'>
                             <Container className='items-center w-[65%] max-[820px]:w-[80%] max-[426px]:w-full max-w-[820px]'>
                                 <Image src='/img/svg/logo_palmilhando.svg' alt='' className='w-full mb-4 max-w-[640px]' width='350' height='80' draggable='false' />
                                 <div className="divider"></div>
-                                <p className='text-2xl text-center max-[1024px]:text-sm my-4'>
+                                <p className='text-2xl text-center my-4'>
                                     <strong>Tudo o que você precisa para ser <mark className="cor-2">referência em palmilhas</mark>, atender seus pacientes com segurança e ter um consultório <mark className="cor-3">realmente lucrativo</mark>.</strong>
                                 </p>
-                                <p className='max-[1024px]:text-sm text-center mb-8'>
+                                <p className='text-center mb-8'>
                                     O <strong className='cor-7'>Palmilhando</strong> é um programa desenvolvido <mark className="font-semibold text-white">por clínicos, para clínicos</mark>, para facilitar sua vida profissional com conteúdos teóricos e aulas práticas com materiais enviados mensalmente até a sua casa - <strong>sem nenhum custo adicional</strong>.
                                 </p>
                                 <button
                                     className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                                    onClick={() => $('#investimento').scrollIntoView({block:'center'})}>
+                                    onClick={() => $('#investimento').scrollIntoView({block:`${viewportWidth <= 820 ? 'start' : 'center'}`})}>
                                     QUERO ENTRAR NO PROGRAMA
                                 </button>
                                 <p className='text-sm font-extralight my-4'>Continue lendo para saber mais</p>
@@ -118,7 +118,7 @@ export default function Home() {
 
                         <Wrapper className='max-[820px]:flex-col items-center justify-evenly relative bottom-6 max-[820px]:bottom-0'>
 
-                            <Wrapper className='items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                            <Wrapper className='items-center justify-evenly w-9/12 max-[820px]:w-full fade px-4'>
                                 <Container className='items-center w-[45%] max-[820px]:w-[80%] max-[426px]:w-full'>
                                     <img src='/img/isolated_tablet_laptop_and_smartphone_composition.webp' className='fade' alt='' width='512px' height='512px' draggable='false' />
                                 </Container>
@@ -129,7 +129,7 @@ export default function Home() {
                                 </Container>
                             </Wrapper>
 
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:w-full fade px-4'>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Conteúdo <mark className="cor-7">passo a passo</mark></h2>
                                     <br />
@@ -140,7 +140,7 @@ export default function Home() {
                                 </Container>
                             </Wrapper>
 
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 max-[820px]:w-full fade px-4'>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <img src='/img/svg/comunidade-ativa.svg' width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
@@ -151,18 +151,18 @@ export default function Home() {
                                 </Container>
                             </Wrapper>
 
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:w-full fade px-4'>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Kit de palmilha <mark className="cor-7">enviado para a sua casa</mark></h2>
                                     <br />
-                                    <p>Todo mês você receberá um <mark className="cor-7 font-semibold">kit completo de materiais da Podoshop</mark> para confeccionar as suas palmilhas, chegando no total de 24 palmilhas no período de um ano. <span onClick={() => $('#kit-exclusivo').scrollIntoView({block: 'center'})} className='underline inline cursor-pointer'>Saiba mais</span></p>
+                                    <p>Todo mês você receberá um <mark className="cor-7 font-semibold">kit completo de materiais da Podoshop</mark> para confeccionar as suas palmilhas, chegando no total de 24 palmilhas no período de um ano. <span onClick={() => $('#kit-exclusivo').scrollIntoView({block:`${viewportWidth <= 820 ? 'start' : 'center'}`})} className='underline inline cursor-pointer'>Saiba mais</span></p>
                                 </Container>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <img src='/img/svg/entrega-pacote.svg' width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
                             </Wrapper>
 
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:w-full fade'>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 max-[820px]:w-full fade px-4'>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <img src='/img/svg/vantagem-compras.svg' width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
@@ -189,7 +189,7 @@ export default function Home() {
 
                                 <Container className='items-start'>
                                     <Wrapper className='flex-nowrap max-[820px]:flex-col justify-evenly items-center'>
-                                        <Container className='basis-[100%] mx-8 max-[820px]:mx-0'>
+                                        <Container className='basis-[100%] mx-8 max-[820px]:mx-0 px-4'>
                                             <h1 className='m-8 mb-0'>Pra quem é o <mark className="grad-text">Palmilhando</mark>?</h1>
                                             <List className='chain mx-auto max-w-[480px] my-8'>
                                                 <li>Profissionais que desejam <strong>proporcionar um tratamento mais eficiente</strong> para os seus pacientes.</li>
@@ -237,14 +237,14 @@ export default function Home() {
                             <div className="divider"></div>
                             <Carousel isInfinite withIndicator autoScrollEnabled={false} isFullWidth={true} className='mt-8'>
 
-                                <Wrapper className="w-full h-9/12 h-auto justify-center items-start">
+                                <Wrapper className="w-full h-auto justify-center items-start">
                                     <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
-                                        <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
+                                        <div className="relative w-82 max-[820px]:w-full overflow-hidden rounded-lg shadow-xl max-[820px]:overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src='/img/cursos/2.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
-                                            <img src='/img/cursos/mobile/2.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
+                                            <img src="/img/2.webp" alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                            <img src="/img/mobile/2.webp" width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
-                                        <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
+                                        <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:h-[80%] max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS TERAPÊUTICAS: DO BÁSICO AO AVANÇADO</h2>
                                             <div className="divider left"></div>
                                             <p className='font-light max-[820px]:text-lg'>Um curso completo, que vai do básico ao avançado, com certificado e atualizado todo mês. Dá pra acreditar? Esse conteúdo foi planejado desde a anatomia e biomecânica do pé e do tornozelo, passando pela neurociência da dor, até chegar na avaliação, prescrição e confecção de palmilhas para as principais queixas dos pés. É um curso para quem quer começar ou aperfeiçoar os conhecimentos nessa área com base em evidências científicas e muita prática clínica. As aulas são gravadas e você poderá assistir quando e como quiser, no seu tempo. <br />Concluindo este módulo inicial, você tem acesso a um certificado de 30h.</p>
@@ -254,12 +254,12 @@ export default function Home() {
 
                                 <Wrapper className="w-full h-auto justify-center items-start">
                                     <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
-                                        <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
+                                        <div className="relative w-82 max-[820px]:w-full overflow-hidden rounded-lg shadow-xl max-[820px]:overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src='/img/cursos/1.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
-                                            <img src='/img/cursos/mobile/1.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
+                                            <img src="/img/1.webp" alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                            <img src="/img/mobile/1.webp" width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
-                                        <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
+                                        <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:h-[80%] max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS & NEGÓCIOS</h2>
                                             <div className="divider left"></div>
                                             <p className='font-light max-[820px]:text-lg'>No mercado de trabalho tão dinâmico e competitivo, ser bom tecnicamente não basta. É preciso entender a estrutura do negócio e como gerar fontes de faturamento e gerar lucro ao final do mês. Nesse curso vamos te mostrar de maneira prática como criar ou evoluir o seu negócio com base em três pilares: marketing, gestão financeira e planejamento estratégico.</p>
@@ -269,12 +269,12 @@ export default function Home() {
 
                                 <Wrapper className="w-full h-auto justify-center items-start">
                                     <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
-                                        <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
+                                        <div className="relative w-82 max-[820px]:w-full overflow-hidden rounded-lg shadow-xl max-[820px]:overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src='/img/cursos/3.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
-                                            <img src='/img/cursos/mobile/3.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
+                                            <img src="/img/3.webp" alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                            <img src="/img/mobile/3.webp" width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
-                                        <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
+                                        <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:h-[80%] max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>TPC & LIVES</h2>
                                             <div className="divider left"></div>
                                             <p className='font-light max-[820px]:text-lg'>Pela correria do dia a dia, nem sempre conseguimos assistir aquela live da semana sobre um assunto que interessa muito, não é? Nessa coleção você encontrará todas as nossas lives e treinamentos ao vivo. Só o assinante tem acesso às gravações e pode assistir quantas vezes quiser, no melhor momento do dia.</p>
@@ -284,10 +284,10 @@ export default function Home() {
 
                                 <Wrapper className="w-full h-auto justify-center items-start">
                                     <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
-                                        <div className="relative w-82 max-[820px]:w-full max-[820px]:aspect-video overflow-hidden rounded-lg shadow-xl">
+                                        <div className="relative w-82 max-[820px]:w-full overflow-hidden rounded-lg shadow-xl max-[820px]:overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src='/img/cursos/4.webp' alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
-                                            <img src='/img/cursos/mobile/4.webp' alt='' draggable='false' className='w-full aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
+                                            <img src="/img/4.webp" alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                            <img src="/img/mobile/4.webp" width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text grad-slide text-3xl max-[426px]:text-xl'>MENTORIAS AO VIVO</h2>
@@ -305,7 +305,7 @@ export default function Home() {
 
             <Section className='bg-[#d7eeff] pt-0'>
                 <div className='w-full bg-[var(--cor-7)] p-4 text-center'>
-                    <h1>CURSO DE IMERSÃO EM PALMILHAS TERAPÊUTICAS</h1>
+                    <h1>IMERSÃO EM PALMILHAS TERAPÊUTICAS</h1>
                 </div>
                 <Content>
                     <Content_Default>
@@ -331,45 +331,45 @@ export default function Home() {
             <Section id='napratica'>
                 <Content>
                     <Content_Default>
-                        <h1 className='grad-text grad-slide text-center'>Tudo o que você precisa, num lugar só.</h1>
-                        <h3 className='text-center'>Confira a seguir algumas das aulas que o Palmilhando oferece</h3>
+                        <h1 className='grad-text grad-slide text-center px-4 mb-8'>Tudo o que você precisa, num lugar só.</h1>
+                        <h3 className='text-center px-4'>Confira a seguir algumas das aulas que o Palmilhando oferece</h3>
                         <div className="divider"></div>
                         <Carousel isInfinite withIndicator autoScrollEnabled={false} visibleItemsCount={viewportWidth <= 820 ? 1 : 7} className='mt-8 backlit' id='aulas-carrossel'>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_1.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_1.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_2.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_2.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_3.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_3.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_4.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_4.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_5.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_5.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_6.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_6.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_7.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_7.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_8.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_8.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_9.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_9.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_10.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_10.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_11.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_11.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src='/img/aulas/capa_12.webp' alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src="/img/capa_12.webp" alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                         </Carousel>
                         <button
@@ -385,30 +385,9 @@ export default function Home() {
                 <div className="badge top-0 w-16 bg-[var(--cor-1)] bg-[url(/img/svg/psclube-icone.svg)]"></div>
                 <Content>
                     <Content_Default className='pt-16 relative z-10'>
-                        {/*                         <h1 className="text-center"><mark className="text-white font-light">COM O <mark className="cor-1">PODOSHOP CLUBE</mark></mark><br /><mark className="grad-text grad-slide">TUDO ISSO SAI DE GRAÇA!</mark></h1>
-
-                        <Wrapper className='my-8 justify-center items-center max-[820px]:pt-0'>
-                            <Container className='w-[48rem] max-[820px]:w-[80%] max-[426px]:w-full text-center'>
-                                <p>Assinantes do Palmilhando se tornam automaticamente membros do <strong className="cor-7">Podoshop Clube</strong>, obtendo as seguintes <strong className='grad-text'>vantagens exclusivas:</strong></p>
-                            </Container>
-                            <Wrapper className='max-[820px]:flex-col justify-center items-center mt-24'>
-                                <Vantagem src='/img/svg/free-shipping.svg'>
-                                    <p className='text-lg'><strong className='grad-text'>Frete grátis</strong> nos produtos da Podoshop</p>
-                                </Vantagem>
-                                <Vantagem src='/img/svg/discount.svg'>
-                                    <p className='text-lg'>Descontos<strong className='grad-text'> exclusivos</strong></p>
-                                </Vantagem>
-                                <Vantagem src='/img/svg/shopping.svg'>
-                                    <p className='text-lg'><strong className='grad-text'>Acesso antecipado</strong> a lançamentos da Podoshop</p>
-                                </Vantagem>
-                                <Vantagem src='/img/svg/gift.svg'>
-                                    <p className='text-base'><strong className='grad-text'>Materiais de qualidade internacional</strong> enviados direto para a sua casa</p>
-                                </Vantagem>
-                            </Wrapper>
-                        </Wrapper> */}
 
                         <Wrapper className='justify-evenly items-center max-[820px]:mt-0 flex-nowrap max-[820px]:flex-col' >
-                            <Container className="w-[48rem] max-[820px]:w-[80%] max-[426px]:w-full m-4" id="kit-exclusivo">
+                            <Container className="w-[48rem] max-[820px]:w-[80%] max-[426px]:w-full m-4 px-4" id="kit-exclusivo">
                                 <h1 className="grad-text">KIT EXCLUSIVO PODOSHOP®</h1>
                                 <br />
                                 <p>
@@ -434,48 +413,6 @@ export default function Home() {
                                 <img src='/img/kit-exclusivo.webp' alt='' draggable='false' className='m-auto w-full h-auto my-4' />
                             </Container>
                         </Wrapper>
-
-                        {/*                         <div className="divider"></div>
-
-                        <Container className='pt-8'>
-                            <h1 className='grad-text text-center font-light w-[65%] max-[820px]:w-full mx-auto'>Veja o quanto nossos membros estão se beneficiando com as vantagens do Podoshop Clube:</h1>
-                            <Wrapper className='pt-8 justify-center flex-nowrap max-[820px]:flex-col'>
-
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-full m-4 max-[820px]:mx-auto'>
-                                    <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
-                                        <img src="/img/debora.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
-                                        <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
-                                            <p className='font-extralight'>O clube, além de desconto na compra dos materiais e fretes grátis mensais, que só isso já seria o máximo, traz a educação continuada. Na minha prática, com o clube, além de todas as vantagens, ainda consigo economizar, pois consigo otimizar mais o uso dos materiais e incluir no frete grátis os materiais que preciso para aquele mês.</p>
-                                            <br />
-                                            <p className='font-extralight'><i>Débora Barreto, Fisioterapeuta</i></p>
-                                        </div>
-                                    </div>
-                                </Container>
-
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-full m-4 max-[820px]:mx-auto'>
-                                    <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
-                                        <img src="/img/nilson.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
-                                        <div className='flex flex-col justify-between items-center h-full w-full p-6 pt-16 text-sm text-center'>
-                                            <p className='font-extralight'>Trabalho com palmilhas há 5 anos. mas sempre surgiram dúvidas e, essas, muitas das vezes não eram esclarecidas. Agora, participando da imersão e fazendo parte do Podoshop Clube, aprendo novas estratégias que nunca havia imaginado. Além dessas vantagens ganhamos descontos a cada compra. Ou seja, faço esses cursos sem pagar nada!</p>
-                                            <br />
-                                            <p className='font-extralight'><i>Nilson Bastos, Fisioterapeuta</i></p>
-                                        </div>
-                                    </div>
-                                </Container>
-
-                                <Container className='w-1/3 max-[820px]:w-[80%] max-[426px]:w-full m-4 max-[820px]:mx-auto'>
-                                    <div className='relative mt-8 rounded-lg shadow-md bg-[var(--cor-1)] grad-light h-full'>
-                                        <img src="/img/renata.webp" alt="" draggable='false' className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-[#4eaad5] rounded-full w-28 aspect-square' />
-                                        <div className='flex flex-col justify-between items-center h-full w-full p-6  pt-16 text-sm text-center'>
-                                            <p className='font-extralight'>Sinceridade… acho que nunca mais fico sem o Palmilhando e o Podoshop Clube! São informações valiosas que nos tornam mais seguros desde a indicação, raciocínio e confecção da palmilha! O Clayton e o André conduzem esse projeto com excelência!</p>
-                                            <br />
-                                            <p className='font-extralight'><i>Renata Scaramussa, Fisioterapeuta</i></p>
-                                        </div>
-                                    </div>
-                                </Container>
-
-                            </Wrapper>
-                        </Container> */}
 
                     </Content_Default>
                 </Content>
@@ -511,7 +448,7 @@ export default function Home() {
                 <Content className='border-[2px] border-white px-8 max-[820px]:px-0'>
                     <Content_Default>
                         <Wrapper className='items-end justify-evenly py-8'>
-                            <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-full px-2'>
+                            <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-full px-4'>
                                 <h1 className='cor-7'>Com o Palmilhando® você vai:</h1>
                                 <div className="divider left"></div>
                                 <br />
@@ -587,7 +524,7 @@ export default function Home() {
                     </Wrapper>
                     <div id="investimento">
                         <Wrapper className='flex-nowrap w-full max-[820px]:flex-col justify-center items-center'>
-                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4'>
+                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4 px-4'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-125 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
                                     <h1>PLANO BÁSICO</h1>
                                     <p className='font-extralight text-xs w-9/12 h-12'>O essencial para você se destacar como profissional</p>
@@ -607,7 +544,7 @@ export default function Home() {
                                     </List>
                                 </div>
                             </Container>
-                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4'>
+                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4 px-4'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
                                     <div className="card-shine-effect rounded-lg top-0"></div>
                                     <Badge className='border border-inherit rounded-full w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
@@ -631,7 +568,7 @@ export default function Home() {
                                     </List>
                                 </div>
                             </Container>
-                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4'>
+                            <Container className='w-96 max-[820px]:w-[80%] max-[426px]:w-full m-4 px-4'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-saturate-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
                                     <div className="card-shine-effect rounded-lg top-0 opacity-30"></div>
                                     <h1 className='cor-3'>PLANO BUSINESS</h1>
@@ -665,15 +602,15 @@ export default function Home() {
                     <Content_Default className='py-8'>
                         <h1 className='text-center'>Não acredita na gente?<br /><mark className="grad-text">Confira alguns depoimentos dos nossos alunos</mark></h1>
                         <Container className='pt-16 max-[820px]:pt-24 items-center'>
-                            <Depoimento title='Gláucia Mendonça, Podologista' src='/img/glaucia.webp'>
+                            <Depoimento title='Gláucia Mendonça, Podologista' src="/img/glaucia.webp">
                                 A didática usada pelo Clayton e pelo André é maravilhosa, sempre nos dando dicas e nos incentivando a buscar melhorar a cada dia, sem falar no grupo de WhatsApp que a troca de experiências é riquíssima. A plataforma do Palmilhando veio como um divisor de águas pra mim, e hoje me destaco como a profissional que sou.
                             </Depoimento>
 
-                            <Depoimento reverse title='Jane Reis, Enfermeira Podiatra' src='/img/jane.webp'>
+                            <Depoimento reverse title='Jane Reis, Enfermeira Podiatra' src="/img/jane.webp">
                                 No Palmilhando, com o André e o Clayton, vamos nos atualizando e discutindo ciência. Abri meu leque de atuação pois, além de palmilhas para pacientes portadores de Diabetes, atendo também outras demandas. Com certeza o Palmilhando e o Podoshop Clube são divisores de água na minha carreira. Obrigada André e Clayton pelo excelente trabalho e entrega.
                             </Depoimento>
 
-                            <Depoimento title='Luciana Negri, Fisioterapeuta' src='/img/luciana.webp'>
+                            <Depoimento title='Luciana Negri, Fisioterapeuta' src="/img/luciana.webp">
                                 Na imersão eu conheci o Palmilhando, que hoje vejo como um divisor de águas na minha atuação como fisioterapeuta. Todo dia aprendo trocando ideias e não me sinto mais sozinha. Sempre tem novidades e as pesquisas e os estudos são constantes.
                             </Depoimento>
                         </Container>
