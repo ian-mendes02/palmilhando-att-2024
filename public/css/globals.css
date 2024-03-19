@@ -630,6 +630,23 @@ button:focus, input:focus, select:focus {
   mix-blend-mode: screen;
 }
 
+#evt-local::before {
+  content: '';
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  background-image: url('../img/mercure_sjc.webp');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: cover;
+  mix-blend-mode: overlay;
+  opacity: .5;
+  -webkit-mask-image: linear-gradient(to left, black, transparent)
+}
+
 @media screen and (min-width:1600px) {
   #modulos {
     padding-top: 7.5vw;

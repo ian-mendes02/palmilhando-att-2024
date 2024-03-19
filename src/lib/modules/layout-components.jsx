@@ -49,7 +49,7 @@ const Badge = ({children, width = 24, className = ''}) => {
 }
 
 const Loading = ({width = 32}) => {
-    return <img src='/img/gif/loading.gif' alt='' draggable='false' width={width} height={width} className='absolute-center'/>
+    return <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/gif/loading.gif'} alt='' draggable='false' width={width} height={width} className='absolute-center'/>
 }
 
 export {Section, Content, Content_Default, Container, Wrapper, Badge, Loading};

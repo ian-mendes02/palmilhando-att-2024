@@ -10,7 +10,8 @@ export default function RootLayout({children}) {
     return (
         <html lang="pt" className={poppins.className}>
             <head>
-                <link rel="shortcut icon" type='image/x-icon' href="/img/ico/palmilhas_palmilhando.ico" />
+                <link rel="shortcut icon" type='image/x-icon' href="https://palmilhando.com.br/assinatura/img/ico/palmilhas_palmilhando.ico" />
+                <script src="https://kit.fontawesome.com/39a4d158e8.js" crossOrigin="anonymous"></script>
             </head>
             <body>
                 {children}
