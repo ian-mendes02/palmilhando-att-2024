@@ -124,11 +124,11 @@ export default function Main() {
             return (
                 <tr className='cor-5 rounded-lg shadow-md scale-[102%]'>
                     <th className='w-[25%] bg-[#d6edff] p-4 rounded-tl-lg rounded-bl-lg max-[820px]:hidden'>HORÁRIO</th>
-                    <th className='w-[25%] bg-[#d6edff] p-4 rounded-tl-lg rounded-bl-lg min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/clock.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
+                    <th className='w-[25%] bg-[#d6edff] p-4 rounded-tl-lg rounded-bl-lg min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/clock.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
                     <th className='bg-[#d6edff] p-6 max-[820px]:hidden'>TEMA</th>
-                    <th className='bg-[#d6edff] p-6 min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/bulb.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
+                    <th className='bg-[#d6edff] p-6 min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/bulb.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
                     <th className='w-[25%] bg-[#d6edff] p-4 rounded-tr-lg rounded-br-lg max-[820px]:hidden'>PALESTRANTE</th>
-                    <th className='w-[25%] bg-[#d6edff] p-4 rounded-tr-lg rounded-br-lg min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/talk.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
+                    <th className='w-[25%] bg-[#d6edff] p-4 rounded-tr-lg rounded-br-lg min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/talk.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
                 </tr>
             );
         };
@@ -180,8 +180,8 @@ export default function Main() {
     const Thumbnail = () => {
         return (
             <div className='w-full h-full' onClick={() => setIsPlaying(true)}>
-                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/thumbnail_video_apresentacao.webp'} alt='' draggable='false' className='w-full h-auto rounded-lg' />
-                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/play_button.svg'} width={64} height={64} alt='' draggable='false' className='absolute-center opacity-80 hover:opacity-100 duration-200 ease' />
+                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/thumbnail_video_apresentacao.webp'} alt='' draggable='false' className='w-full h-auto rounded-lg' />
+                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/play_button.svg'} width={64} height={64} alt='' draggable='false' className='absolute-center opacity-80 hover:opacity-100 duration-200 ease' />
             </div>
         );
     };
@@ -266,7 +266,7 @@ export default function Main() {
             if (requireValidation) {
                 try {
                     setDisplayMessage(null);
-                    setButtonText(<img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/gif/loading.gif'} alt='' draggable='false' width={32} height={32} className='mx-auto' />);
+                    setButtonText(<img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/gif/loading.gif'} alt='' draggable='false' width={32} height={32} className='mx-auto' />);
                     var validAtendee = isReturning && await validateAtendee(userEmail);
                     var validMember = isMember && await validateMember(userEmail);
                     if (validMember) {
@@ -324,14 +324,14 @@ export default function Main() {
         <div>
 
             <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light bg-fade-bottom'>
-                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/[evento]_header_bg.webp'} alt='' draggable='false' className='w-full h-auto' />
+                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/[evento]_header_bg.webp'} alt='' draggable='false' className='w-full h-auto' />
             </div>
 
             {!isMobile && (<Section id='topnav' className='py-8'>
                 <Content>
                     <Content_Default className='flex justify-between'>
                         <Container className='h-8 w-auto max-[820px]:mx-auto max-[820px]:h-12'>
-                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/logo_palmilhando.svg'} alt='' draggable='false' className='h-full w-auto' />
+                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/logo_palmilhando.svg'} alt='' draggable='false' className='h-full w-auto' />
                         </Container>
                         <Wrapper id='navlinks' className='max-[820px]:hidden'>
                             <List className='flex items-center'>
@@ -355,7 +355,7 @@ export default function Main() {
                     <Content_Default className='flex justify-center items-end max-[820px]:text-center max-[820px]:flex-col max-[820px]:items-center'>
                         <Container className='h-full w-[32rem] max-[820px]:w-[80%] max-[426px]:w-full p-8 max-[820px]:p-2'>
                             <Container>
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/encontro_logo_3.svg'} alt='' draggable='false' />
+                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/encontro_logo_3.svg'} alt='' draggable='false' />
                             </Container>
                             <div className="divider left max-[820px]:hidden"></div>
                             <div className="divider min-[821px]:hidden"></div>
@@ -365,13 +365,13 @@ export default function Main() {
                             <Container>
                                 <Wrapper className="items-center flex-nowrap w-max m-2">
                                     <div className='w-12 h-12 mr-4 bg-sky-900 rounded-full flex items-center justify-center shadow-md'>
-                                        <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
+                                        <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
                                     </div>
                                     <h2 className='font-extralight max-[820px]:text-base'>São José dos Campos - SP</h2>
                                 </Wrapper>
                                 <Wrapper className="items-center flex-nowrap w-max m-2">
                                     <div className='w-12 h-12 mr-4 bg-sky-900 rounded-full flex items-center justify-center shadow-md'>
-                                        <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
+                                        <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
                                     </div>
                                     <h2 className='font-extralight max-[820px]:text-base'>13 e 14 de Setembro</h2>
                                 </Wrapper>
@@ -491,7 +491,7 @@ export default function Main() {
                                 <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:w-full">
                                     {!isMobile && (
                                         <div className='w-12 h-12 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
+                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
                                         </div>
                                     )}
                                     <h2 className='font-extralight max-[820px]:text-base'>
@@ -503,7 +503,7 @@ export default function Main() {
                                 <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:w-full">
                                     {!isMobile && (
                                         <div className='w-12 h-12 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
+                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
                                         </div>
                                     )}
                                     <h2 className='font-extralight max-[820px]:text-base'>
@@ -554,7 +554,7 @@ export default function Main() {
                         <Wrapper className='w-full items-center justify-center'>
                             <Container className='w-[426px] max-[426px]:w-full h-[512px] relative pt-16 mx-auto max-[820px]:mx-0 rounded-lg shadow-lg border border-cyan-100 bg-[color:#0e1b2c] bg-opacity-75 backdrop-blur-xl' id='location-info'>
                                 <Badge className='border-2 border-cyan-100 !bg-[color:#0e1b2c]' width={20}>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/ticket.svg'} alt='' draggable='false' className='w-full aspect-square' />
+                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/ticket.svg'} alt='' draggable='false' className='w-full aspect-square' />
                                 </Badge>
                                 <div className='w-full h-full overflow-hidden'>
                                     <div className='flex justify-between w-[200%] duration-300 ease-out' style={{transform: !showForm ? 'translateX(0)' : 'translateX(-50%)'}}>
@@ -607,7 +607,7 @@ export default function Main() {
                                                         {validationPending && <Button className='my-4 w-9/12' onClick={() => handleVerification()}>{buttonText}</Button>}
                                                         {showPurchaseLink && <a href={purchaseLink} className='w-9/12'><Button className='my-4 w-full flex items-center justify-center'>
                                                             <span>CONTINUAR</span>
-                                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + '/img/svg/external-link.svg'} alt='' draggable='false' className='w-4 mx-2' />
+                                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/external-link.svg'} alt='' draggable='false' className='w-4 mx-2' />
                                                         </Button>
                                                         </a>}
                                                         {displayMessage}
@@ -649,7 +649,7 @@ export default function Main() {
                                 <div className="divider left"></div>
                                 <p>Confira aqui as respostas para as dúvidas mais frequentes, ou entre em contato conosco via Whatsapp</p>
                                 <a href="https://wa.me//5512982628132" className='flex items-center justify-evenly py-4 my-4 px-8 border border-cyan-200 rounded-xl hover:backdrop-brightness-110 ease-out duration-200 cursor-pointer decoration-[none] text-white'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
+                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
                                     <p className='w-full'>ATENDIMENTO POR <mark className="cor-3">WHATSAPP</mark></p>
                                 </a>
                             </Container>

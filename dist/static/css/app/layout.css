@@ -1316,14 +1316,14 @@ video {
 .border-b-4 {
   border-bottom-width: 4px;
 }
+.border-b-8 {
+  border-bottom-width: 8px;
+}
 .border-t {
   border-top-width: 1px;
 }
 .border-t-2 {
   border-top-width: 2px;
-}
-.border-b-8 {
-  border-bottom-width: 8px;
 }
 .border-none {
   border-style: none;
@@ -1351,6 +1351,10 @@ video {
   border-top-color: rgb(207 250 254 / var(--tw-border-opacity));
   border-bottom-color: rgb(207 250 254 / var(--tw-border-opacity));
 }
+.border-b-\[\#0e1b2c\] {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(14 27 44 / var(--tw-border-opacity));
+}
 .border-b-slate-800 {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(30 41 59 / var(--tw-border-opacity));
@@ -1359,33 +1363,9 @@ video {
   --tw-border-opacity: 1;
   border-top-color: rgb(207 250 254 / var(--tw-border-opacity));
 }
-.border-b-blue-950 {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(23 37 84 / var(--tw-border-opacity));
-}
-.border-t-white {
-  --tw-border-opacity: 1;
-  border-top-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
 .border-t-cyan-200 {
   --tw-border-opacity: 1;
   border-top-color: rgb(165 243 252 / var(--tw-border-opacity));
-}
-.border-b-black {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-.border-b-indigo-950 {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(30 27 75 / var(--tw-border-opacity));
-}
-.border-b-\[\#0e1b2c\] {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(14 27 44 / var(--tw-border-opacity));
-}
-.border-b-\[\#0a1320\] {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(10 19 32 / var(--tw-border-opacity));
 }
 .\!bg-\[color\:\#0e1b2c\] {
   --tw-bg-opacity: 1 !important;
@@ -1482,6 +1462,9 @@ video {
 .bg-\[linear-gradient\(60deg\2c \#d6edff\2c \#ffffff\)\] {
   background-image: linear-gradient(60deg,#d6edff,#ffffff);
 }
+.bg-\[linear-gradient\(60deg\2c var\(--cor-4\)\2c var\(--cor-5\)\)\] {
+  background-image: linear-gradient(60deg,var(--cor-4),var(--cor-5));
+}
 .bg-\[linear-gradient\(to_right\2c var\(--grad-1\)\)\] {
   background-image: linear-gradient(to right,var(--grad-1));
 }
@@ -1494,29 +1477,23 @@ video {
 .bg-\[radial-gradient\(circle_at_center\2c \#ffffff\2c rgb\(241_245_249\)\)\] {
   background-image: radial-gradient(circle at center,#ffffff,rgb(241 245 249));
 }
-.bg-\[radial-gradient\(circle_at_center\2c var\(--cor-1\)\2c \#0e1b2c\)\] {
-  background-image: radial-gradient(circle at center,var(--cor-1),#0e1b2c);
-}
 .bg-\[radial-gradient\(circle_at_center\2c var\(--cor-4\)\2c \#0e1b2c\)\] {
   background-image: radial-gradient(circle at center,var(--cor-4),#0e1b2c);
-}
-.bg-\[linear-gradient\(60deg\2c \#0e1b2c\2c var\(--cor-4\)\)\] {
-  background-image: linear-gradient(60deg,#0e1b2c,var(--cor-4));
-}
-.bg-\[linear-gradient\(60deg\2c var\(--cor-4\)\2c var\(--cor-5\)\)\] {
-  background-image: linear-gradient(60deg,var(--cor-4),var(--cor-5));
 }
 .bg-\[length\:150\%\] {
   background-size: 150%;
 }
-.bg-cover {
-  background-size: cover;
-}
 .bg-\[size\:200\%\] {
   background-size: 200%;
 }
+.bg-cover {
+  background-size: cover;
+}
 .bg-top {
   background-position: top;
+}
+.p-16 {
+  padding: 4rem;
 }
 .p-2 {
   padding: 0.5rem;
@@ -1535,9 +1512,6 @@ video {
 }
 .p-\[2\.5\%\] {
   padding: 2.5%;
-}
-.p-16 {
-  padding: 4rem;
 }
 .px-16 {
   padding-left: 4rem;
@@ -2637,6 +2611,10 @@ button:focus, input:focus, select:focus {
     margin-bottom: 2rem;
   }
 
+  .max-\[820px\]\:\!ml-0 {
+    margin-left: 0px !important;
+  }
+
   .max-\[820px\]\:mb-32 {
     margin-bottom: 8rem;
   }
@@ -2663,10 +2641,6 @@ button:focus, input:focus, select:focus {
 
   .max-\[820px\]\:mt-8 {
     margin-top: 2rem;
-  }
-
-  .max-\[820px\]\:\!ml-0 {
-    margin-left: 0px !important;
   }
 
   .max-\[820px\]\:hidden {
@@ -2697,6 +2671,14 @@ button:focus, input:focus, select:focus {
     max-height: 100%;
   }
 
+  .max-\[820px\]\:\!w-\[90\%\] {
+    width: 90% !important;
+  }
+
+  .max-\[820px\]\:\!w-\[96\%\] {
+    width: 96% !important;
+  }
+
   .max-\[820px\]\:\!w-full {
     width: 100% !important;
   }
@@ -2719,14 +2701,6 @@ button:focus, input:focus, select:focus {
 
   .max-\[820px\]\:w-full {
     width: 100%;
-  }
-
-  .max-\[820px\]\:\!w-\[90\%\] {
-    width: 90% !important;
-  }
-
-  .max-\[820px\]\:\!w-\[96\%\] {
-    width: 96% !important;
   }
 
   .max-\[820px\]\:max-w-\[340px\] {
