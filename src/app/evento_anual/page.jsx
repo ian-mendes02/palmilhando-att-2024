@@ -4,6 +4,7 @@ import {Section, Content, Content_Default, Container, Wrapper, Badge, Loading} f
 import {Button, List, Collapsible} from '@/lib/modules/ui-components';
 import {validateAtendee, validateMember} from '@/lib/modules/validate-purchase';
 import {TEInput} from 'tw-elements-react';
+import '../../../public/css/globals.css';
 
 export default function Main() {
 
@@ -447,7 +448,7 @@ export default function Main() {
                     <Content_Default>
                         <Container className="text-center mx-auto w-9/12 max-[820px]:!w-full mb-8">
                             <h1 className='font-bold text-3xl cor-5 mb-2 max-[820px]:!text-2xl'>A PROFISSIONALIZAÇÃO É O ÚNICO CAMINHO</h1>
-                            <h2 className='mx-auto w-9/12 max-[820px]:!w-full'>Não importa o seu tempo de mercado: o <mark className="cor-1">Encontro Anual Palmilhas e Ciência Aplicada</mark> é o lugar perfeito para você ter ainda mais resultados.</h2>
+                            <h2 className='mx-auto w-9/12 max-[820px]:!w-full text-base font-light'>Não importa o seu tempo de mercado: o <mark className="cor-1">Encontro Anual Palmilhas e Ciência Aplicada</mark> é o lugar perfeito para você ter ainda mais resultados.</h2>
                         </Container>
                         <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-center light'>
                             <Container className='w-80 m-2 p-2 rounded-lg shadow-md bg-[linear-gradient(60deg,#d6edff,#ffffff)] hover:scale-105 duration-200 ease-out'>
@@ -494,7 +495,7 @@ export default function Main() {
                                             <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
                                         </div>
                                     )}
-                                    <h2 className='font-extralight max-[820px]:text-base'>
+                                    <h2 className='font-extralight text-base'>
                                         {isMobile && <i className="fa-solid fa-calendar-days mr-2" aria-hidden="true"></i>}
                                         <strong>13 e 14 de Setembro</strong><br />
                                         Sexta-feira e sábado
@@ -506,7 +507,7 @@ export default function Main() {
                                             <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
                                         </div>
                                     )}
-                                    <h2 className='font-extralight max-[820px]:text-base'>
+                                    <h2 className='font-extralight text-base'>
                                         {isMobile && <i className="fa-solid fa-location-dot mr-2" aria-hidden="true"></i>}
                                         <strong>Hotel Mercure São José dos Campos - Torre II</strong><br />
                                         Av. Jorge Zarur, 81, Jardim Apolo <br />
