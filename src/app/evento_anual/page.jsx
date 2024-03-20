@@ -167,15 +167,7 @@ export default function Main() {
     };
 
     const IframeContent = () => {
-        if (window.visualViewport.width <= 820) {
-            return (
-                <iframe src='https://www.youtube.com/embed/ELc7U9NgONY?si=IrU_5yk4GizQ202H&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none w-full h-full rounded-md'></iframe>
-            );
-        } else {
-            return (
-                <iframe src='https://www.youtube.com/embed/JUh_rvkemmU?si=fKzdc98EAPiegzfl&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none w-full h-full rounded-md'></iframe>
-            );
-        }
+        return <iframe src='https://www.youtube.com/embed/4Q2rD4ZH31M?si=DcurTOerXO3Rtc8o&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none w-full h-full rounded-md'></iframe>
     };
 
     const Thumbnail = () => {
