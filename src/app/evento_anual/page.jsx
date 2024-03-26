@@ -1,74 +1,38 @@
 'use client';
 import {useEffect, useRef, useMemo, useState} from 'react';
-import {Section, Content, Content_Default, Container, Wrapper, Badge, Loading} from '@/lib/modules/layout-components';
+import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
 import {Button, List, Collapsible} from '@/lib/modules/ui-components';
-import {validateAtendee, validateMember} from '@/lib/modules/validate-purchase';
-import {TEInput} from 'tw-elements-react';
+import ValidationForm from './validation-form-2';
 import '../../../public/css/globals.css';
+
 
 export default function Main() {
 
-    //literals
+    const defaultOccupation = '?';
 
-    const defaultUser = 'Fulano da Silva';
-
-    const defaultOccupation = 'Clínico Fisioterapeuta';
-
-    const defaultText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit auctor purus ut tincidunt. Cras porta, odio id sodales scelerisque, nulla enim blandit lacus, vitae tincidunt purus urna et ipsum';
+    const defaultText = 'Teremos mais informações sobre esse palestrante em breve. Fique ligado!';
 
     //states
-
-    const [requireValidation, setRequireValidation] = useState(false);
-
-    const [isMember, setIsMember] = useState(false);
-
-    const [isReturning, setIsReturning] = useState(false);
-
-    const [userName, setUserName] = useState('');
-
-    const [userEmail, setUserEmail] = useState('');
-
-    const [displayMessage, setDisplayMessage] = useState(null);
-
-    const [buttonText, setButtonText] = useState('ENVIAR');
-
-    const [purchaseLink, setPurchaseLink] = useState('');
-
-    const [showPurchaseLink, setShowPurchaseLink] = useState(false);
-
-    const [validationPending, setValidationPending] = useState(true);
-
-    const [mapVisible, setMapVisible] = useState(false);
 
     const [viewportWidth, setViewportWidth] = useState(null);
 
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const [showForm, setShowForm] = useState(false);
-
     //hooks
 
-    const isMobile = useMemo(() => {return viewportWidth <= 820;}, [viewportWidth]);
+    const isMobile = useMemo(() => {
+        return viewportWidth <= 820;
+    }, [viewportWidth]);
+
+    const ASSET_PREFIX = useMemo(() => {
+        return process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL;
+    }, []);
 
     const defaultUserProfile = useMemo(() => {
-        return process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/default_user.jpg';
+        return ASSET_PREFIX + 'img/default_user.jpg';
     }, []);
 
     const iframeRef = useRef(null);
-
-    const statusMessage = {
-        error_no_input: <span className='text-red-500 text-center'>Parece que há campos em branco, tente novamente.</span>,
-        user_not_found: <span className='text-white text-center font-light text-sm'>Ops! Não encontramos nenhum registro com esse endereço de email. Confira se o endereço informado está correto e tente novamente, ou <a href="" className='!underline'>entre em contato conosco</a>.</span>,
-        is_member: <span className='grad-text text-center'>Confirmamos sua assinatura do Palmilhando®! Clique no link acima para adquirir seu ingresso com um desconto exclusivo.</span>,
-        is_atendee: <span className='text-white text-center'>Confirmamos sua presença no Encontro de 2023! Clique no link acima para adquirir seu ingresso com um desconto exclusivo.</span>,
-        server_error: <span className='text-orange-500 text-center font-light text-sm'>Servidor indisponível no momento, tente novamente mais tarde.</span>,
-        default: <span className='text-white text-center'>Obrigado! Clique no link acima para continuar.</span>,
-    };
-
-    const link = {
-        discount: '',
-        default: ''
-    };
 
     useEffect(() => {
         !function(e, t, a, n, g) {e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"}); var m = t.getElementsByTagName(a)[0], r = t.createElement(a); r.async = !0, r.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4", m.parentNode.insertBefore(r, m);}(window, document, "script", "dataLayer");
@@ -84,13 +48,6 @@ export default function Main() {
     }, []);
 
     useEffect(() => {
-        setRequireValidation(isMember || isReturning);
-        resetModal();
-    }, [isMember, isReturning]);
-
-    useEffect(() => {resetModal();}, [userName, userEmail]);
-
-    useEffect(() => {
         const handleClickOutside = (event) => {
             if (iframeRef.current && !iframeRef.current.contains(event.target)) {
                 setIsPlaying(false);
@@ -104,15 +61,6 @@ export default function Main() {
 
     //components
 
-    const Map = () => {
-        return (
-            <div className='rounded-lg w-full h-full relative'>
-                <Loading />
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14668.122128172752!2d-45.90516370000002!3d-23.205557899999988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc3589bc020f0d%3A0x96bc968352c2c899!2sMercure%20Sao%20Jose%20dos%20Campos!5e0!3m2!1sen!2sbr!4v1710790411443!5m2!1sen!2sbr" className='outline-none border-none w-full h-full absolute rounded-[inherit]' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        );
-    };
-
     const Schedule = (props) => {
         const DefaultHeader = () => {
             return (
@@ -125,11 +73,11 @@ export default function Main() {
             return (
                 <tr className='cor-5 rounded-lg shadow-md scale-[102%]'>
                     <th className='w-[25%] bg-[#d6edff] p-4 rounded-tl-lg rounded-bl-lg max-[820px]:hidden'>HORÁRIO</th>
-                    <th className='w-[25%] bg-[#d6edff] p-4 rounded-tl-lg rounded-bl-lg min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/clock.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
+                    <th className='w-[25%] bg-[#d6edff] p-4 rounded-tl-lg rounded-bl-lg min-[820px]:hidden'><img src={ASSET_PREFIX + 'img/svg/clock.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
                     <th className='bg-[#d6edff] p-6 max-[820px]:hidden'>TEMA</th>
-                    <th className='bg-[#d6edff] p-6 min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/bulb.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
+                    <th className='bg-[#d6edff] p-6 min-[820px]:hidden'><img src={ASSET_PREFIX + 'img/svg/bulb.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
                     <th className='w-[25%] bg-[#d6edff] p-4 rounded-tr-lg rounded-br-lg max-[820px]:hidden'>PALESTRANTE</th>
-                    <th className='w-[25%] bg-[#d6edff] p-4 rounded-tr-lg rounded-br-lg min-[820px]:hidden'><img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/talk.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
+                    <th className='w-[25%] bg-[#d6edff] p-4 rounded-tr-lg rounded-br-lg min-[820px]:hidden'><img src={ASSET_PREFIX + 'img/svg/talk.svg'} width='24px' height='24px' alt='' draggable='false' className='m-auto' /></th>
                 </tr>
             );
         };
@@ -167,19 +115,19 @@ export default function Main() {
     };
 
     const IframeContent = () => {
-        return <iframe src='https://www.youtube.com/embed/4Q2rD4ZH31M?si=DcurTOerXO3Rtc8o&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none w-full h-full rounded-md'></iframe>
+        return <iframe src='https://www.youtube.com/embed/4Q2rD4ZH31M?si=DcurTOerXO3Rtc8o&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none w-full h-full rounded-md'></iframe>;
     };
 
     const Thumbnail = () => {
         return (
             <div className='w-full h-full' onClick={() => setIsPlaying(true)}>
-                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/thumbnail_video_apresentacao.webp'} alt='' draggable='false' className='w-full h-auto rounded-lg' />
-                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/play_button.svg'} width={64} height={64} alt='' draggable='false' className='absolute-center opacity-80 hover:opacity-100 duration-200 ease' />
+                <img src={ASSET_PREFIX + 'img/thumbnail_video_apresentacao.webp'} alt='' draggable='false' className='w-full h-auto rounded-lg' />
+                <img src={ASSET_PREFIX + 'img/svg/play_button.svg'} width={64} height={64} alt='' draggable='false' className='absolute-center opacity-80 hover:opacity-100 duration-200 ease' />
             </div>
         );
     };
 
-    const Palestrante = ({children = null, src = undefined, title = undefined, occupation = undefined}) => {
+    const Palestrante = ({children = null, src = undefined, name = undefined, occupation = undefined}) => {
         const [isActive, setIsActive] = useState(false);
         const [maxHeight, setMaxHeight] = useState(96);
         const containerRef = useRef(null);
@@ -211,13 +159,13 @@ export default function Main() {
                                 />
                             </div>
                             <div className='speaker-title'>
-                                <h2 className='font-semibold text-xl'>{title || defaultUser}</h2>
-                                <h3 className='italic opacity-80'>{occupation || defaultOccupation}</h3>
+                                <h2 className='font-semibold text-xl'>{name}</h2>
+                                <h3 className='italic opacity-80 text-sm'>{occupation || defaultOccupation}</h3>
                             </div>
                         </div>
-                        <div className='speaker-description duration-300 ease-out'>
+                        <div className='speaker-description duration-300 ease-out p-2'>
                             <div className="divider left"></div>
-                            <p>{children || defaultText}</p>
+                            <div>{children || defaultText}</div>
                         </div>
                     </div>
                 </div>
@@ -235,7 +183,7 @@ export default function Main() {
                                 <img src={src || defaultUserProfile} className='w-full h-full rounded-[inherit]' alt='' draggable='false' />
                             </div>
                             <div className='depoimento-title'>
-                                <h2 className='font-semibold text-xl'>{title || defaultUser}</h2>
+                                <h2 className='font-semibold text-xl'>{title}</h2>
                                 <h3 className='italic opacity-80'>{occupation || defaultOccupation}</h3>
                             </div>
                         </div>
@@ -249,65 +197,34 @@ export default function Main() {
         );
     };
 
+    const Atividade = ({children, img, name, description, link}) => {
+        return (
+            <div className='m-2 w-96 text-white'>
+                <div className='p-4 rounded-xl shadow-md bg-[linear-gradient(60deg,var(--cor-4),var(--cor-5))] w-full h-full border-b-8 border-t border-b-[#0e1b2c] border-t-cyan-200'>
+                    <div className="flex flex-col justify-between">
+                        <div className='atividade-header w-full flex items-center justify-start'>
+                            <div className='atividade-profile w-24 h-24 aspect-square mr-4'>
+                                <img src={img} className='w-full h-full aspect-square rounded-lg' width={200} height={200} alt='' draggable='false' />
+                            </div>
+                            <div className='atividade-title'>
+                                <h2 className='font-semibold text-xl'>{name}</h2>
+                                <h3 className='italic opacity-80'>{description}</h3>
+                            </div>
+                        </div>
+                        <Container className='justify-between h-full'>
+                            <div className="divider left"></div>
+                            {children}
+                            <br />
+                            {link && <a href={link} className='text-white !underline'>Saiba mais <i className="fa-solid fa-arrow-up-right-from-square text-xs" aria-hidden="true"></i></a>}
+                        </Container>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     //handler functions
 
-    async function handleVerification() {
-        if (userEmail == '' || userName == '') {
-            setDisplayMessage(statusMessage.error_no_input);
-            return;
-        } else {
-            if (requireValidation) {
-                try {
-                    setDisplayMessage(null);
-                    setButtonText(<img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/gif/loading.gif'} alt='' draggable='false' width={32} height={32} className='mx-auto' />);
-                    var validAtendee = isReturning && await validateAtendee(userEmail);
-                    var validMember = isMember && await validateMember(userEmail);
-                    if (validMember) {
-                        setDisplayMessage(statusMessage.is_member);
-                    } else if (validAtendee) {
-                        setDisplayMessage(statusMessage.is_atendee);
-                    } else {
-                        setDisplayMessage(statusMessage.user_not_found);
-                    };
-                    if (validMember || validAtendee) {
-                        setPurchaseLink(link.discount);
-                        setValidationPending(false);
-                        setShowPurchaseLink(true);
-                    }
-                } catch {
-                    console.log('erro: falha na comunicação com o servidor');
-                    setDisplayMessage(statusMessage.server_error);
-                } finally {
-                    setButtonText('ENVIAR');
-                }
-            } else {
-                setDisplayMessage(statusMessage.default);
-                setPurchaseLink(link.default);
-                setShowPurchaseLink(true);
-            }
-        }
-
-    }
-
-    function resetModal() {
-        setShowPurchaseLink(false);
-        setDisplayMessage(null);
-        if (!validationPending) {
-            setValidationPending(true);
-        }
-    }
-
-    function toggleForm() {
-        const purchase = document.getElementById('buy-tickets');
-        const form = document.getElementById('verification');
-        if (!showForm) {
-            purchase.classList.add('slide-out');
-
-        } else {
-            form.classList.add('slide-in');
-        }
-        setShowForm(!showForm);
-    }
 
     function $(el) {return document.querySelector(el);};
 
@@ -317,14 +234,14 @@ export default function Main() {
         <div>
 
             <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light bg-fade-bottom'>
-                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/[evento]_header_bg.webp'} alt='' draggable='false' className='w-full h-auto' />
+                <img src={ASSET_PREFIX + 'img/[evento]_header_bg.webp'} alt='' draggable='false' className='w-full h-auto' />
             </div>
 
             {!isMobile && (<Section id='topnav' className='py-8'>
                 <Content>
                     <Content_Default className='flex justify-between'>
                         <Container className='h-8 w-auto max-[820px]:mx-auto max-[820px]:h-12'>
-                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/logo_palmilhando.svg'} alt='' draggable='false' className='h-full w-auto' />
+                            <img src={ASSET_PREFIX + 'img/svg/logo_palmilhando.svg'} alt='' draggable='false' className='h-full w-auto' />
                         </Container>
                         <Wrapper id='navlinks' className='max-[820px]:hidden'>
                             <List className='flex items-center'>
@@ -348,7 +265,7 @@ export default function Main() {
                     <Content_Default className='flex justify-center items-end max-[820px]:text-center max-[820px]:flex-col max-[820px]:items-center'>
                         <Container className='h-full w-[32rem] max-[820px]:w-[80%] max-[426px]:w-full p-8 max-[820px]:p-2'>
                             <Container>
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/encontro_logo_3.svg'} alt='' draggable='false' />
+                                <img src={ASSET_PREFIX + 'img/svg/encontro_logo_3.svg'} alt='' draggable='false' />
                             </Container>
                             <div className="divider left max-[820px]:hidden"></div>
                             <div className="divider min-[821px]:hidden"></div>
@@ -358,13 +275,13 @@ export default function Main() {
                             <Container>
                                 <Wrapper className="items-center flex-nowrap w-max m-2">
                                     <div className='w-12 h-12 mr-4 bg-sky-900 rounded-full flex items-center justify-center shadow-md'>
-                                        <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
+                                        <img src={ASSET_PREFIX + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
                                     </div>
                                     <h2 className='font-extralight max-[820px]:text-base'>São José dos Campos - SP</h2>
                                 </Wrapper>
                                 <Wrapper className="items-center flex-nowrap w-max m-2">
                                     <div className='w-12 h-12 mr-4 bg-sky-900 rounded-full flex items-center justify-center shadow-md'>
-                                        <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
+                                        <img src={ASSET_PREFIX + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
                                     </div>
                                     <h2 className='font-extralight max-[820px]:text-base'>13 e 14 de Setembro</h2>
                                 </Wrapper>
@@ -484,7 +401,7 @@ export default function Main() {
                                 <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:w-full">
                                     {!isMobile && (
                                         <div className='w-12 h-12 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
+                                            <img src={ASSET_PREFIX + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
                                         </div>
                                     )}
                                     <h2 className='font-extralight text-base'>
@@ -496,7 +413,7 @@ export default function Main() {
                                 <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:w-full">
                                     {!isMobile && (
                                         <div className='w-12 h-12 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
+                                            <img src={ASSET_PREFIX + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
                                         </div>
                                     )}
                                     <h2 className='font-extralight text-base'>
@@ -504,14 +421,13 @@ export default function Main() {
                                         <strong>Hotel Mercure São José dos Campos - Torre II</strong><br />
                                         Av. Jorge Zarur, 81, Jardim Apolo <br />
                                         São José dos Campos, SP - 12243-081 <br />
-                                        <span className='inline underline font-light cursor-pointer text-sm' onClick={() => setMapVisible(!mapVisible)}>{!mapVisible ? 'Ver no mapa' : 'Ocultar o mapa'}</span>
+                                        <span className='inline underline font-light cursor-pointer text-sm' onClick={() => $('#evt-como-chegar').scrollIntoView({block: 'center'})}>Como chegar?</span>
                                     </h2>
                                 </Wrapper>
                             </Container>
-                            <Container className={mapVisible
-                                ? 'w-[32rem] p-4 aspect-video max-[820px]:w-full max-[820px]:p-0 relative'
-                                : 'hidden'
-                            }>{mapVisible && <Map />}</Container>
+                            <Container className='w-[32rem] p-4 aspect-video max-[820px]:w-full max-[820px]:p-0 relative'>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14668.122128172752!2d-45.90516370000002!3d-23.205557899999988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc3589bc020f0d%3A0x96bc968352c2c899!2sMercure%20Sao%20Jose%20dos%20Campos!5e0!3m2!1sen!2sbr!4v1710790411443!5m2!1sen!2sbr" className='outline-none border-none w-full h-full absolute rounded-lg' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                            </Container>
                         </Wrapper>
                     </Content_Default>
                 </Content>
@@ -526,15 +442,49 @@ export default function Main() {
                             <div className="divider"></div>
                         </Container>
                         <Wrapper className='items-center justify-center'>
-                            <Palestrante></Palestrante>
-                            <Palestrante></Palestrante>
-                            <Palestrante></Palestrante>
-                            <Palestrante></Palestrante>
-                            <Palestrante></Palestrante>
-                            <Palestrante></Palestrante>
-                            <Palestrante></Palestrante>
-                            <Palestrante></Palestrante>
-                            <Palestrante></Palestrante>
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/andre-mendes.webp'} name='André Mendes' occupation='Avaliação e raciocínio'>
+                                <p>Fisioterapeuta, especialista em Fisioterapia Ortopédica, Mestre e doutorando em Fisioterapia, sócio fundador da Podoshop e do Palmilhando. Autor do livro Palmilhas Terapêuticas: ciência e prática clínica.</p>
+                            </Palestrante>
+
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/felipe-barcelos.webp'} name='Felipe Barcelos' occupation='Pediatria'>
+                                <p>Médico ortopedista com subespecialização em ortopedia pediátrica e doenças neuromusculares pelo Ensino Einstein. Médico do corpo clínico do Hospital Israelita Albert Einstein.</p>
+                            </Palestrante>
+
+                            <Palestrante /* src={ASSET_PREFIX + 'img/palestrantes-2024/brenda-braga.webp'} */ name='Brenda Braga' occupation='Pediatria'>
+                                <p>Fisioterapeuta ortesista, especialista em órteses suropodálicas. Empreendedora e sócia da Gente Miúda Kids Shoes.</p>
+                            </Palestrante>
+
+                            <Palestrante /* src={ASSET_PREFIX + 'img/palestrantes-2024/maria-lucoveis.webp'} */ name='Maria Lucóveis' occupation='Pés em risco'>
+                                <p>Fisioterapeuta e Enfermeira Estomaterapeuta, Mestre em Ciências pela Universidade Federal de São Paulo, Master em pé diabético pela Universidad Complutense de Madrid, Doutoranda em Ciências da Reabilitação pela Universidade de São Paulo. Sociaproprietária da Bem Estar dos Pés- Serviços de Enfermagem.</p>
+                            </Palestrante>
+
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/leonardo-signorini.webp'} name='Leonardo Signorini' occupation='Esportes'>
+                                <p>Fisioterapeuta, especialista em Fisioterapia Ortopédica e Esportiva. Dono da Dr pés palmilhas.</p>
+                            </Palestrante>
+
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/george-sabino.webp'} name='George Sabino' occupation='Esportes'>
+                                <p>Fisioterapeuta, Doutor em Ciências da Reabilitação UFMG, Pós doutorando em Ciências da Saúde CMMG. Sócio fundador da Propulsão.</p>
+                            </Palestrante>
+
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/natalia-faro.webp'} name='Natália Faro' occupation='Empreendedorismo'>
+                                <p>Fisioterapeuta, empreendedora há 15 anos, influenciadora e fundadora da Verticalle - Palmilhas. Experiência de 7 anos com palmilhas personalizadas e criadora das palmilhas dupla face para saltos.</p>
+                            </Palestrante>
+
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/mariana-pereira.webp'} name='Mariana Pereira' occupation='Marketing e Estratégia'>
+                                <p>Estrategista digital e copywriter da Podoshop e do Palmilhando.</p>
+                            </Palestrante>
+
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/jordache-murta.webp'} name='Jordache Murta' occupation='Marketing e Estratégia'>
+                                <p>Publicitário, especialista em marketing digital. Há 20 anos trabalhando com marketing, atua em estratégias digitais para construção de autoridade, vendas e captação de novos clientes de forma orgânica.</p>
+                            </Palestrante>
+
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/myrlla-moreira.webp'} name='Myrlla Moreira' occupation='Financeiro'>
+                                <p>Fisioterapeuta formada há 11 anos, empreendedora, especialista em coluna vertebral pela Santa Casa de São Paulo. Criadora do curso on-line de capacitação Escoliose na Prática.</p>
+                            </Palestrante>
+
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/clayton-fuzetti.webp'} name='Clayton Fuzetti' occupation='Negócios'>
+                                <p>Fisioterapeuta, especialista em Fisioterapia Ortopédica, MBA em gestão empresarial. Sócio fundador da Podoshop e do Palmilhando.</p>
+                            </Palestrante>
                         </Wrapper>
                     </Content_Default>
                 </Content>
@@ -546,134 +496,146 @@ export default function Main() {
                     <Content_Default>
                         <Wrapper className='w-full items-center justify-center'>
                             <Container className='w-[426px] max-[426px]:w-full h-[512px] relative pt-16 mx-auto max-[820px]:mx-0 rounded-lg shadow-lg border border-cyan-100 bg-[color:#0e1b2c] bg-opacity-75 backdrop-blur-xl' id='location-info'>
+
                                 <Badge className='border-2 border-cyan-100 !bg-[color:#0e1b2c]' width={20}>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/ticket.svg'} alt='' draggable='false' className='w-full aspect-square' />
+                                    <img src={ASSET_PREFIX + 'img/svg/ticket.svg'} alt='' draggable='false' className='w-full aspect-square' />
                                 </Badge>
-                                <div className='w-full h-full overflow-hidden'>
-                                    <div className='flex justify-between w-[200%] duration-300 ease-out' style={{transform: !showForm ? 'translateX(0)' : 'translateX(-50%)'}}>
-                                        <Container className='w-1/2 m-2 px-2 items-center'>
-                                            <Container id="buy-tickets" className='w-full items-center'>
-                                                <Container className='w-9/12 max-[820px]:!w-full'>
-                                                    <h1 className='text-center grad-text text-xl font-bold'>GARANTA SEU INGRESSO</h1>
-                                                    <p className='text-center text-sm font-extralight my-2'>Os ingressos do primeiro lote são limitados, garanta já o seu!</p>
-                                                    <div className="divider"></div>
-                                                </Container>
-                                                <Container className='w-9/12 max-[820px]:!w-full text-center items-center my-4'>
-                                                    <h1 className='font-bold text-3xl'>R$ XXX <sup><small>,XX</small></sup></h1>
-                                                    <h3 className='italic text-sm font-extralight'>Em até 12x no cartão de crédito</h3>
-                                                </Container>
-                                                <List className="check-light w-9/12 max-[820px]:!w-[96%]">
-                                                    <li>Acesso presencial aos dois dias do evento</li>
-                                                    <li>Kit de boas vindas</li>
-                                                    <li>Happy hour</li>
-                                                </List>
-                                                <Button className='w-fit mx-auto my-8 p-16' onClick={() => toggleForm()}>RESERVAR MINHA VAGA</Button>
-                                            </Container>
-                                        </Container>
-                                        <Container className='w-1/2 m-2 px-2 items-center'>
-                                            <Container id="verification" className='w-full'>
-                                                <h1 className='text-center grad-text text-xl font-bold'>RESERVE SUA VAGA</h1>
-                                                <p className='text-center text-sm font-extralight my-2'>Preencha os campos a seguir para liberar o link de compra</p>
-                                                <div className="divider"></div>
-                                                <form id='compra-ingresso' onSubmit={(e) => e.preventDefault()}>
-                                                    <Container className='px-4'>
-                                                        <Container className="my-2">
-                                                            <TEInput type="text" id="user_name" onChange={(e) => setUserName(e.target.value)} label='Nome completo' className='text-white !outline-none'></TEInput>
-                                                        </Container>
-                                                        <Container className='my-2'>
-                                                            <TEInput type='email' id='user_email' onChange={(e) => setUserEmail(e.target.value)} label='Email' className='text-white !outline-none'></TEInput>
-                                                        </Container>
-                                                    </Container>
-                                                    {validationPending &&
-                                                        <Container className='px-4 w-full items-center'>
-                                                            <Wrapper className='items-center my-2 flex-nowrap w-full'>
-                                                                <input type="checkbox" checked={isMember} className='scale-125 cursor-pointer' onChange={() => setIsMember(!isMember)} />
-                                                                <label className='ml-2 cursor-pointer' onClick={() => setIsMember(!isMember)}>Sou assinante do Palmilhando®</label>
-                                                            </Wrapper>
-                                                            <Wrapper className='items-center my-2 flex-nowrap w-full'>
-                                                                <input type="checkbox" checked={isReturning} className='scale-125 cursor-pointer' onChange={() => setIsReturning(!isReturning)} />
-                                                                <label className='ml-2 cursor-pointer' onClick={() => setIsReturning(!isReturning)}>Participei do Encontro 2023</label>
-                                                            </Wrapper>
-                                                        </Container>
-                                                    }
-                                                    <Container className='items-center'>
-                                                        {validationPending && <Button className='my-4 w-9/12' onClick={() => handleVerification()}>{buttonText}</Button>}
-                                                        {showPurchaseLink && <a href={purchaseLink} className='w-9/12'><Button className='my-4 w-full flex items-center justify-center'>
-                                                            <span>CONTINUAR</span>
-                                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/external-link.svg'} alt='' draggable='false' className='w-4 mx-2' />
-                                                        </Button>
-                                                        </a>}
-                                                        {displayMessage}
-                                                    </Container>
-                                                </form>
-                                                <span className='mx-auto underline font-semibold cursor-pointer opacity-50' onClick={() => toggleForm()}>Voltar</span>
-                                            </Container>
-                                        </Container>
-                                    </div>
-                                </div>
+
+                                <ValidationForm />
+
                             </Container>
                         </Wrapper>
                     </Content_Default>
                 </Content>
             </Section>
 
-            <Section id='evt-depoimentos' className='shadow-lg bg-[radial-gradient(circle_at_center,var(--cor-4),#0e1b2c)] cor-4 max-[820px]:!py-4 bg-[size:200%]'>
+            <Section id='evt-hoteis-parceiros' className='shadow-lg bg-[radial-gradient(circle_at_center,var(--cor-4),#0e1b2c)] cor-4 max-[820px]:!py-4 bg-[size:200%]'>
                 <Content>
                     <Content_Default>
-                        <Container className='w-9/12 max-[820px]:!w-full my-4 px-4 mx-auto'>
-                            <h2 className='text-2xl text-center max-[820px]:text-xl font-bold grad-text mb-2'>Confira alguns depoimentos de quem já viveu essa experiência:</h2>
-                            <div className="divider"></div>
+
+                    </Content_Default>
+                </Content>
+            </Section>
+
+            <Section id='evt-como-chegar'>
+                <Content>
+                    <Content_Default>
+                        <Container className='my-4'>
+                            <h1>Como chegar?</h1>
+                            <div className="divider left max-[820px]:hidden"></div>
+                            <div className="divider min-[821px]:hidden"></div>
                         </Container>
-                        <Wrapper className='items-start justify-center'>
-                            <Depoimento></Depoimento>
-                            <Depoimento></Depoimento>
-                            <Depoimento></Depoimento>
+                        <List className='check-light'>
+                            <li>Aeroporto de São José dos Campos (a partir de 27 de março)</li>
+                            <li>Aeroporto de Guarulhos</li>
+                            <li>Rodoviária de São José dos Campos</li>
+                            <li>Acesso pela via Dutra</li>
+                        </List>
+                    </Content_Default>
+                </Content>
+            </Section>
+
+            <Section id='evt-o-que-fazer'>
+                <Content>
+                    <Content_Default>
+                        <Container>
+                            <h1>O que fazer na região?</h1>
+                            <div className="divider left max-[820px]:hidden"></div>
+                            <div className="divider min-[821px]:hidden"></div>
+                        </Container>
+                        <Wrapper className='items-center justify-center'>
+                            <Atividade
+                                img={ASSET_PREFIX + 'img/atividades/thermas-do-vale.webp'}
+                                name='THERMAS DO VALE'
+                                description='Parque aquático'
+                                link='https://www.thermasdovale.com.br/'>
+                                <p className='text-sm italic min-h-36'>"O Thermas do Vale está localizado a 90km de São Paulo - SP. O lindo Parque Aquático conta com 13 piscinas e diversas atrações em um espaço repleto de natureza preservada."</p>
+                            </Atividade>
+
+                            <Atividade
+                                img={ASSET_PREFIX + 'img/atividades/vicentina-aranha.webp'}
+                                name='PARQUE VICENTINA ARANHA'
+                                description='Parque municipal'
+                                link='https://www.sjc.sp.gov.br/servicos/esporte-e-qualidade-de-vida/parques/vicentina-aranha/'>
+                                <p className="text-sm italic min-h-36">"O Parque Vicentina Aranha abrange uma área de 80 mil metros quadrados. O espaço foi aberto para a prática de caminhada em um extenso bosque. O parque é separado em canteiros com paisagismo e canteiros com bosque e algumas espécies raras e centenárias."</p>
+                            </Atividade>
+
+                            <Atividade
+                                img={ASSET_PREFIX + 'img/atividades/parque-da-cidade.webp'}
+                                name='PARQUE DA CIDADE'
+                                description='Parque municipal'
+                                link='https://www.sjc.sp.gov.br/servicos/esporte-e-qualidade-de-vida/parques/parque-da-cidade/'>
+                                <p className='text-sm italic min-h-36'>"O Parque Municipal Roberto Burle Marx, mais conhecido como "Parque da Cidade", ocupa uma área de cerca de um milhão de metros quadrados. Este vasto perímetro abriga jardins, palmeiras imperiais, lagos, ilhas artificiais, bosques e alamedas."</p>
+                            </Atividade>
+
+                            <Atividade
+                                img={ASSET_PREFIX + 'img/atividades/santo-antonio-do-pinhal.webp'}
+                                name='SANTO ANTÔNIO DO PINHAL'
+                                description='Cidade turística'
+                                link='https://www.santoantoniodopinhal.sp.gov.br/a-cidade/guia-turistico-pdf'>
+                                <p className='text-sm italic min-h-36'>"Quem ama natureza e procura paz e tranquilidade, encontra em Santo Antônio do Pinhal o local ideal para passar momentos agradáveis. Venha respirar o ar puro da montanha e aproveitar da hospitalidade encantadora."</p>
+                            </Atividade>
+
+                            <Atividade
+                                img={ASSET_PREFIX + 'img/atividades/santuario-aparecida.webp'}
+                                name='SANTUÁRIO NACIONAL DE APARECIDA'
+                                description='Templo religioso'
+                                link='https://www.aparecida.sp.gov.br/portal/turismo/0/9/2696/santuario-nacional'>
+                                <p className="text-sm italic min-h-36">"Considerada a maior Igreja Mariana do mundo, o Santuário Nacional de Nossa Senhora da Conceição Aparecida é conhecido pela grandiosidade de sua obra. No local encontra-se a Imagem original de Nossa Senhora Aparecida encontrada por pescadores nas águas do Rio Paraíba do Sul em 1717."</p>
+                            </Atividade>
+
+                            <Atividade
+                                img={ASSET_PREFIX + 'img/atividades/campos-do-jordao.webp'}
+                                name='CAMPOS DO JORDÃO'
+                                description='Cidade turística'
+                                link='https://www.camposdojordao.sp.gov.br/'>
+                                <p className="text-sm italic min-h-36">"Localizada na Serra da Mantiqueira no estado de São Paulo, é o município mais elevado do país, com 1628 metros de altitude. A cidade é conhecida por sua arquitetura tipicamente suíça e é um dos principais destinos de inverno do Brasil."</p>
+                            </Atividade>
+
                         </Wrapper>
                     </Content_Default>
                 </Content>
             </Section>
 
-            <div className='bg-[linear-gradient(#0c6b96,#1E3050)]'>
-                <Section id='faq'>
-                    <Content>
-                        <Content_Default className='flex justify-evenly max-[820px]:flex-col'>
-                            <Container className='w-[30%] max-[820px]:!w-[90%] max-[820px]:mx-auto max-[820px]:mb-8 max-[820px]:text-center'>
-                                <h2 className='font-semibold text-xl'>Ficou com alguma dúvida?</h2>
-                                <div className="divider left"></div>
-                                <p>Confira aqui as respostas para as dúvidas mais frequentes, ou entre em contato conosco via Whatsapp</p>
-                                <a href="https://wa.me//5512982628132" className='flex items-center justify-evenly py-4 my-4 px-8 border border-cyan-200 rounded-xl hover:backdrop-brightness-110 ease-out duration-200 cursor-pointer decoration-[none] text-white'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
-                                    <p className='w-full'>ATENDIMENTO POR <mark className="cor-3">WHATSAPP</mark></p>
-                                </a>
-                            </Container>
-                            <Container className='w-[70%] max-[820px]:!w-full ml-8 max-[820px]:!ml-0'>
-                                <Collapsible title='Quando vai ser o evento?'>
-                                    <p>Dias 13 e 14 de setembro de 2024.</p>
-                                </Collapsible>
-                                <Collapsible title='Onde será o evento?'>
-                                    <p>
-                                        O evento será realizado no Hotel Mercure São José dos Campos, na torre II.
-                                        <br /><br />
-                                        Endereço: Avenida Dr - Av. Jorge Zarur, 81 - Torre II - Jardim Apolo, São José dos Campos -
-                                        SP, 12243-081
-                                    </p>
-                                </Collapsible>
-                                <Collapsible title='Para quem é o evento?'>
-                                    <p>Para profissionais da saúde que desejam ter uma experiência incrível e ter acesso a todo o conhecimento necessário para se destacar como profissional.</p>
-                                </Collapsible>
-                                <Collapsible title='Como recebo meu ingresso?'>
-                                    <p>O ingresso será enviado para o seu e-mail. Será necessário que você mostre seu ingresso na entrada do evento. Por isso, no momento da compra, informe um e-mail ao qual você tenha acesso. Você poderá apresentar o seu ingresso de forma impressa ou digital, por meio de um print.</p>
-                                </Collapsible>
-                                <button
-                                    className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                                    onClick={() => $('#evt-valor').scrollIntoView({block: `${viewportWidth <= 820 ? 'start' : 'center'}`})}>
-                                    QUERO GARANTIR MEU INGRESSO
-                                </button>
-                            </Container>
-                        </Content_Default>
-                    </Content>
-                </Section>
-            </div>
+            <Section id='faq' className='bg-[linear-gradient(#0c6b96,#1E3050)]'>
+                <Content>
+                    <Content_Default className='flex justify-evenly max-[820px]:flex-col'>
+                        <Container className='w-[30%] max-[820px]:!w-[90%] max-[820px]:mx-auto max-[820px]:mb-8 max-[820px]:text-center'>
+                            <h2 className='font-semibold text-xl'>Ficou com alguma dúvida?</h2>
+                            <div className="divider left"></div>
+                            <p>Confira aqui as respostas para as dúvidas mais frequentes, ou entre em contato conosco via Whatsapp</p>
+                            <a href="https://wa.me//5512982628132" className='flex items-center justify-evenly py-4 my-4 px-8 border border-cyan-200 rounded-xl hover:backdrop-brightness-110 ease-out duration-200 cursor-pointer decoration-[none] text-white'>
+                                <img src={ASSET_PREFIX + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
+                                <p className='w-full'>ATENDIMENTO POR <mark className="cor-3">WHATSAPP</mark></p>
+                            </a>
+                        </Container>
+                        <Container className='w-[70%] max-[820px]:!w-full ml-8 max-[820px]:!ml-0'>
+                            <Collapsible title='Quando vai ser o evento?'>
+                                <p>Dias 13 e 14 de setembro de 2024.</p>
+                            </Collapsible>
+                            <Collapsible title='Onde será o evento?'>
+                                <p>
+                                    O evento será realizado no Hotel Mercure São José dos Campos, na torre II.
+                                    <br /><br />
+                                    Endereço: Avenida Dr - Av. Jorge Zarur, 81 - Torre II - Jardim Apolo, São José dos Campos -
+                                    SP, 12243-081
+                                </p>
+                            </Collapsible>
+                            <Collapsible title='Para quem é o evento?'>
+                                <p>Para profissionais da saúde que desejam ter uma experiência incrível e ter acesso a todo o conhecimento necessário para se destacar como profissional.</p>
+                            </Collapsible>
+                            <Collapsible title='Como recebo meu ingresso?'>
+                                <p>O ingresso será enviado para o seu e-mail. Será necessário que você mostre seu ingresso na entrada do evento. Por isso, no momento da compra, informe um e-mail ao qual você tenha acesso. Você poderá apresentar o seu ingresso de forma impressa ou digital, por meio de um print.</p>
+                            </Collapsible>
+                            <button
+                                className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
+                                onClick={() => $('#evt-valor').scrollIntoView({block: `${viewportWidth <= 820 ? 'start' : 'center'}`})}>
+                                QUERO GARANTIR MEU INGRESSO
+                            </button>
+                        </Container>
+                    </Content_Default>
+                </Content>
+            </Section>
         </div>
     );
 }

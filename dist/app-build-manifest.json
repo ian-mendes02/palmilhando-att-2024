@@ -1,11 +1,5 @@
 {
   "pages": {
-    "/palmilhando/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/palmilhando/page.css",
-      "static/chunks/app/palmilhando/page.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -17,6 +11,11 @@
       "static/chunks/main-app.js",
       "static/css/app/evento_anual/page.css",
       "static/chunks/app/evento_anual/page.js"
+    ],
+    "/not-found": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/not-found.js"
     ]
   }
 }
