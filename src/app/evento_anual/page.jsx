@@ -96,6 +96,8 @@ export default function Main() {
         return process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL;
     }, []);
 
+    //const ASSET_PREFIX = "./";
+
     // Placeholder user image
     const defaultUserProfile = useMemo(() => {
         return ASSET_PREFIX + 'img/default_user.jpg';
@@ -158,7 +160,7 @@ export default function Main() {
                 setDiscountMessage("Desconto participante 2023");
             }
         } else {
-            setShowValidationPrompt(true)
+            setShowValidationPrompt(true);
         }
     }, []);
 
@@ -483,7 +485,7 @@ export default function Main() {
 
             _log('Fetching user validation...', debug, "info");
 
-            const validation = await fetch('https://palmilhasterapeuticas.com.br/evento2024/validation/validation.php', {
+            const validation = await fetch(ASSET_PREFIX + 'validation/validation.php', {
                 method: "POST",
                 headers: {"Content-type": "application/json"},
                 body: JSON.stringify({
@@ -540,8 +542,8 @@ export default function Main() {
     }
 
     useEffect(() => {
-        setPageLoading(false)
-    },[])
+        setPageLoading(false);
+    }, []);
 
     // main
 
@@ -875,7 +877,7 @@ export default function Main() {
                                     <div className='my-2'>{displayMessage}</div>
                                 </form>
                             </Container>
-                            : <Loading width={64}/>}
+                                : <Loading width={64} />}
                         </div>}
                         <div className='relative z-10'>
                             <Ingressos />
