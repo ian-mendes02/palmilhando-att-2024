@@ -1,11 +1,11 @@
 'use client';
 import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
 import {Button, Collapsible, List} from '@/lib/modules/ui-components';
-import React from 'react';
 import Carousel from '@/lib/modules/carousel';
-import Image from 'next/image';
 import '../../../public/css/carousel.css';
 import '../../../public/css/globals.css';
+import Image from 'next/image';
+import React from 'react';
 
 export default function Home() {
 

@@ -1,44 +1,115 @@
 'use client';
 import {useEffect, useRef, useMemo, useState} from 'react';
-import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
-import {Button, List, Collapsible} from '@/lib/modules/ui-components';
-import ValidationForm from './validation-form-2';
+import {Section, Content, Content_Default, Container, Wrapper, Loading} from '@/lib/modules/layout-components';
+import {FloatingButton, ButtonContainer} from '@/lib/modules/floating-button';
+import {List, Collapsible} from '@/lib/modules/ui-components';
+import EventCountdown from '@/lib/modules/countdown-timer';
+import CountdownMobile from '@/lib/modules/countdown-mobile';
+import {TEInput} from 'tw-elements-react';
 import '../../../public/css/globals.css';
+import {_log} from '@/lib/modules/debug';
 
 
 export default function Main() {
 
+    // Placeholder text for testing
+
+    const debug = true;
+
+    const remainingTickets = 10;
+
     const defaultOccupation = '?';
 
-    const defaultText = 'Teremos mais informações sobre esse palestrante em breve. Fique ligado!';
+    const defaultText = 'Teremos mais informações em breve. Fique ligado!';
 
-    //states
+    const price = {
+        lote1: {
+            base: "590,00",
+            discount: "450,00"
+        },
+        lote2: {
+            base: "550,00",
+            discount: "690,00"
+        },
+        lote3: {
+            base: "790,00",
+            discount: "650,00"
+        }
+    };
 
+    const loteAtual = "lote1";
+
+    const link = {
+        discount: 'https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG9ZH000',
+        default: 'https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG9Z355J'
+    };
+
+    const statusMessage = {
+        error_no_input: <span className='text-red-500 text-center'>Parece que há campos em branco, tente novamente.</span>,
+        server_error: <span className='text-orange-500 text-center font-light text-sm'>Servidor indisponível no momento, tente novamente mais tarde.</span>,
+    };
+
+    // states
+
+    // const [isPlaying, setIsPlaying] = useState(false);
+
+    // Stores viewport data for responsive features
     const [viewportWidth, setViewportWidth] = useState(null);
 
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [validDiscount, setValidDiscount] = useState();
 
-    //hooks
+    const [requireValidation, setRequireValidation] = useState(true);
 
+    const [showValidationPrompt, setShowValidationPrompt] = useState(false);
+
+    const [discountMessage, setDiscountMessage] = useState(null);
+
+    const [fullscreenContent, setFullscreenContent] = useState(null);
+
+    const [modalActive, setModalActive] = useState(false);
+
+    const [userName, setUserName] = useState('');
+
+    const [userEmail, setUserEmail] = useState('');
+
+    const [buttonText, setButtonText] = useState('ENVIAR');
+
+    const [displayMessage, setDisplayMessage] = useState(null);
+
+    // hooks
+
+    /**
+     * Determines if browser client is mobile based on viewport dimensions.
+     * Updates on window resize.
+     */
     const isMobile = useMemo(() => {
         return viewportWidth <= 820;
     }, [viewportWidth]);
 
+    /**
+     * Global asset prefix.
+     * Can be changed in `.env`.
+     */
     const ASSET_PREFIX = useMemo(() => {
         return process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL;
     }, []);
 
+    // Placeholder user image
     const defaultUserProfile = useMemo(() => {
         return ASSET_PREFIX + 'img/default_user.jpg';
     }, []);
 
-    const iframeRef = useRef(null);
+    const containerRef = useRef(null);
 
+    const contentRef = useRef(null);
+
+    // Google tag manager
     useEffect(() => {
         !function(e, t, a, n, g) {e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"}); var m = t.getElementsByTagName(a)[0], r = t.createElement(a); r.async = !0, r.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4", m.parentNode.insertBefore(r, m);}(window, document, "script", "dataLayer");
         document.title = 'Evento Palmilhas e Ciência Aplicada 2024';
     }, []);
 
+    // Update viewport data on window resize
     useEffect(() => {
         function vw() {
             setViewportWidth(window.visualViewport.width);
@@ -49,19 +120,49 @@ export default function Main() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (iframeRef.current && !iframeRef.current.contains(event.target)) {
-                setIsPlaying(false);
-            }
+            if (contentRef.current && !contentRef.current.contains(event.target)) {setModalActive(false);}
         };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
+        const preventScroll = (e) => {
+            e.preventDefault();
+        };
+        if (modalActive) {
+            document.getElementById('evento-video').pause();
+            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('wheel', preventScroll, {passive: false});
+            document.addEventListener('touchmove', preventScroll, {passive: false});
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside);
+                document.removeEventListener('wheel', preventScroll, {passive: false});
+                document.removeEventListener('touchmove', preventScroll, {passive: false});
+            };
+        } else {
+            document.getElementById('evento-video').play();
             document.removeEventListener('mousedown', handleClickOutside);
-        };
+            document.removeEventListener('wheel', preventScroll, {passive: false});
+            document.removeEventListener('touchmove', preventScroll, {passive: false});
+        }
+    }, [modalActive]);
+
+    useEffect(() => {setDisplayMessage(null);}, [userName, userEmail]);
+
+    useEffect(() => {
+        var user = JSON.parse(localStorage.getItem("validated_user"));
+        if (user) {
+            setRequireValidation(false);
+            setValidDiscount(user.discount_elegible);
+            if (user.discount_elegible && user.valid_member) {
+                setDiscountMessage("Desconto Palmilhando®");
+            } else if (user.discount_elegible && user.valid_atendee) {
+                setDiscountMessage("Desconto participante 2023");
+            }
+        } else {
+            setShowValidationPrompt(true)
+        }
     }, []);
 
-    //components
+    // components
 
-    const Schedule = (props) => {
+    /* const Schedule = (props) => {
         const DefaultHeader = () => {
             return (
                 <tr className='cor-5 scale-[102%] shadow-md rounded-lg'>
@@ -112,18 +213,62 @@ export default function Main() {
                 </div>
             </div>
         );
+    }; */
+
+    const VideoEvento = () => {
+        return <iframe src='https://www.youtube.com/embed/4Q2rD4ZH31M?si=DcurTOerXO3Rtc8o&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none aspect-video w-full max-[820px]:w-screen rounded-lg relative z-50'></iframe>;
     };
 
-    const IframeContent = () => {
-        return <iframe src='https://www.youtube.com/embed/4Q2rD4ZH31M?si=DcurTOerXO3Rtc8o&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none w-full h-full rounded-md'></iframe>;
-    };
+    /* const Depoimento = ({children = null, src = undefined, title = undefined, occupation = undefined}) => {
+            return (
+                <div className='m-2 w-96 text-white'>
+                    <div className='p-4 rounded-xl shadow-md bg-[linear-gradient(60deg,var(--cor-4),var(--cor-5))] w-full h-full border-b-8 border-t border-b-[#0e1b2c] border-t-cyan-200'>
+                        <div className="flex flex-col justify-between">
+                            <div className='depoimento-header w-full flex items-center justify-start p-4'>
+                                <div className='depoimento-profile w-20 aspect-square left-0 bottom-0 rounded-full mr-4'>
+                                    <img src={src || defaultUserProfile} className='w-full h-full rounded-[inherit]' alt='' draggable='false' />
+                                </div>
+                                <div className='depoimento-title'>
+                                    <h2 className='font-semibold text-xl'>{title}</h2>
+                                    <h3 className='italic opacity-80'>{occupation || defaultOccupation}</h3>
+                                </div>
+                            </div>
+                            <div className='depoimento-description'>
+                                <div className="divider left"></div>
+                                <p>{children || defaultText}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }; */
 
-    const Thumbnail = () => {
+    const Fullscreen = () => {
         return (
-            <div className='w-full h-full' onClick={() => setIsPlaying(true)}>
-                <img src={ASSET_PREFIX + 'img/thumbnail_video_apresentacao.webp'} alt='' draggable='false' className='w-full h-auto rounded-lg' />
-                <img src={ASSET_PREFIX + 'img/svg/play_button.svg'} width={64} height={64} alt='' draggable='false' className='absolute-center opacity-80 hover:opacity-100 duration-200 ease' />
+            <div className='bg-[rgb(0,0,0,0.5)] backdrop-blur-lg fixed z-[999] top-0 left-0 w-[100vw] h-[100vh] flex justify-center items-center px-32 py-[2.5%] max-[820px]:p-0' ref={containerRef}>
+                <div className='w-full h-full flex items-center justify-center relative'>
+                    <div className='h-auto w-full absolute-center' ref={contentRef}>
+                        <div className='w-12 h-12 absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 max-[820px]:-translate-x-1/2 max-[820px]:-translate-y-full'>
+                            <span className='w-full text-right cursor-pointer' onClick={() => setModalActive(false)}><i className="fa-regular fa-circle-xmark text-2xl" aria-hidden="true"></i></span>
+                        </div>
+                        <Loading width={32} />
+                        {fullscreenContent}
+                    </div>
+                </div>
             </div>
+        );
+    };
+
+    const Vantagem = ({children, icon}) => {
+        return (
+            <Container className='w-64 min-h-[10rem] m-2 p-4 rounded-3xl shadow-md bg-[var(--cor-4)] border-t-2 border-sky-900'>
+                <Container className='items-center justify-start text-center'>
+                    <div className='flex justify-center items-center bg-[var(--cor-1)] rounded-full w-12 h-12'>
+                        <i className={icon} style={{fontSize: '1.5rem'}} aria-hidden="true"></i>
+                    </div>
+                    <div className="mt-4">{children}</div>
+                </Container>
+            </Container>
         );
     };
 
@@ -142,9 +287,9 @@ export default function Main() {
         }, [isActive]);
 
         return (
-            <div className='m-2 w-80'>
+            <div className='m-2 w-96'>
                 <div
-                    className='p-2 rounded-lg shadow-md bg-[linear-gradient(60deg,#d6edff,#ffffff)] light hover:scale-105 hover:brightness-95 duration-200 ease-out w-full h-full overflow-hidden'
+                    className='p-2 rounded-2xl shadow-md bg-[#121e31] border-t-2 border-sky-900 hover:scale-105 hover:brightness-95 duration-200 ease-out w-full h-full overflow-hidden'
                     onClick={() => setIsActive(!isActive)}
                     style={{height: maxHeight}}
                 >
@@ -173,31 +318,12 @@ export default function Main() {
         );
     };
 
-    const Depoimento = ({children = null, src = undefined, title = undefined, occupation = undefined}) => {
-        return (
-            <div className='m-2 w-96 text-white'>
-                <div className='p-4 rounded-xl shadow-md bg-[linear-gradient(60deg,var(--cor-4),var(--cor-5))] w-full h-full border-b-8 border-t border-b-[#0e1b2c] border-t-cyan-200'>
-                    <div className="flex flex-col justify-between">
-                        <div className='depoimento-header w-full flex items-center justify-start p-4'>
-                            <div className='depoimento-profile w-20 aspect-square left-0 bottom-0 rounded-full mr-4'>
-                                <img src={src || defaultUserProfile} className='w-full h-full rounded-[inherit]' alt='' draggable='false' />
-                            </div>
-                            <div className='depoimento-title'>
-                                <h2 className='font-semibold text-xl'>{title}</h2>
-                                <h3 className='italic opacity-80'>{occupation || defaultOccupation}</h3>
-                            </div>
-                        </div>
-                        <div className='depoimento-description'>
-                            <div className="divider left"></div>
-                            <p>{children || defaultText}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
     const Atividade = ({children, img, name, description, link}) => {
+        /* function toggleModal() {
+            const content = <iframe src={link} className='w-full h-full rounded-[inherit]'></iframe>;
+            setFullscreenContent(content);
+            setModalActive(true);
+        } */
         return (
             <div className='m-2 w-96 text-white'>
                 <div className='p-4 rounded-xl shadow-md bg-[linear-gradient(60deg,var(--cor-4),var(--cor-5))] w-full h-full border-b-8 border-t border-b-[#0e1b2c] border-t-cyan-200'>
@@ -215,7 +341,7 @@ export default function Main() {
                             <div className="divider left"></div>
                             {children}
                             <br />
-                            {link && <a href={link} className='text-white !underline'>Saiba mais <i className="fa-solid fa-arrow-up-right-from-square text-xs" aria-hidden="true"></i></a>}
+                            {link && <a href={link} target='_blank' className='text-white !underline cursor-pointer'> Saiba mais <i className="fa-solid fa-arrow-up-right-from-square text-xs" aria-hidden="true"></i></a>}
                         </Container>
                     </div>
                 </div>
@@ -223,173 +349,368 @@ export default function Main() {
         );
     };
 
-    //handler functions
+    const Ingressos = () => {
+        return (
+            <Wrapper className='flex-nowrap max-[820px]:flex-col'>
 
+                <Container className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 max-[820px]:mx-0'>
+                    <div className="flex flex-col items-center p-4 border-t-2 border-sky-600 rounded-2xl bg-sky-900 shadow-lg h-max w-full relative">
+                        <Wrapper className="flex-nowrap items-center justify-between w-full mb-4 max-[1024px]:flex-col max-[1024px]:items-start">
+                            <Wrapper className='items-center justify-start flex-nowrap'>
+                                <div className='w-10 h-10 mr-2 bg-primary-500 rounded-full flex items-center justify-center shadow-md'>
+                                    <i className="fa-solid fa-globe text-2xl text-sky-100" aria-hidden="true"></i>
+                                </div>
+                                <h2 className='text-sky-100 font-bold' style={{fontSize: '150%'}}>ONLINE</h2>
+                            </Wrapper>
+                            <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit max-[1024px]:my-4'>PREÇO ÚNICO</span>
+                        </Wrapper>
+                        <Container className='p-8 rounded-lg border-2 border-sky-700 items-center'>
+                            <List className='text-left checklist'>
+                                <li className='include'>Acesso ao evento AO VIVO</li>
+                                <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
+                            </List>
+                            <div className="divider"></div>
+                            <h1 className='text-4xl font-semibold my-4'>R$249,90</h1>
+                            <a
+                                href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG9Z3O55'
+                                className='font-bold text-xl max-[1024px]:text-base shadow-md w-fit py-2 px-4 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center'>
+                                GARANTA SUA VAGA
+                            </a>
+                        </Container>
+                    </div>
+                </Container>
 
-    function $(el) {return document.querySelector(el);};
+                <Container className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 relative max-[820px]:mx-0'>
+                    <div className="flex flex-col items-center p-4 border-t-2 border-sky-800 rounded-2xl bg-primary-900 shadow-xl h-max w-full">
+                        <Wrapper className="flex-nowrap items-center justify-between w-full mb-4 max-[1024px]:flex-col max-[1024px]:items-start">
+                            <Wrapper className='items-center justify-start flex-nowrap'>
+                                <div className='w-10 h-10 mr-2 bg-primary-500 rounded-full flex items-center justify-center shadow-md'>
+                                    <i className="fa-solid fa-ticket text-2xl text-sky-100" aria-hidden="true"></i>
+                                </div>
+                                <h2 className='text-sky-100 font-bold' style={{fontSize: '150%'}}>PRESENCIAL</h2>
+                            </Wrapper>
+                            <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit max-[1024px]:my-4'>1º LOTE</span>
+                        </Wrapper>
+                        <Container className='p-8 rounded-lg border-2 border-sky-900 items-center'>
+                            <List className='text-left checklist'>
+                                <li className='include'>Acesso presencial ao evento</li>
+                                <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
+                                <li className='include'>Kit de brindes para participantes</li>
+                                <li className='include'>Happy hour</li>
+                            </List>
+                            <div className="divider"></div>
+                            {validDiscount
+                                ? (
+                                    <span className='inline-flex my-4 flex-col items-center'>
+                                        <h1 className='text-2xl mr-2 line-through font-light'>R${price[loteAtual].base}</h1>
+                                        <h1 className='text-4xl font-semibold grad-text grad-slide'>R${price[loteAtual].discount}</h1>
+                                    </span>
+                                )
+                                : (
+                                    <span className='my-4'>
+                                        <h1 className='text-4xl font-semibold my-4'>R${price[loteAtual].base}</h1>
+                                    </span>
+                                )
+                            }
+                            <span className='text-center grad-text font-bold'>{discountMessage}</span>
+                            <a
+                                href={validDiscount ? link.discount : link.default}
+                                className='font-bold text-xl max-[1024px]:text-base shadow-md w-fit py-2 px-4 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center'>
+                                GARANTA SUA VAGA
+                            </a>
+                        </Container>
+                    </div>
+                </Container>
 
-    //main
+                <Container className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 max-[820px]:mx-0'>
+                    <div className="flex flex-col items-center p-4 border-t-2 border-sky-800 rounded-2xl bg-[#121e31] shadow-lg h-max w-full relative">
+                        <Wrapper className="flex-nowrap items-center justify-between w-full mb-4 max-[1024px]:flex-col max-[1024px]:items-start">
+                            <Wrapper className='items-center justify-start flex-nowrap'>
+                                <div className='w-10 h-10 mr-2 bg-sky-100 rounded-full flex items-center justify-center shadow-md'>
+                                    <i className="fa-solid fa-gem text-2xl grad-text grad-slide" aria-hidden="true"></i>
+                                </div>
+                                <h2 className='grad-text grad slide font-bold' style={{fontSize: '150%'}}>ACESSO VIP</h2>
+                            </Wrapper>
+                            <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit max-[1024px]:my-4'>PREÇO ÚNICO</span>
+                        </Wrapper>
+                        <Container className='p-8 rounded-lg border-2 border-sky-900 items-center'>
+                            <List className='text-left checklist'>
+                                <li className='include'>Acesso presencial ao evento</li>
+                                <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
+                                <li className='include'>Kit de brindes para participantes</li>
+                                <li className='include'>Happy hour</li>
+                                <li className='include'><strong className='grad-text'>BÔNUS:</strong> Curso prático pré-evento com o André e o Clayton</li>
+                            </List>
+                            <div className="divider"></div>
+                            <h1 className='text-4xl font-semibold my-4'>R$1200,00</h1>
+                            <span className='text-center text-sm font-light'>Vagas restantes: {remainingTickets}/10</span>
+                            <a
+                                href='https://secure.doppus.com/pay/CBOJJ9ZF90J5BOK324999'
+                                className='font-bold text-xl max-[1024px]:text-base shadow-md w-fit py-2 px-4 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center'>
+                                GARANTA SUA VAGA
+                            </a>
+                        </Container>
+                    </div>
+                </Container>
+
+            </Wrapper>
+        );
+    };
+
+    // handler functions
+
+    const $ = el => document.querySelector(el);
+
+    function toggleFullscreen(content) {
+        setFullscreenContent(content);
+        setModalActive(true);
+    }
+
+    async function handleVerification() {
+
+        //Exits if name or email are blank
+
+        if (userEmail == '' || userName == '') {
+            setDisplayMessage(statusMessage.error_no_input);
+            return;
+        }
+
+        try {
+            setDisplayMessage(null);
+            setButtonText(<Loading width={24} />);
+
+            _log('Fetching user validation...', debug, "info");
+
+            const validation = await fetch('http://palmilhasterapeuticas.com.br/evento2024/validation/validation.php', {
+                method: "POST",
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify({
+                    email: userEmail,
+                    name: userName
+                })
+            })
+                .then((res) => {return res.text();})
+
+                .then((data) => {return JSON.parse(data);})
+
+                .catch((reason) => {
+                    setDisplayMessage(statusMessage.server_error);
+                    _log(`Error: Unable to complete verification. \n ${reason}`, debug, "error");
+                    return null;
+                });
+
+            validation && _log(validation, debug);
+
+            if (validation && validation.membership_status && validation.atendee_status) {
+
+                const membership_status = validation.membership_status;
+
+                const atendee_status = validation.atendee_status;
+
+                _log(`User member status: ${membership_status.is_valid} \nCode '${membership_status.status_message}';\nUser atendee status: ${atendee_status.is_valid} \nCode '${atendee_status.status_message}'`, debug, "info");
+
+                setValidDiscount(membership_status.is_valid || atendee_status.is_valid);
+
+                setRequireValidation(false);
+
+                localStorage.setItem("validated_user", JSON.stringify({
+                    discount_elegible: (membership_status.is_valid || atendee_status.is_valid),
+                    valid_member: membership_status.is_valid,
+                    valid_atendee: atendee_status.is_valid,
+                    user_mail: userEmail,
+                    user_name: userName
+                }));
+
+                if (membership_status.is_valid) {
+                    setDiscountMessage("Desconto Palmilhando®");
+                } else if (atendee_status.is_valid) {
+                    setDiscountMessage("Desconto participante 2023");
+                } else {
+                    setDiscountMessage(null);
+                }
+
+                _log("Verification complete.", debug, "success");
+            }
+
+        } finally {
+            setButtonText("ENVIAR");
+        }
+    }
+
+    // main
 
     return (
-        <div>
+        <div className='bg-[radial-gradient(circle_at_center,#1E3050,#121e31)]'>
 
-            <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light bg-fade-bottom'>
-                <img src={ASSET_PREFIX + 'img/[evento]_header_bg.webp'} alt='' draggable='false' className='w-full h-auto' />
-            </div>
+            <ButtonContainer buttonSize={56}>
+                <FloatingButton link='https://wa.me//5512982628132' color='#25d366'>
+                    <i className="fa-brands fa-whatsapp" aria-hidden='true'></i>
+                </FloatingButton>
+            </ButtonContainer>
 
-            {!isMobile && (<Section id='topnav' className='py-8'>
-                <Content>
-                    <Content_Default className='flex justify-between'>
-                        <Container className='h-8 w-auto max-[820px]:mx-auto max-[820px]:h-12'>
-                            <img src={ASSET_PREFIX + 'img/svg/logo_palmilhando.svg'} alt='' draggable='false' className='h-full w-auto' />
-                        </Container>
-                        <Wrapper id='navlinks' className='max-[820px]:hidden'>
-                            <List className='flex items-center'>
-                                <li className='font-bold my-auto'>HOME</li>
-                                <li className='font-bold my-auto'>ASSINE O PALIMILHANDO</li>
-                                <li className='font-bold my-auto'>CONTATO</li>
-                                <li>
-                                    <span
-                                        className='font-bold bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] rounded-full shadow-md m-auto p-3 cursor-pointer hover:brightness-110 hover:scale-[102%] duration-200'
-                                        onClick={() => $('#evt-valor').scrollIntoView({block: 'center'})}
-                                    >GARANTA SEU LUGAR</span>
-                                </li>
-                            </List>
-                        </Wrapper>
-                    </Content_Default>
-                </Content>
-            </Section>)}
+            {!isMobile ? <EventCountdown paused={true} /> : <CountdownMobile paused={true} />}
 
-            <Section id='evt-header' className='min-[821px]:pt-4 max-[820px]:pb-0'>
-                <Content>
-                    <Content_Default className='flex justify-center items-end max-[820px]:text-center max-[820px]:flex-col max-[820px]:items-center'>
-                        <Container className='h-full w-[32rem] max-[820px]:w-[80%] max-[426px]:w-full p-8 max-[820px]:p-2'>
-                            <Container>
+            <Section id='evt-header' className='pt-24 pb-12 h-[90vh] max-[1024px]:h-[100vh] max-[820px]:h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
+
+                <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
+                    <video autoPlay={false} muted playsInline loop className='inline-block align-baseline w-full relative bottom-12 max-[820px]:bottom-0 max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
+                        <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
+                    </video>
+                </div>
+
+                <Content className='relative z-20'>
+                    <Content_Default className='flex flex-col justify-center items-center text-center'>
+                        <Container className='h-full w-[48rem] max-[1024px]:w-[80%] max-[426px]:w-full items-center justify-center'>
+                            <Container className='w-9/12'>
                                 <img src={ASSET_PREFIX + 'img/svg/encontro_logo_3.svg'} alt='' draggable='false' />
                             </Container>
-                            <div className="divider left max-[820px]:hidden"></div>
-                            <div className="divider min-[821px]:hidden"></div>
-                            <Container>
+                            <div className="divider"></div>
+                            <Container className='my-4'>
                                 <p className='text-xl'>Viva a experiência do empreendedorismo e da prática baseada em evidência para se destacar no mercado de trabalho.</p>
                             </Container>
-                            <Container>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col'>
                                 <Wrapper className="items-center flex-nowrap w-max m-2">
-                                    <div className='w-12 h-12 mr-4 bg-sky-900 rounded-full flex items-center justify-center shadow-md'>
-                                        <img src={ASSET_PREFIX + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
-                                    </div>
-                                    <h2 className='font-extralight max-[820px]:text-base'>São José dos Campos - SP</h2>
-                                </Wrapper>
-                                <Wrapper className="items-center flex-nowrap w-max m-2">
-                                    <div className='w-12 h-12 mr-4 bg-sky-900 rounded-full flex items-center justify-center shadow-md'>
+                                    <div className='w-8 h-8 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
                                         <img src={ASSET_PREFIX + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
                                     </div>
-                                    <h2 className='font-extralight max-[820px]:text-base'>13 e 14 de Setembro</h2>
+                                    <h2 className='font-light text-base'>13 e 14 de Setembro</h2>
                                 </Wrapper>
-                                <Button className='my-4 w-full' onClick={() => $('#evt-valor').scrollIntoView({block: 'center'})}>GARANTA SUA VAGA</Button>
-                            </Container>
-                        </Container>
-                        <Container className='h-full w-[50%] max-[820px]:!w-full p-8 max-[820px]:p-2'>
-                            <p className='text-center text-sm'>CONFIRA AQUI COMO FOI NOSSO ÚLTIMO ENCONTRO</p>
-                            <br />
-                            <div className='w-full aspect-video relative shadow-md rounded-lg cursor-pointer bg-sky-700' ref={iframeRef}>
-                                {isPlaying ? <IframeContent /> : <Thumbnail />}
-                            </div>
+                                <Wrapper className="items-center flex-nowrap w-max m-2">
+                                    <div className='w-8 h-8 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
+                                        <img src={ASSET_PREFIX + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
+                                    </div>
+                                    <h2 className='font-light text-base'>Mercure São José dos Campos</h2>
+                                </Wrapper>
+                            </Wrapper>
+                            <button
+                                className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-full max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
+                                onClick={() => $('#compra-ingresso').scrollIntoView({block: 'center'})}>
+                                GARANTA SUA VAGA
+                            </button>
                         </Container>
                     </Content_Default>
                 </Content>
             </Section>
 
-            <Section id='evt-info'>
+            <Section id="evt-vantagens" className='border-t-2 border-sky-800 bg-[#121e31] py-4'>
                 <Content>
                     <Content_Default>
-                        <Container>
-                            <h1 className='text-3xl text-left w-9/12 mx-8 max-[820px]:text-xl max-[820px]:text-center max-[820px]:!w-full max-[820px]:mx-auto font-bold grad-text my-4 px-4'>NÓS QUEREMOS TE FAZER UM CONVITE</h1>
-                            <div className="divider"></div>
-                        </Container>
-                        <Wrapper className='flex-nowrap max-[820px]:flex-col mb-8 justify-evenly'>
-                            <Container className='p-4 w-[36rem] max-[820px]:w-full'>
-                                <p>O evento anual <mark className='cor-2 font-semibold'>Palmilhas e Ciência Aplicada</mark> foi pensado exclusivamente para que profissionais e estudantes da saúde possam se dedicar à utilização de <mark className="cor-2 font-semibold">ciência na prática de palmilhas</mark> e ao desenvolvimento dos negócios na área de saúde.</p>
-                                <br />
-                                <p>São <mark className="cor-2 font-semibold">dois dias inteiros em contato direto com grandes profissionais do mercado</mark>, para trocar informações, ter uma experiência única e levar consigo muito conteúdo, lembranças e novas expectativas profissionais.</p>
-                                <br />
-                                <p>É para quem quer <mark className="cor-2 font-semibold">alcançar mais</mark>. Não só em relação à prescrição e confecção de palmilhas, mas também sobre como <mark className="cor-2 font-semibold">ter um negócio estruturado e utilizar as palmilhas como parte importante no faturamento de clínicas e consultórios</mark>.</p>
-                            </Container>
-                            <Container className='p-4 w-[36rem] max-[820px]:w-full'>
-                                <p>O mercado está mudando e atualmente existem dois tipos de profissionais da saúde: os que buscam <mark className="cor-2 font-semibold">se desenvolver tanto tecnicamente quanto em questão empresarial</mark> e os que <mark className="cor-2 font-semibold">acham que está tudo bem continuar como está</mark>. E eu tenho uma notícia: <mark className="cor-2 font-semibold">o segundo tipo vai desaparecer em alguns anos.</mark></p>
-                                <br />
-                                <p>Por isso, quero que você entenda que <mark className="cor-2 font-semibold">não existe concorrência para quem decide ser bom.</mark></p>
-                            </Container>
+                        <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-center'>
+
+                            <Vantagem icon='fa-regular fa-clock'>
+                                <p className='text-sm'><strong className='grad-text'>19 horas</strong> de atividades e palestras</p>
+                            </Vantagem>
+
+                            <Vantagem icon='fa-solid fa-users'>
+                                <p className='text-sm'><strong className='grad-text'>Networking</strong> com clínicos de todo o país</p>
+                            </Vantagem>
+
+                            <Vantagem icon='fa-solid fa-rocket'>
+                                <p className='text-sm'>Conteúdo para <strong className='grad-text'>todos os níveis de experiência</strong></p>
+                            </Vantagem>
+
+                            <Vantagem icon='fa-solid fa-user-graduate'>
+                                <p className='text-sm'>Palestras e mentorias com <strong className='grad-text'>grandes profissionais do mercado</strong></p>
+                            </Vantagem>
+
                         </Wrapper>
                     </Content_Default>
                 </Content>
             </Section>
 
-            <Section className='bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] border-t border-white z-20 shadow-lg'>
-                <Content>
-                    <Content_Default>
-                        <Container>
-                            <h2 className='text-3xl text-left w-9/12 mx-8 max-[820px]:text-xl max-[820px]:!text-center max-[820px]:!w-full max-[820px]:mx-auto font-bold grad-text my-4 px-4'>PROFISSIONAL DA SAÚDE, QUANTO VOCÊ TEM INVESTIDO NO SEU CONHECIMENTO?</h2>
-                            <div className="divider"></div>
-                        </Container>
-                        <Wrapper className='flex-nowrap max-[820px]:flex-col justify-evenly'>
-                            <Container className='p-4 w-[36rem] max-[820px]:w-full'>
-                                <p>Investir no conhecimento é uma das chances para mudar o mundo, especialmente o seu e de seus pacientes. <mark className="cor-2 font-semibold">Ele é capaz de elevar a sensibilidade das pessoas quanto à identificação resolução de problemas</mark>.</p>
-                                <br />
-                                <p>Além disso, é o responsável por promover constantes mudanças positivas na qualidade de vida das pessoas. <mark className="cor-2 font-semibold">Pense: como eram os tratamentos em 2004 e agora em 2024?</mark></p>
+            <div className='bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] border-t-2 border-sky-800 z-20 shadow-lg'>
+                <Section id="evt-prof">
+                    <Content>
+                        <Content_Default>
+                            <Container className="text-center mx-auto w-9/12 max-[820px]:!w-full mb-8">
+                                <h1 className='font-bold text-3xl grad-text mb-2 max-[820px]:!text-2xl'>A PROFISSIONALIZAÇÃO É O ÚNICO CAMINHO</h1>
+                                <h2 className='mx-auto w-9/12 max-[820px]:!w-full text-base font-light'>Não importa o seu tempo de mercado: o <mark className="cor-7">Encontro Anual Palmilhas e Ciência Aplicada</mark> é o lugar perfeito para você ter ainda mais resultados.</h2>
                             </Container>
-                            <Container className='p-4 w-[36rem] max-[820px]:w-full'>
-                                <p>Entretanto, <mark className="cor-2 font-semibold">ele não é estático</mark>. Com o passar do tempo, fruto de novas descobertas e novos acontecimentos, toda a construção teórica que se tinha antes, vai se transformando.</p>
-                                <br />
-                                <p>Sendo assim, <mark className="cor-2 font-semibold">é imprescindível que profissionais invistam o seu tempo em estudar e trocar experiências</mark>.</p>
-                            </Container>
-                        </Wrapper>
-                        <button
-                            className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                            onClick={() => $('#evt-valor').scrollIntoView({block: `${viewportWidth <= 820 ? 'start' : 'center'}`})}>
-                            QUERO INVESTIR NO MEU CONHECIMENTO
-                        </button>
-                    </Content_Default>
-                </Content>
-            </Section>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-center'>
+                                <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                                    <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
+                                        <h2>Se é iniciante</h2>
+                                        <i className="fa-solid fa-seedling text-3xl grad-text" aria-hidden="true"></i>
+                                    </span>
+                                    <div className="divider left"></div>
+                                    <p>Vai descobrir como ser um profissional acima da média desde o início da jornada</p>
+                                </Container>
+                                <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                                    <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
+                                        <h2>Se já tem experiência</h2>
+                                        <i className="fa-solid fa-gears text-3xl grad-text" aria-hidden="true"></i>
+                                    </span>
+                                    <div className="divider left"></div>
+                                    <p>Vai conhecer novas formas de melhorar ainda mais seu trabalho e poder cobrar mais pelo seu serviço</p>
+                                </Container>
+                                <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                                    <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
+                                        <h2>Se já é avançado</h2>
+                                        <i className="fa-solid fa-rocket text-3xl grad-text" aria-hidden="true"></i>
+                                    </span>
+                                    <div className="divider left"></div>
+                                    <p>Vai aumentar o seu networking, fazer parcerias e ter contato com grandes profissionais do país.</p>
+                                </Container>
+                            </Wrapper>
+                        </Content_Default>
+                    </Content>
+                </Section>
 
-            <Section id="evt-prof" className='bg-[radial-gradient(circle_at_center,#ffffff,rgb(241_245_249))] cor-4'>
-                <Content>
-                    <Content_Default>
-                        <Container className="text-center mx-auto w-9/12 max-[820px]:!w-full mb-8">
-                            <h1 className='font-bold text-3xl cor-5 mb-2 max-[820px]:!text-2xl'>A PROFISSIONALIZAÇÃO É O ÚNICO CAMINHO</h1>
-                            <h2 className='mx-auto w-9/12 max-[820px]:!w-full text-base font-light'>Não importa o seu tempo de mercado: o <mark className="cor-1">Encontro Anual Palmilhas e Ciência Aplicada</mark> é o lugar perfeito para você ter ainda mais resultados.</h2>
-                        </Container>
-                        <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-center light'>
-                            <Container className='w-80 m-2 p-2 rounded-lg shadow-md bg-[linear-gradient(60deg,#d6edff,#ffffff)] hover:scale-105 duration-200 ease-out'>
-                                <span className='flex w-full justify-between items-center font-bold cor-1 text-lg'>
-                                    <h2>Se é iniciante</h2>
-                                    <i className="fa-solid fa-seedling text-3xl grad-text" aria-hidden="true"></i>
-                                </span>
-                                <div className="divider left"></div>
-                                <p className='cor-5'>Vai descobrir como ser um profissional acima da média desde o início da jornada</p>
+                {/* <Section id='evt-info' className='border-t border-sky-300 bg-[radial-gradient(circle_at_center,#1E3050,#121e31)]'>
+                    <Content>
+                        <Content_Default>
+                            <Container>
+                                <h1 className='text-3xl text-left w-9/12 mx-8 max-[820px]:text-xl max-[820px]:text-center max-[820px]:!w-full max-[820px]:mx-auto font-bold grad-text my-4 px-4'>NÓS QUEREMOS TE FAZER UM CONVITE</h1>
+                                <div className="divider"></div>
                             </Container>
-                            <Container className='w-80 m-2 p-2 rounded-lg shadow-md bg-[linear-gradient(60deg,#d6edff,#ffffff)] hover:scale-105 duration-200 ease-out'>
-                                <span className='flex w-full justify-between items-center font-bold cor-1 text-lg'>
-                                    <h2>Se já executa</h2>
-                                    <i className="fa-solid fa-gears text-3xl grad-text" aria-hidden="true"></i>
-                                </span>
-                                <div className="divider left"></div>
-                                <p className='cor-5'>Vai conhecer novas formas de melhorar ainda mais seu trabalho e poder cobrar mais pelo seu serviço</p>
-                            </Container>
-                            <Container className='w-80 m-2 p-2 rounded-lg shadow-md bg-[linear-gradient(60deg,#d6edff,#ffffff)] hover:scale-105 duration-200 ease-out'>
-                                <span className='flex w-full justify-between items-center font-bold cor-1 text-lg'>
-                                    <h2>Se já é avançado</h2>
-                                    <i className="fa-solid fa-rocket text-3xl grad-text" aria-hidden="true"></i>
-                                </span>
-                                <div className="divider left"></div>
-                                <p className='cor-5'>Vai aumentar o seu networking, fazer parcerias e ter contato com grandes profissionais do país.</p>
-                            </Container>
-                        </Wrapper>
-                    </Content_Default>
-                </Content>
-            </Section>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col mb-8 justify-evenly'>
+                                <Container className='p-4 w-[36rem] max-[820px]:w-full'>
+                                    <p>O evento anual <mark className='cor-2 font-semibold'>Palmilhas e Ciência Aplicada</mark> foi pensado exclusivamente para que profissionais e estudantes da saúde possam se dedicar à utilização de <mark className="cor-2 font-semibold">ciência na prática de palmilhas</mark> e ao desenvolvimento dos negócios na área de saúde.</p>
+                                    <br />
+                                    <p>São <mark className="cor-2 font-semibold">dois dias inteiros em contato direto com grandes profissionais do mercado</mark>, para trocar informações, ter uma experiência única e levar consigo muito conteúdo, lembranças e novas expectativas profissionais.</p>
+                                    <br />
+                                    <p>É para quem quer <mark className="cor-2 font-semibold">alcançar mais</mark>. Não só em relação à prescrição e confecção de palmilhas, mas também sobre como <mark className="cor-2 font-semibold">ter um negócio estruturado e utilizar as palmilhas como parte importante no faturamento de clínicas e consultórios</mark>.</p>
+                                </Container>
+                                <Container className='p-4 w-[36rem] max-[820px]:w-full'>
+                                    <p>O mercado está mudando e atualmente existem dois tipos de profissionais da saúde: os que buscam <mark className="cor-2 font-semibold">se desenvolver tanto tecnicamente quanto em questão empresarial</mark> e os que <mark className="cor-2 font-semibold">acham que está tudo bem continuar como está</mark>. E eu tenho uma notícia: <mark className="cor-2 font-semibold">o segundo tipo vai desaparecer em alguns anos.</mark></p>
+                                    <br />
+                                    <p>Por isso, quero que você entenda que <mark className="cor-2 font-semibold">não existe concorrência para quem decide ser bom.</mark></p>
+                                </Container>
+                            </Wrapper>
+                        </Content_Default>
+                    </Content>
+                </Section> */}
 
-            <Section id='evt-local' className='min-[821px]:!py-0 max-[820px]:py-16 border-b-2 border-white bg-[linear-gradient(45deg,var(--cor-4),var(--cor-5))] duration-200 ease-out overflow-hidden'>
+                {/* <Section id='evt-investir'>
+                    <Content>
+                        <Content_Default>
+                            <Container>
+                                <h2 className='text-3xl text-left w-9/12 mx-8 max-[820px]:text-xl max-[820px]:!text-center max-[820px]:!w-full max-[820px]:mx-auto font-bold grad-text my-4 px-4'>PROFISSIONAL DA SAÚDE, QUANTO VOCÊ TEM INVESTIDO NO SEU CONHECIMENTO?</h2>
+                                <div className="divider"></div>
+                            </Container>
+                            <Wrapper className='flex-nowrap max-[820px]:flex-col justify-evenly'>
+                                <Container className='p-4 w-[36rem] max-[820px]:w-full'>
+                                    <p>Investir no conhecimento é uma das chances para mudar o mundo, especialmente o seu e de seus pacientes. <mark className="cor-2 font-semibold">Ele é capaz de elevar a sensibilidade das pessoas quanto à identificação resolução de problemas</mark>.</p>
+                                    <br />
+                                    <p>Além disso, é o responsável por promover constantes mudanças positivas na qualidade de vida das pessoas. <mark className="cor-2 font-semibold">Pense: como eram os tratamentos em 2004 e agora em 2024?</mark></p>
+                                </Container>
+                                <Container className='p-4 w-[36rem] max-[820px]:w-full'>
+                                    <p>Entretanto, <mark className="cor-2 font-semibold">ele não é estático</mark>. Com o passar do tempo, fruto de novas descobertas e novos acontecimentos, toda a construção teórica que se tinha antes, vai se transformando.</p>
+                                    <br />
+                                    <p>Sendo assim, <mark className="cor-2 font-semibold">é imprescindível que profissionais invistam o seu tempo em estudar e trocar experiências</mark>.</p>
+                                </Container>
+                            </Wrapper>
+                            <button
+                                className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
+                                onClick={() => $('#compra-ingresso').scrollIntoView({block: `${viewportWidth <= 820 ? 'start' : 'center'}`})}>
+                                QUERO INVESTIR NO MEU CONHECIMENTO
+                            </button>
+                        </Content_Default>
+                    </Content>
+                </Section> */}
+            </div>
+
+            <Section id='evt-local' className='min-[821px]:!py-0 max-[820px]:py-16 bg-[linear-gradient(45deg,var(--cor-4),var(--cor-5))] duration-200 ease-out overflow-hidden'>
                 <Content className='relative z-20'>
                     <Content_Default>
                         <Wrapper className='!flex-nowrap max-[820px]:flex-col justify-start items-center h-[420px] max-[820px]:h-auto w-9/12 max-[820px]:!w-full mx-auto'>
@@ -421,8 +742,19 @@ export default function Main() {
                                         <strong>Hotel Mercure São José dos Campos - Torre II</strong><br />
                                         Av. Jorge Zarur, 81, Jardim Apolo <br />
                                         São José dos Campos, SP - 12243-081 <br />
-                                        <span className='inline underline font-light cursor-pointer text-sm' onClick={() => $('#evt-como-chegar').scrollIntoView({block: 'center'})}>Como chegar?</span>
                                     </h2>
+                                </Wrapper>
+                                <Wrapper className='flex-nowrap items-center w-max m-2 max-[820px]:w-full'>
+                                    <div className='w-12 h-12 aspect-square left-0 bottom-0 rounded-full mr-4'>
+                                        <img src={ASSET_PREFIX + 'img/mercure.webp'} className='w-full h-full rounded-[inherit]' alt='' draggable='false' />
+                                    </div>
+                                    <div>
+                                        <h2 className="font-extralight text-base">
+                                            <strong>Em parceria com:</strong><br />
+                                            Hotel Mercure São José dos Campos
+                                        </h2>
+                                        <span className='inline underline font-light cursor-pointer text-sm' onClick={() => $('#evt-como-chegar').scrollIntoView({block: 'center'})}>Como chegar?</span>
+                                    </div>
                                 </Wrapper>
                             </Container>
                             <Container className='w-[32rem] p-4 aspect-video max-[820px]:w-full max-[820px]:p-0 relative'>
@@ -433,115 +765,141 @@ export default function Main() {
                 </Content>
             </Section>
 
-            <Section id='evt-palestrantes' className='shadow-lg bg-[radial-gradient(circle_at_center,#ffffff,rgb(241_245_249))] cor-4 max-[820px]:!py-4 light'>
-                <Content>
+            <Section id='evt-palestrantes' className='shadow-lg bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] max-[820px]:!py-4 border-y-2 border-sky-800 chuva-palmilhas overflow-hidden rounded-bl-3xl rounded-br-3xl'>
+                <Content className='relative z-20'>
                     <Content_Default>
                         <Container className='w-9/12 max-[820px]:!w-full my-4 px-4 mx-auto'>
-                            <h2 className='text-2xl text-center max-[820px]:text-xl font-bold grad-text mb-2'> CONHEÇA OS PALESTRANTES DE 2024</h2>
-                            <p className='text-center text-sm'>Clique em um palestrante para ver mais informações</p>
+                            <h2 className='text-2xl text-center max-[820px]:text-xl font-bold grad-text mb-2'>CONHEÇA OS PALESTRANTES DE 2024</h2>
+                            <p className='text-center text-sm'>Selecione um palestrante para ver mais informações</p>
                             <div className="divider"></div>
                         </Container>
-                        <Wrapper className='items-center justify-center'>
+                        <Wrapper className='items-start justify-center'>
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/andre-mendes.webp'} name='André Mendes' occupation='Avaliação e raciocínio'>
-                                <p>Fisioterapeuta, especialista em Fisioterapia Ortopédica, Mestre e doutorando em Fisioterapia, sócio fundador da Podoshop e do Palmilhando. Autor do livro Palmilhas Terapêuticas: ciência e prática clínica.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Fisioterapeuta, especialista em Fisioterapia Ortopédica, Mestre e doutorando em Fisioterapia, sócio fundador da Podoshop e do Palmilhando. Autor do livro Palmilhas Terapêuticas: ciência e prática clínica.</p>
                             </Palestrante>
 
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/felipe-barcelos.webp'} name='Felipe Barcelos' occupation='Pediatria'>
-                                <p>Médico ortopedista com subespecialização em ortopedia pediátrica e doenças neuromusculares pelo Ensino Einstein. Médico do corpo clínico do Hospital Israelita Albert Einstein.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Médico ortopedista com subespecialização em ortopedia pediátrica e doenças neuromusculares pelo Ensino Einstein. Médico do corpo clínico do Hospital Israelita Albert Einstein.</p>
                             </Palestrante>
 
-                            <Palestrante /* src={ASSET_PREFIX + 'img/palestrantes-2024/brenda-braga.webp'} */ name='Brenda Braga' occupation='Pediatria'>
-                                <p>Fisioterapeuta ortesista, especialista em órteses suropodálicas. Empreendedora e sócia da Gente Miúda Kids Shoes.</p>
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/brenda-braga.webp'} name='Brenda Braga' occupation='Pediatria'>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Fisioterapeuta ortesista, especialista em órteses suropodálicas. Empreendedora e sócia da Gente Miúda Kids Shoes.</p>
                             </Palestrante>
 
-                            <Palestrante /* src={ASSET_PREFIX + 'img/palestrantes-2024/maria-lucoveis.webp'} */ name='Maria Lucóveis' occupation='Pés em risco'>
-                                <p>Fisioterapeuta e Enfermeira Estomaterapeuta, Mestre em Ciências pela Universidade Federal de São Paulo, Master em pé diabético pela Universidad Complutense de Madrid, Doutoranda em Ciências da Reabilitação pela Universidade de São Paulo. Sociaproprietária da Bem Estar dos Pés- Serviços de Enfermagem.</p>
+                            <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/maria-lucoveis.webp'} name='Maria Lucóveis' occupation='Pés em risco'>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Fisioterapeuta e Enfermeira Estomaterapeuta, Mestre em Ciências pela Universidade Federal de São Paulo, Master em pé diabético pela <i>Universidad Complutense de Madrid</i>, doutoranda em Ciências da Reabilitação pela Universidade de São Paulo. Socia proprietária da Bem Estar dos Pés - Serviços de Enfermagem.</p>
                             </Palestrante>
 
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/leonardo-signorini.webp'} name='Leonardo Signorini' occupation='Esportes'>
-                                <p>Fisioterapeuta, especialista em Fisioterapia Ortopédica e Esportiva. Dono da Dr pés palmilhas.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Fisioterapeuta, especialista em Fisioterapia Ortopédica e Esportiva. Dono da Dr pés palmilhas.</p>
                             </Palestrante>
 
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/george-sabino.webp'} name='George Sabino' occupation='Esportes'>
-                                <p>Fisioterapeuta, Doutor em Ciências da Reabilitação UFMG, Pós doutorando em Ciências da Saúde CMMG. Sócio fundador da Propulsão.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Fisioterapeuta, Doutor em Ciências da Reabilitação UFMG, Pós doutorando em Ciências da Saúde CMMG. Sócio fundador da Propulsão.</p>
                             </Palestrante>
 
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/natalia-faro.webp'} name='Natália Faro' occupation='Empreendedorismo'>
-                                <p>Fisioterapeuta, empreendedora há 15 anos, influenciadora e fundadora da Verticalle - Palmilhas. Experiência de 7 anos com palmilhas personalizadas e criadora das palmilhas dupla face para saltos.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Fisioterapeuta, empreendedora há 15 anos, influenciadora e fundadora da Verticalle - Palmilhas. Experiência de 7 anos com palmilhas personalizadas e criadora das palmilhas dupla face para saltos.</p>
                             </Palestrante>
 
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/mariana-pereira.webp'} name='Mariana Pereira' occupation='Marketing e Estratégia'>
-                                <p>Estrategista digital e copywriter da Podoshop e do Palmilhando.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Estrategista digital e copywriter da Podoshop e do Palmilhando.</p>
                             </Palestrante>
 
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/jordache-murta.webp'} name='Jordache Murta' occupation='Marketing e Estratégia'>
-                                <p>Publicitário, especialista em marketing digital. Há 20 anos trabalhando com marketing, atua em estratégias digitais para construção de autoridade, vendas e captação de novos clientes de forma orgânica.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Publicitário, especialista em marketing digital. Há 20 anos trabalhando com marketing, atua em estratégias digitais para construção de autoridade, vendas e captação de novos clientes de forma orgânica.</p>
                             </Palestrante>
 
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/myrlla-moreira.webp'} name='Myrlla Moreira' occupation='Financeiro'>
-                                <p>Fisioterapeuta formada há 11 anos, empreendedora, especialista em coluna vertebral pela Santa Casa de São Paulo. Criadora do curso on-line de capacitação Escoliose na Prática.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Fisioterapeuta formada há 11 anos, empreendedora, especialista em coluna vertebral pela Santa Casa de São Paulo. Criadora do curso on-line de capacitação Escoliose na Prática.</p>
                             </Palestrante>
 
                             <Palestrante src={ASSET_PREFIX + 'img/palestrantes-2024/clayton-fuzetti.webp'} name='Clayton Fuzetti' occupation='Negócios'>
-                                <p>Fisioterapeuta, especialista em Fisioterapia Ortopédica, MBA em gestão empresarial. Sócio fundador da Podoshop e do Palmilhando.</p>
+                                <p className='text-sm' style={{lineHeight: '24px'}}>Fisioterapeuta, especialista em Fisioterapia Ortopédica, MBA em gestão empresarial. Sócio fundador da Podoshop e do Palmilhando.</p>
                             </Palestrante>
                         </Wrapper>
                     </Content_Default>
                 </Content>
             </Section>
 
-            <Section id='evt-valor' className='bg-[var(--cor-4)] overflow-clip'>
+            <h1 className='grad-text text-center font-normal my-8'>Confira como foi nosso último encontro</h1>
 
+            <Section id='evt-video' className='pt-24 pb-12 h-[90vh] max-[1024px]:h-[100vh] max-[820px]:h-[90vh] flex items-center overflow-hidden shadow-xl'>
+                <div className='cursor-pointer' onClick={() => toggleFullscreen(<VideoEvento />)}>
+                    {!modalActive && <div className='absolute-center w-20 h-20 z-30'>
+                        <img src={ASSET_PREFIX + 'img/svg/play_button.svg'} alt='' draggable='false' className='w-full h-full' />
+                    </div>}
+                    <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
+                        <video id='evento-video' autoPlay={false} muted playsInline loop className='inline-block align-baseline w-full max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
+                            <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
+                        </video>
+                    </div>
+                </div>
+
+                {modalActive && <Fullscreen>{fullscreenContent}</Fullscreen>}
+
+            </Section>
+
+            <Section id='evt-valor'>
                 <Content>
                     <Content_Default>
-                        <Wrapper className='w-full items-center justify-center'>
-                            <Container className='w-[426px] max-[426px]:w-full h-[512px] relative pt-16 mx-auto max-[820px]:mx-0 rounded-lg shadow-lg border border-cyan-100 bg-[color:#0e1b2c] bg-opacity-75 backdrop-blur-xl' id='location-info'>
-
-                                <Badge className='border-2 border-cyan-100 !bg-[color:#0e1b2c]' width={20}>
-                                    <img src={ASSET_PREFIX + 'img/svg/ticket.svg'} alt='' draggable='false' className='w-full aspect-square' />
-                                </Badge>
-
-                                <ValidationForm />
-
+                        {requireValidation && <div className='absolute top-0 left-0 w-full h-full backdrop-blur-md backdrop-brightness-75 z-30 flex items-center justify-center'>
+                            {showValidationPrompt ? <Container className='rounded-2xl shadow-xl bg-[linear-gradient(65deg,#0b131f,#121e31)] bg-[size:300%] bg-right-top border-t-2 border-sky-800 w-[32rem] h-96 max-[820px]:h-[28rem] max-[820px]:w-[96%] p-8'>
+                                <Container className='text-center items-center w-[96%]'>
+                                    <h2 className='grad-text font-bold mb-2 relative z-40'>GARANTA SUA PARTICIPAÇÃO</h2>
+                                    <p className='text-sm font-light'>Informe seus dados para liberar as opções de compra.</p>
+                                </Container>
+                                <div className="divider"></div>
+                                <form id='compra-ingresso' onSubmit={(e) => e.preventDefault()}>
+                                    <Container className='px-4'>
+                                        <Container className="my-2">
+                                            <TEInput type="text" id="user_name" onChange={(e) => setUserName(e.target.value)} label='Nome completo' className='text-white !outline-none'></TEInput>
+                                        </Container>
+                                        <Container className='my-2'>
+                                            <TEInput type='email' id='user_email' onChange={(e) => setUserEmail(e.target.value)} label='Email' className='text-white !outline-none'></TEInput>
+                                        </Container>
+                                    </Container>
+                                    <button
+                                        onClick={handleVerification}
+                                        className='font-semibold text-lg shadow-md w-[80%] py-2 px-8 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center mx-auto relative h-12'>
+                                        {buttonText}
+                                    </button>
+                                    <div className='my-2'>{displayMessage}</div>
+                                </form>
                             </Container>
-                        </Wrapper>
+                            : <Loading width={64}/>}
+                        </div>}
+                        <div className='relative z-10'>
+                            <Ingressos />
+                        </div>
                     </Content_Default>
                 </Content>
             </Section>
 
-            <Section id='evt-hoteis-parceiros' className='shadow-lg bg-[radial-gradient(circle_at_center,var(--cor-4),#0e1b2c)] cor-4 max-[820px]:!py-4 bg-[size:200%]'>
-                <Content>
-                    <Content_Default>
-
-                    </Content_Default>
-                </Content>
-            </Section>
-
-            <Section id='evt-como-chegar'>
+            <Section id='evt-como-chegar' className='border-y-2 border-sky-800 bg-[#121e31]'>
                 <Content>
                     <Content_Default>
                         <Container className='my-4'>
-                            <h1>Como chegar?</h1>
+                            <h1 className='grad-text font-normal'>Como chegar?</h1>
                             <div className="divider left max-[820px]:hidden"></div>
                             <div className="divider min-[821px]:hidden"></div>
                         </Container>
-                        <List className='check-light'>
-                            <li>Aeroporto de São José dos Campos (a partir de 27 de março)</li>
-                            <li>Aeroporto de Guarulhos</li>
-                            <li>Rodoviária de São José dos Campos</li>
-                            <li>Acesso pela via Dutra</li>
+                        <List className='checklist'>
+                            <li className='include'>Aeroporto de São José dos Campos (a partir de 27 de março)</li>
+                            <li className='include'>Aeroporto de Guarulhos</li>
+                            <li className='include'>Rodoviária de São José dos Campos</li>
+                            <li className='include'>Acesso pela via Dutra</li>
                         </List>
                     </Content_Default>
                 </Content>
             </Section>
 
             <Section id='evt-o-que-fazer'>
-                <Content>
+                <Content className='relative z-30'>
                     <Content_Default>
                         <Container>
-                            <h1>O que fazer na região?</h1>
-                            <div className="divider left max-[820px]:hidden"></div>
-                            <div className="divider min-[821px]:hidden"></div>
+                            <h1 className='grad-text font-normal text-center'>O que fazer na região?</h1>
+                            <div className="divider"></div>
                         </Container>
                         <Wrapper className='items-center justify-center'>
                             <Atividade
@@ -597,7 +955,7 @@ export default function Main() {
                 </Content>
             </Section>
 
-            <Section id='faq' className='bg-[linear-gradient(#0c6b96,#1E3050)]'>
+            <Section id='faq'>
                 <Content>
                     <Content_Default className='flex justify-evenly max-[820px]:flex-col'>
                         <Container className='w-[30%] max-[820px]:!w-[90%] max-[820px]:mx-auto max-[820px]:mb-8 max-[820px]:text-center'>
@@ -628,14 +986,21 @@ export default function Main() {
                                 <p>O ingresso será enviado para o seu e-mail. Será necessário que você mostre seu ingresso na entrada do evento. Por isso, no momento da compra, informe um e-mail ao qual você tenha acesso. Você poderá apresentar o seu ingresso de forma impressa ou digital, por meio de um print.</p>
                             </Collapsible>
                             <button
-                                className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                                onClick={() => $('#evt-valor').scrollIntoView({block: `${viewportWidth <= 820 ? 'start' : 'center'}`})}>
+                                className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-full max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
+                                onClick={() => $('#compra-ingresso').scrollIntoView({block: 'center'})}>
                                 QUERO GARANTIR MEU INGRESSO
                             </button>
                         </Container>
                     </Content_Default>
                 </Content>
             </Section>
+
+            <Section id='evt-footer'>
+                <div className='w-36 m-auto text-center'>
+                    <img src={ASSET_PREFIX + 'img/svg/logo_palmilhando.svg'} alt='' draggable='false' />
+                </div>
+            </Section>
+
         </div>
     );
 }

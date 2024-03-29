@@ -1,5 +1,5 @@
 'use client';
-import {Section, Content, Content_Default, Container, Wrapper, Badge, Loading} from '@/lib/modules/layout-components';
+import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
 import {Button, List} from '@/lib/modules/ui-components';
 import React from 'react';
 import Carousel from '@/lib/modules/carousel';
