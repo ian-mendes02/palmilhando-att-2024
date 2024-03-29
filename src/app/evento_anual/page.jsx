@@ -12,6 +12,8 @@ import {_log} from '@/lib/modules/debug';
 
 export default function Main() {
 
+    const [pageLoading, setPageLoading] = useState(true);
+
     // Placeholder text for testing
 
     const debug = true;
@@ -537,10 +539,16 @@ export default function Main() {
         }
     }
 
+    useEffect(() => {
+        setPageLoading(false)
+    },[])
+
     // main
 
     return (
         <div className='bg-[radial-gradient(circle_at_center,#1E3050,#121e31)]'>
+
+            {pageLoading && <div className='fixed w-screen h-screen bg-primary-900 z-[999]'><Loading width={32} /></div>}
 
             <ButtonContainer buttonSize={56}>
                 <FloatingButton link='https://wa.me//5512982628132' color='#25d366'>
@@ -584,7 +592,7 @@ export default function Main() {
                             </Wrapper>
                             <button
                                 className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-full max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
-                                onClick={() => $('#compra-ingresso').scrollIntoView({block: 'center'})}>
+                                onClick={() => showValidationPrompt ? $('#compra-ingresso').scrollIntoView({block: 'center'}) : $('#evt-valor').scrollIntoView({block: 'start'})}>
                                 GARANTA SUA VAGA
                             </button>
                         </Container>
@@ -987,7 +995,7 @@ export default function Main() {
                             </Collapsible>
                             <button
                                 className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-full max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                                onClick={() => $('#compra-ingresso').scrollIntoView({block: 'center'})}>
+                                onClick={() => showValidationPrompt ? $('#compra-ingresso').scrollIntoView({block: 'center'}) : $('#evt-valor').scrollIntoView({block: 'start'})}>
                                 QUERO GARANTIR MEU INGRESSO
                             </button>
                         </Container>
