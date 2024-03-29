@@ -2,7 +2,7 @@
 const nextConfig = {
     output: 'export',
     distDir: 'dist',
-    /* assetPrefix: 'https://palmilhando.com.br/assinatura' */
+    /* assetPrefix: 'https://palmilhasterapeuticas.com.br/evento2024' */
 }
 
 module.exports = nextConfig

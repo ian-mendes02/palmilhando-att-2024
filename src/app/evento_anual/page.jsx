@@ -481,7 +481,7 @@ export default function Main() {
 
             _log('Fetching user validation...', debug, "info");
 
-            const validation = await fetch('http://palmilhasterapeuticas.com.br/evento2024/validation/validation.php', {
+            const validation = await fetch('https://palmilhasterapeuticas.com.br/evento2024/validation/validation.php', {
                 method: "POST",
                 headers: {"Content-type": "application/json"},
                 body: JSON.stringify({
@@ -548,12 +548,12 @@ export default function Main() {
                 </FloatingButton>
             </ButtonContainer>
 
-            {!isMobile ? <EventCountdown paused={true} /> : <CountdownMobile paused={true} />}
+            {!isMobile ? <EventCountdown /> : <CountdownMobile />}
 
             <Section id='evt-header' className='pt-24 pb-12 h-[90vh] max-[1024px]:h-[100vh] max-[820px]:h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
 
                 <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
-                    <video autoPlay={false} muted playsInline loop className='inline-block align-baseline w-full relative bottom-12 max-[820px]:bottom-0 max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
+                    <video autoPlay muted playsInline loop className='inline-block align-baseline w-full relative bottom-12 max-[820px]:bottom-0 max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
                         <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
                     </video>
                 </div>
@@ -830,7 +830,7 @@ export default function Main() {
                         <img src={ASSET_PREFIX + 'img/svg/play_button.svg'} alt='' draggable='false' className='w-full h-full' />
                     </div>}
                     <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
-                        <video id='evento-video' autoPlay={false} muted playsInline loop className='inline-block align-baseline w-full max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
+                        <video id='evento-video' autoPlay muted playsInline loop className='inline-block align-baseline w-full max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
                             <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
                         </video>
                     </div>
