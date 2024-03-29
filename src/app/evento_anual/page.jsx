@@ -391,7 +391,7 @@ export default function Main() {
                                 </div>
                                 <h2 className='text-sky-100 font-bold' style={{fontSize: '150%'}}>PRESENCIAL</h2>
                             </Wrapper>
-                            <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit max-[1024px]:my-4'>1º LOTE</span>
+                            <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit max-[1024px]:my-4'>PRÉ-VENDA</span>
                         </Wrapper>
                         <Container className='p-8 rounded-lg border-2 border-sky-900 items-center'>
                             <List className='text-left checklist'>
@@ -441,13 +441,13 @@ export default function Main() {
                                 <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
                                 <li className='include'>Kit de brindes para participantes</li>
                                 <li className='include'>Happy hour</li>
-                                <li className='include'><strong className='grad-text'>BÔNUS:</strong> Curso prático pré-evento com o André e o Clayton</li>
+                                <li className='include'>Curso prático pré-evento com o André e o Clayton</li>
                             </List>
                             <div className="divider"></div>
                             <h1 className='text-4xl font-semibold my-4'>R$1200,00</h1>
                             <span className='text-center text-sm font-light'>Vagas restantes: {remainingTickets}/10</span>
                             <a
-                                href='https://secure.doppus.com/pay/CBOJJ9ZF90J5BOK324999'
+                                href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG9Z3555'
                                 className='font-bold text-xl max-[1024px]:text-base shadow-md w-fit py-2 px-4 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center'>
                                 GARANTA SUA VAGA
                             </a>
@@ -550,11 +550,11 @@ export default function Main() {
 
             {pageLoading && <div className='fixed w-screen h-screen bg-primary-900 z-[999]'><Loading width={32} /></div>}
 
-            <ButtonContainer buttonSize={56}>
+            {/* <ButtonContainer buttonSize={56}>
                 <FloatingButton link='https://wa.me//5512982628132' color='#25d366'>
                     <i className="fa-brands fa-whatsapp" aria-hidden='true'></i>
                 </FloatingButton>
-            </ButtonContainer>
+            </ButtonContainer> */}
 
             {!isMobile ? <EventCountdown /> : <CountdownMobile />}
 

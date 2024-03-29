@@ -7,7 +7,7 @@ export default function EventCountdown({paused = false}) {
 
     //Data do evento
     const eventDate = useMemo(() => {
-        return new Date('2024-09-20T08:00:00.000-03:00').getTime();
+        return new Date('2024-03-31T23:59:00.000-03:00').getTime();
     }, []);
 
     //Armazena o tempo restante dividido em partes
@@ -36,7 +36,7 @@ export default function EventCountdown({paused = false}) {
     return (
         <div id='countdown' className='fixed top-0 w-full h-20 bg-[var(--cor-4)] flex items-center border-b-2 border-sky-800 rounded-bl-3xl rounded-br-3xl z-50 slide-down overflow-hidden'>
             <Wrapper className='justify-center items-center m-auto'>
-                <span className='font-bold mx-2'>O evento começa em:</span>
+                <span className='font-bold mx-2'>A pré-venda acaba em:</span>
                 <div className='flex flex-col items-center justify-center w-20 h-16 rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
                     <span className='text-xl font-extrabold'>{time.d}</span>
                     <span className='text-xs font-light'>DIAS</span>
