@@ -1,82 +1,39 @@
 'use client';
-import {useEffect, useRef, useMemo, useState} from 'react';
 import {Section, Content, Content_Default, Container, Wrapper, Loading} from '@/lib/modules/layout-components';
-import {FloatingButton, ButtonContainer} from '@/lib/modules/floating-button';
+//import {FloatingButton, ButtonContainer} from '@/lib/modules/floating-button';
 import {List, Collapsible} from '@/lib/modules/ui-components';
-import EventCountdown from '@/lib/modules/countdown-timer';
+import {EventoIngressos} from '@/lib/modules/ticket-purchase';
 import CountdownMobile from '@/lib/modules/countdown-mobile';
-import {TEInput} from 'tw-elements-react';
-import '../../../public/css/globals.css';
+import {useEffect, useRef, useMemo, useState} from 'react';
+import EventCountdown from '@/lib/modules/countdown-timer';
 import {_log} from '@/lib/modules/debug';
+import '../../../public/css/globals.css';
 
 
 export default function Main() {
+
+    const DEV = useMemo(() => {
+        return process.env.NEXT_PUBLIC_DEV_ENV == 'true';
+    }, []);
 
     const [pageLoading, setPageLoading] = useState(true);
 
     // Placeholder text for testing
 
-    const debug = true;
-
-    const remainingTickets = 10;
-
     const defaultOccupation = '?';
 
     const defaultText = 'Teremos mais informações em breve. Fique ligado!';
 
-    const price = {
-        lote1: {
-            base: "590,00",
-            discount: "450,00"
-        },
-        lote2: {
-            base: "550,00",
-            discount: "690,00"
-        },
-        lote3: {
-            base: "790,00",
-            discount: "650,00"
-        }
-    };
-
-    const loteAtual = "lote1";
-
-    const link = {
-        discount: 'https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG9ZH000',
-        default: 'https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG9Z355J'
-    };
-
-    const statusMessage = {
-        error_no_input: <span className='text-red-500 text-center'>Parece que há campos em branco, tente novamente.</span>,
-        server_error: <span className='text-orange-500 text-center font-light text-sm'>Servidor indisponível no momento, tente novamente mais tarde.</span>,
-    };
-
     // states
 
-    // const [isPlaying, setIsPlaying] = useState(false);
-
-    // Stores viewport data for responsive features
+    /**
+     * Stores viewport data for responsive features 
+     * */
     const [viewportWidth, setViewportWidth] = useState(null);
-
-    const [validDiscount, setValidDiscount] = useState();
-
-    const [requireValidation, setRequireValidation] = useState(true);
-
-    const [showValidationPrompt, setShowValidationPrompt] = useState(false);
-
-    const [discountMessage, setDiscountMessage] = useState(null);
 
     const [fullscreenContent, setFullscreenContent] = useState(null);
 
     const [modalActive, setModalActive] = useState(false);
-
-    const [userName, setUserName] = useState('');
-
-    const [userEmail, setUserEmail] = useState('');
-
-    const [buttonText, setButtonText] = useState('ENVIAR');
-
-    const [displayMessage, setDisplayMessage] = useState(null);
 
     // hooks
 
@@ -93,10 +50,8 @@ export default function Main() {
      * Can be changed in `.env`.
      */
     const ASSET_PREFIX = useMemo(() => {
-        return process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL;
+        return DEV ? "/" : process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL;
     }, []);
-
-    //const ASSET_PREFIX = "./";
 
     // Placeholder user image
     const defaultUserProfile = useMemo(() => {
@@ -146,23 +101,6 @@ export default function Main() {
             document.removeEventListener('touchmove', preventScroll, {passive: false});
         }
     }, [modalActive]);
-
-    useEffect(() => {setDisplayMessage(null);}, [userName, userEmail]);
-
-    useEffect(() => {
-        var user = JSON.parse(localStorage.getItem("validated_user"));
-        if (user) {
-            setRequireValidation(false);
-            setValidDiscount(user.discount_elegible);
-            if (user.discount_elegible && user.valid_member) {
-                setDiscountMessage("Desconto Palmilhando®");
-            } else if (user.discount_elegible && user.valid_atendee) {
-                setDiscountMessage("Desconto participante 2023");
-            }
-        } else {
-            setShowValidationPrompt(true);
-        }
-    }, []);
 
     // components
 
@@ -353,114 +291,6 @@ export default function Main() {
         );
     };
 
-    const Ingressos = () => {
-        return (
-            <Wrapper className='flex-nowrap max-[820px]:flex-col'>
-
-                <Container className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 max-[820px]:mx-0'>
-                    <div className="flex flex-col items-center p-4 border-t-2 border-sky-600 rounded-2xl bg-sky-900 shadow-lg h-max w-full relative">
-                        <Wrapper className="flex-nowrap items-center justify-between w-full mb-4 max-[1024px]:flex-col max-[1024px]:items-start">
-                            <Wrapper className='items-center justify-start flex-nowrap'>
-                                <div className='w-10 h-10 mr-2 bg-primary-500 rounded-full flex items-center justify-center shadow-md'>
-                                    <i className="fa-solid fa-globe text-2xl text-sky-100" aria-hidden="true"></i>
-                                </div>
-                                <h2 className='text-sky-100 font-bold' style={{fontSize: '150%'}}>ONLINE</h2>
-                            </Wrapper>
-                            <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit max-[1024px]:my-4'>PREÇO ÚNICO</span>
-                        </Wrapper>
-                        <Container className='p-8 rounded-lg border-2 border-sky-700 items-center'>
-                            <List className='text-left checklist'>
-                                <li className='include'>Acesso ao evento AO VIVO</li>
-                                <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
-                            </List>
-                            <div className="divider"></div>
-                            <h1 className='text-4xl font-semibold my-4'>R$249,90</h1>
-                            <a
-                                href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG9Z3O55'
-                                className='font-bold text-xl max-[1024px]:text-base shadow-md w-fit py-2 px-4 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center'>
-                                GARANTA SUA VAGA
-                            </a>
-                        </Container>
-                    </div>
-                </Container>
-
-                <Container className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 relative max-[820px]:mx-0'>
-                    <div className="flex flex-col items-center p-4 border-t-2 border-sky-800 rounded-2xl bg-primary-900 shadow-xl h-max w-full">
-                        <Wrapper className="flex-nowrap items-center justify-between w-full mb-4 max-[1024px]:flex-col max-[1024px]:items-start">
-                            <Wrapper className='items-center justify-start flex-nowrap'>
-                                <div className='w-10 h-10 mr-2 bg-primary-500 rounded-full flex items-center justify-center shadow-md'>
-                                    <i className="fa-solid fa-ticket text-2xl text-sky-100" aria-hidden="true"></i>
-                                </div>
-                                <h2 className='text-sky-100 font-bold' style={{fontSize: '150%'}}>PRESENCIAL</h2>
-                            </Wrapper>
-                            <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit max-[1024px]:my-4'>PRÉ-VENDA</span>
-                        </Wrapper>
-                        <Container className='p-8 rounded-lg border-2 border-sky-900 items-center'>
-                            <List className='text-left checklist'>
-                                <li className='include'>Acesso presencial ao evento</li>
-                                <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
-                                <li className='include'>Kit de brindes para participantes</li>
-                                <li className='include'>Happy hour</li>
-                            </List>
-                            <div className="divider"></div>
-                            {validDiscount
-                                ? (
-                                    <span className='inline-flex my-4 flex-col items-center'>
-                                        <h1 className='text-2xl mr-2 line-through font-light'>R${price[loteAtual].base}</h1>
-                                        <h1 className='text-4xl font-semibold grad-text grad-slide'>R${price[loteAtual].discount}</h1>
-                                    </span>
-                                )
-                                : (
-                                    <span className='my-4'>
-                                        <h1 className='text-4xl font-semibold my-4'>R${price[loteAtual].base}</h1>
-                                    </span>
-                                )
-                            }
-                            <span className='text-center grad-text font-bold'>{discountMessage}</span>
-                            <a
-                                href={validDiscount ? link.discount : link.default}
-                                className='font-bold text-xl max-[1024px]:text-base shadow-md w-fit py-2 px-4 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center'>
-                                GARANTA SUA VAGA
-                            </a>
-                        </Container>
-                    </div>
-                </Container>
-
-                <Container className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 max-[820px]:mx-0'>
-                    <div className="flex flex-col items-center p-4 border-t-2 border-sky-800 rounded-2xl bg-[#121e31] shadow-lg h-max w-full relative">
-                        <Wrapper className="flex-nowrap items-center justify-between w-full mb-4 max-[1024px]:flex-col max-[1024px]:items-start">
-                            <Wrapper className='items-center justify-start flex-nowrap'>
-                                <div className='w-10 h-10 mr-2 bg-sky-100 rounded-full flex items-center justify-center shadow-md'>
-                                    <i className="fa-solid fa-gem text-2xl grad-text grad-slide" aria-hidden="true"></i>
-                                </div>
-                                <h2 className='grad-text grad slide font-bold' style={{fontSize: '150%'}}>ACESSO VIP</h2>
-                            </Wrapper>
-                            <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit max-[1024px]:my-4'>PREÇO ÚNICO</span>
-                        </Wrapper>
-                        <Container className='p-8 rounded-lg border-2 border-sky-900 items-center'>
-                            <List className='text-left checklist'>
-                                <li className='include'>Acesso presencial ao evento</li>
-                                <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
-                                <li className='include'>Kit de brindes para participantes</li>
-                                <li className='include'>Happy hour</li>
-                                <li className='include'>Curso prático pré-evento com o André e o Clayton</li>
-                            </List>
-                            <div className="divider"></div>
-                            <h1 className='text-4xl font-semibold my-4'>R$1200,00</h1>
-                            <span className='text-center text-sm font-light'>Vagas restantes: {remainingTickets}/10</span>
-                            <a
-                                href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG9Z3555'
-                                className='font-bold text-xl max-[1024px]:text-base shadow-md w-fit py-2 px-4 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center'>
-                                GARANTA SUA VAGA
-                            </a>
-                        </Container>
-                    </div>
-                </Container>
-
-            </Wrapper>
-        );
-    };
-
     // handler functions
 
     const $ = el => document.querySelector(el);
@@ -470,77 +300,7 @@ export default function Main() {
         setModalActive(true);
     }
 
-    async function handleVerification() {
-
-        //Exits if name or email are blank
-
-        if (userEmail == '' || userName == '') {
-            setDisplayMessage(statusMessage.error_no_input);
-            return;
-        }
-
-        try {
-            setDisplayMessage(null);
-            setButtonText(<Loading width={24} />);
-
-            _log('Fetching user validation...', debug, "info");
-
-            const validation = await fetch(ASSET_PREFIX + 'validation/validation.php', {
-                method: "POST",
-                headers: {"Content-type": "application/json"},
-                body: JSON.stringify({
-                    email: userEmail,
-                    name: userName
-                })
-            })
-                .then((res) => {return res.text();})
-
-                .then((data) => {return JSON.parse(data);})
-
-                .catch((reason) => {
-                    setDisplayMessage(statusMessage.server_error);
-                    _log(`Error: Unable to complete verification. \n ${reason}`, debug, "error");
-                    return null;
-                });
-
-            validation && _log(validation, debug);
-
-            if (validation && validation.membership_status && validation.atendee_status) {
-
-                const membership_status = validation.membership_status;
-
-                const atendee_status = validation.atendee_status;
-
-                _log(`User member status: ${membership_status.is_valid} \nCode '${membership_status.status_message}';\nUser atendee status: ${atendee_status.is_valid} \nCode '${atendee_status.status_message}'`, debug, "info");
-
-                setValidDiscount(membership_status.is_valid || atendee_status.is_valid);
-
-                setRequireValidation(false);
-
-                localStorage.setItem("validated_user", JSON.stringify({
-                    discount_elegible: (membership_status.is_valid || atendee_status.is_valid),
-                    valid_member: membership_status.is_valid,
-                    valid_atendee: atendee_status.is_valid,
-                    user_mail: userEmail,
-                    user_name: userName
-                }));
-
-                if (membership_status.is_valid) {
-                    setDiscountMessage("Desconto Palmilhando®");
-                } else if (atendee_status.is_valid) {
-                    setDiscountMessage("Desconto participante 2023");
-                } else {
-                    setDiscountMessage(null);
-                }
-
-                _log("Verification complete.", debug, "success");
-            }
-
-        } finally {
-            setButtonText("ENVIAR");
-        }
-    }
-
+    // Dismisses loading screen once all other elements have been processed
     useEffect(() => {
         setPageLoading(false);
     }, []);
@@ -560,10 +320,10 @@ export default function Main() {
 
             {!isMobile ? <EventCountdown /> : <CountdownMobile />}
 
-            <Section id='evt-header' className='pt-24 pb-12 h-[90vh] max-[1024px]:h-[100vh] max-[820px]:h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
+            <Section id='evt-header' className='pt-24 pb-12 h-[576px] max-[820px]:h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
 
                 <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
-                    <video autoPlay muted playsInline loop className='inline-block align-baseline w-full relative bottom-12 max-[820px]:bottom-0 max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
+                    <video autoPlay muted playsInline loop className='inline-block align-baseline w-full relative max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
                         <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
                     </video>
                 </div>
@@ -594,7 +354,7 @@ export default function Main() {
                             </Wrapper>
                             <button
                                 className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-full max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
-                                onClick={() => showValidationPrompt ? $('#compra-ingresso').scrollIntoView({block: 'center'}) : $('#evt-valor').scrollIntoView({block: 'start'})}>
+                                onClick={() => $('#evt-valor').scrollIntoView({block: 'start'})}>
                                 GARANTA SUA VAGA
                             </button>
                         </Container>
@@ -834,7 +594,7 @@ export default function Main() {
 
             <h1 className='grad-text text-center font-normal my-8'>Confira como foi nosso último encontro</h1>
 
-            <Section id='evt-video' className='pt-24 pb-12 h-[90vh] max-[1024px]:h-[100vh] max-[820px]:h-[90vh] flex items-center overflow-hidden shadow-xl'>
+            <Section id='evt-video' className='pt-24 pb-12 h-[576px] max-[820px]:h-[90vh] flex items-center overflow-hidden shadow-xl'>
                 <div className='cursor-pointer' onClick={() => toggleFullscreen(<VideoEvento />)}>
                     {!modalActive && <div className='absolute-center w-20 h-20 z-30'>
                         <img src={ASSET_PREFIX + 'img/svg/play_button.svg'} alt='' draggable='false' className='w-full h-full' />
@@ -853,35 +613,7 @@ export default function Main() {
             <Section id='evt-valor'>
                 <Content>
                     <Content_Default>
-                        {requireValidation && <div className='absolute top-0 left-0 w-full h-full backdrop-blur-md backdrop-brightness-75 z-30 flex items-center justify-center'>
-                            {showValidationPrompt ? <Container className='rounded-2xl shadow-xl bg-[linear-gradient(65deg,#0b131f,#121e31)] bg-[size:300%] bg-right-top border-t-2 border-sky-800 w-[32rem] h-96 max-[820px]:h-[28rem] max-[820px]:w-[96%] p-8'>
-                                <Container className='text-center items-center w-[96%]'>
-                                    <h2 className='grad-text font-bold mb-2 relative z-40'>GARANTA SUA PARTICIPAÇÃO</h2>
-                                    <p className='text-sm font-light'>Informe seus dados para liberar as opções de compra.</p>
-                                </Container>
-                                <div className="divider"></div>
-                                <form id='compra-ingresso' onSubmit={(e) => e.preventDefault()}>
-                                    <Container className='px-4'>
-                                        <Container className="my-2">
-                                            <TEInput type="text" id="user_name" onChange={(e) => setUserName(e.target.value)} label='Nome completo' className='text-white !outline-none'></TEInput>
-                                        </Container>
-                                        <Container className='my-2'>
-                                            <TEInput type='email' id='user_email' onChange={(e) => setUserEmail(e.target.value)} label='Email' className='text-white !outline-none'></TEInput>
-                                        </Container>
-                                    </Container>
-                                    <button
-                                        onClick={handleVerification}
-                                        className='font-semibold text-lg shadow-md w-[80%] py-2 px-8 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center mx-auto relative h-12'>
-                                        {buttonText}
-                                    </button>
-                                    <div className='my-2'>{displayMessage}</div>
-                                </form>
-                            </Container>
-                                : <Loading width={64} />}
-                        </div>}
-                        <div className='relative z-10'>
-                            <Ingressos />
-                        </div>
+                        <EventoIngressos />
                     </Content_Default>
                 </Content>
             </Section>
@@ -890,15 +622,31 @@ export default function Main() {
                 <Content>
                     <Content_Default>
                         <Container className='my-4'>
-                            <h1 className='grad-text font-normal'>Como chegar?</h1>
+                            <h1 className='grad-text font-normal'>Como chegar até o local do evento?</h1>
+                            <p className='text-xs opacity-50 italic my-4'>Tempos aproximados e sujeitos a variação.</p>
                             <div className="divider left max-[820px]:hidden"></div>
                             <div className="divider min-[821px]:hidden"></div>
                         </Container>
-                        <List className='checklist'>
-                            <li className='include'>Aeroporto de São José dos Campos (a partir de 27 de março)</li>
-                            <li className='include'>Aeroporto de Guarulhos</li>
-                            <li className='include'>Rodoviária de São José dos Campos</li>
-                            <li className='include'>Acesso pela via Dutra</li>
+                        <List className='checklist ml-8'>
+                            <li className='include text-lg font-semibold'> - Aeroporto de São José dos Campos <br />
+                                <span className="inline-flex items-center mt-2">
+                                    <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-car"></i><br />20min</span>
+                                    <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-bus"></i><br />1h15min</span>
+                                </span>
+                            </li>
+                            <li className='include text-lg font-semibold'> - Aeroporto de Guarulhos <br />
+                                <span className="inline-flex items-center mt-2">
+                                    <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-car"></i><br />1h</span>
+                                    <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-bus"></i><br />+2h</span>
+                                </span>
+                            </li>
+                            <li className='include text-lg font-semibold'> - Rodoviária de São José dos Campos <br />
+                                <span className="inline-flex items-center mt-2">
+                                    <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-car"></i><br />10min</span>
+                                    <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-bus"></i><br />30min</span>
+                                </span>
+                            </li>
+                            <li className='include text-lg font-semibold'> - Acesso pela via Dutra</li>
                         </List>
                     </Content_Default>
                 </Content>
@@ -997,7 +745,7 @@ export default function Main() {
                             </Collapsible>
                             <button
                                 className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-full max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                                onClick={() => showValidationPrompt ? $('#compra-ingresso').scrollIntoView({block: 'center'}) : $('#evt-valor').scrollIntoView({block: 'start'})}>
+                                onClick={() => $('#evt-valor').scrollIntoView({block: 'start'})}>
                                 QUERO GARANTIR MEU INGRESSO
                             </button>
                         </Container>

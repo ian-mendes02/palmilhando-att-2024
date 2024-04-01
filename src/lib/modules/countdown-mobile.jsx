@@ -15,14 +15,13 @@ export default function CountdownMobile({paused = false}) {
 
     useEffect(() => {
         //Roda o cronômetro 1 vez por segundo
-        const timer = !paused && setInterval(() => {
+        var now = new Date().getTime();
+        var del = eventDate - now;
+        const timer = !paused && del > 0 && setInterval(() => {
             const _t = (n) => {
                 if (n < 10) {n = '0' + n;}
                 return n;
             };
-            var now = new Date().getTime();
-            var del = eventDate - now;
-            del == 0 && clearInterval(timer);
             var d = Math.floor(del / 86400000);
             var h = Math.floor((del % 86400000) / 3600000);
             var m = Math.floor((del % 3600000) / 60000);

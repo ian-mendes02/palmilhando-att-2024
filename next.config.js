@@ -2,7 +2,7 @@
 const nextConfig = {
     output: 'export',
     distDir: 'dist',
-    assetPrefix: 'https://palmilhasterapeuticas.com.br/evento2024',
+    assetPrefix: process.env.NEXT_PUBLIC_DEV_ENV == 'true' ? '' : 'https://palmilhasterapeuticas.com.br/evento2024',
     crossOrigin: 'anonymous'
 };
 
