@@ -16,8 +16,8 @@ function EventoIngressos() {
      * Local PHP URL.
      * Can be changed in `.env`.
      */
-    const PHP_URL = useMemo(() => {
-        return DEV ? process.env.NEXT_PUBLIC_PHP_SERVER_PATH : process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL;
+    const API_URL = useMemo(() => {
+        return DEV ? process.env.NEXT_PUBLIC_API_URL_DEV : process.env.NEXT_PUBLIC_API_URL_PROD;
     }, []);
 
     // Literals
@@ -65,6 +65,7 @@ function EventoIngressos() {
     const [discountMessage, setDiscountMessage] = useState(null);
     const [buttonText, setButtonText] = useState('ENVIAR');
     const [displayMessage, setDisplayMessage] = useState(null);
+    const [timeStart, setTimeStart] = useState();
 
     /**
      * Stores client IP address
@@ -81,7 +82,7 @@ function EventoIngressos() {
      */
     async function userAjax(action, data) {
         _log('Fetching data from server...', debug, "info");
-        await fetch(PHP_URL + 'validation/validation.php', {
+        await fetch(API_URL + "evento2024/integration/", {
             method: 'POST',
             headers: {
                 "Content-type": "application/json"
@@ -138,6 +139,7 @@ function EventoIngressos() {
      */
     useEffect(() => {
         getIP();
+        setTimeStart(Date.now());
         var user = JSON.parse(localStorage.getItem("validated_user"));
         if (user && requireValidation) {
             var usrdata = {
@@ -177,6 +179,31 @@ function EventoIngressos() {
         }
         setButtonText("ENVIAR");
     }, [ajaxResponse]);
+
+    useEffect(() => {
+        async function storePageView() {
+            fetch(API_URL + "evento2024/integration/", {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    action: "page_view",
+                    data: {
+                        time_start: timeStart,
+                        time_leave: Date.now(),
+                        user_ip: userIP
+                    }
+                })
+            });
+        }
+        if (userIP && timeStart) {
+            window.addEventListener("beforeunload", storePageView);
+            return () => {
+                window.removeEventListener("beforeunload", storePageView);
+            };
+        }
+    }, [userIP, timeStart]);
 
     // Components
 
