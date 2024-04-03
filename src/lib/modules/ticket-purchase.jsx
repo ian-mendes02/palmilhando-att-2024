@@ -12,15 +12,9 @@ function EventoIngressos() {
         return process.env.NEXT_PUBLIC_DEV_ENV == 'true';
     }, []);
 
-    /**
-     * Local PHP URL.
-     * Can be changed in `.env`.
-     */
     const API_URL = useMemo(() => {
         return DEV ? process.env.NEXT_PUBLIC_API_URL_DEV : process.env.NEXT_PUBLIC_API_URL_PROD;
     }, []);
-
-    // Literals
 
     const debug = DEV;
 
@@ -58,27 +52,30 @@ function EventoIngressos() {
     // States
 
     const [userName, setUserName] = useState('');
+
     const [userEmail, setUserEmail] = useState('');
+
     const [validDiscount, setValidDiscount] = useState(false);
+
     const [requireValidation, setRequireValidation] = useState(true);
+
     const [showValidationPrompt, setShowValidationPrompt] = useState(false);
+
     const [discountMessage, setDiscountMessage] = useState(null);
+
     const [buttonText, setButtonText] = useState('ENVIAR');
+
     const [displayMessage, setDisplayMessage] = useState(null);
-    const [timeStart, setTimeStart] = useState();
+
+    const [userIP, setUserIP] = useState(null);
 
     /**
-     * Stores client IP address
-     */
-    const [userIP, setUserIP] = useState('');
-
-    /**
-     * Stores ajax response data
+     * Stores ajax validation response
      */
     const [ajaxResponse, setAjaxResponse] = useState(null);
 
     /**
-     * Fetch user verification from server
+     * Fetch user validation from server
      */
     async function userAjax(action, data) {
         _log('Fetching data from server...', debug, "info");
@@ -98,7 +95,7 @@ function EventoIngressos() {
     }
 
     /**
-     * Handle user input
+     * Handle form submission
      */
     async function handleValidation() {
         //Exits if name or email are blank
@@ -128,18 +125,10 @@ function EventoIngressos() {
     // Hooks
 
     /**
-     * Clear warning message if input value is changed
-     */
-    useEffect(() => {
-        setDisplayMessage(null);
-    }, [userName, userEmail]);
-
-    /**
-     * Verify user data if available from localstorage
+     * Verify user data from localStorage if available
      */
     useEffect(() => {
         getIP();
-        setTimeStart(Date.now());
         var user = JSON.parse(localStorage.getItem("validated_user"));
         if (user && requireValidation) {
             var usrdata = {
@@ -153,9 +142,19 @@ function EventoIngressos() {
         };
     }, []);
 
+    useEffect(() => {
+        if (userIP) {
+            const body = JSON.stringify({action: "page_view",data: {user_ip: userIP}});
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", API_URL + "evento2024/integration/");
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.send(body);
+        }
+    }, [userIP]);
+
     /**
-     * Process ajax response once available
-     */
+    * Process ajax response once available
+    */
     useEffect(() => {
         if (requireValidation && ajaxResponse) {
             _log(ajaxResponse, debug);
@@ -180,30 +179,12 @@ function EventoIngressos() {
         setButtonText("ENVIAR");
     }, [ajaxResponse]);
 
+    /**
+    * Clears warning message if input value is changed
+    */
     useEffect(() => {
-        async function storePageView() {
-            fetch(API_URL + "evento2024/integration/", {
-                method: 'POST',
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify({
-                    action: "page_view",
-                    data: {
-                        time_start: timeStart,
-                        time_leave: Date.now(),
-                        user_ip: userIP
-                    }
-                })
-            });
-        }
-        if (userIP && timeStart) {
-            window.addEventListener("beforeunload", storePageView);
-            return () => {
-                window.removeEventListener("beforeunload", storePageView);
-            };
-        }
-    }, [userIP, timeStart]);
+        setDisplayMessage(null);
+    }, [userName, userEmail]);
 
     // Components
 
