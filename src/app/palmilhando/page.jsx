@@ -1,9 +1,9 @@
 'use client';
-import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
+import {Section, Content, ContentDefault, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
 import {Button, Collapsible, List} from '@/lib/modules/ui-components';
 import Carousel from '@/lib/modules/carousel';
-import '../../../public/css/carousel.css';
-import '../../../public/css/globals.css';
+import '$/css/carousel.css';
+import '$/css/globals.css';
 import Image from 'next/image';
 import React from 'react';
 
@@ -13,18 +13,19 @@ export default function Home() {
 
     const [viewportWidth, setViewportWidth] = React.useState(null);
 
+    const DEV = React.useMemo(() => process.env.NEXT_PUBLIC_DEV_ENV === 'true', []);
+    const ASSET_PREFIX = React.useMemo(() => DEV ? "/" : process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO, []);
+
     React.useEffect(() => {
         !function(e, t, a, n, g) {e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"}); var m = t.getElementsByTagName(a)[0], r = t.createElement(a); r.async = !0, r.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4", m.parentNode.insertBefore(r, m);}(window, document, "script", "dataLayer");
         document.title = 'Palmilhando® | Tudo o que você precisa saber, na prática.';
     }, []);
 
     React.useEffect(() => {
-
         document.querySelectorAll('.card-shine-effect').forEach(c => {
             c.onmouseenter = () => c.classList.add('sheen');
             c.onanimationend = () => c.classList.remove('sheen');
         });
-
         document.querySelectorAll('.textbox').forEach(t => {
             let textContent = t.querySelector('p');
             if (textContent.clientHeight > t.clientHeight) {
@@ -38,27 +39,18 @@ export default function Home() {
                 });
             }
         });
-
         function isVisible(el) {
             var rect = el.getBoundingClientRect();
             return (rect.top >= 0 && rect.bottom <= window.innerHeight * 1.5);
         }
-
         function fadeIn() {
             const fade = document.querySelectorAll('.fade');
-            for (let i = 0; i < fade.length; i++) {
-                if (isVisible(fade[i])) {
-                    fade[i].classList.add('fade-up');
-                }
-            }
+            for (let i = 0; i < fade.length; i++)
+                if (isVisible(fade[i]))
+                    fade[i]?.classList?.add('fade-up');
         }
-
         window.addEventListener('scroll', fadeIn);
-
-        return () => {
-            window.removeEventListener('scroll', fadeIn);
-        };
-
+        return () => window.removeEventListener('scroll', fadeIn);
     }, []);
 
     React.useEffect(() => {
@@ -69,29 +61,27 @@ export default function Home() {
         return () => window.visualViewport.removeEventListener('resize', vw);
     }, []);
 
-    const Depoimento = (props) => {
-        return (
-            <div className='flex justify-between items-center bg-[var(--cor-4)] border border-cyan-100 shadow-md rounded-xl px-[3%] py-4 max-[820px]:py-[10%] mb-4 w-[85%] max-[820px]:w-full max-[820px]:flex-col max-[820px]:pt-[15%] max-[820px]:[&:not(:last-of-type)]:mb-24 relative'>
-                <div className='w-[15%] max-[820px]:w-1/4 rounded-md max-[820px]:absolute max-[820px]:top-0 max-[820px]:left-1/2 max-[820px]:-translate-y-1/2 max-[820px]:-translate-x-1/2 max-[820px]:border max-[820px]:border-cyan-100'>
-                    <img src={props.src} alt="" draggable='false' className='rounded-[inherit]' />
-                </div>
-                <div className='w-[80%] max-[820px]:w-full'>
-                    <h2>{props.title}</h2>
-                    <div className="divider left"></div>
-                    <p>{props.children}</p>
-                </div>
+    const Depoimento = (props) => (
+        <div className='flex justify-between items-center bg-[var(--cor-4)] border border-cyan-100 shadow-md rounded-xl px-[3%] py-4 max-[820px]:py-[10%] mb-4 w-[85%] max-[820px]:w-full max-[820px]:flex-col max-[820px]:pt-[15%] max-[820px]:[&:not(:last-of-type)]:mb-24 relative'>
+            <div className='w-[15%] max-[820px]:w-1/4 rounded-md max-[820px]:absolute max-[820px]:top-0 max-[820px]:left-1/2 max-[820px]:-translate-y-1/2 max-[820px]:-translate-x-1/2 max-[820px]:border max-[820px]:border-cyan-100'>
+                <img src={props.src} alt="" draggable='false' className='rounded-[inherit]' />
             </div>
-        );
-    };
+            <div className='w-[80%] max-[820px]:w-full'>
+                <h2>{props.title}</h2>
+                <div className="divider left"></div>
+                <p>{props.children}</p>
+            </div>
+        </div>
+    );
 
     return (
-        <div>
+        <main>
             <Section id='header' className='h-[55rem] max-[820px]:h-[95vh]'>
                 <Content className='relative z-10 w-full'>
-                    <Content_Default>
+                    <ContentDefault>
                         <Wrapper className='justify-center' id='header-box'>
                             <Container className='items-center w-[65%] max-[820px]:w-[80%] max-[426px]:w-full max-w-[820px]'>
-                                <Image src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/logo_palmilhando.svg'} alt='' className='w-full mb-4 max-w-[640px]' width='350' height='80' draggable='false' />
+                                <Image src={ASSET_PREFIX + 'img/svg/logo_palmilhando.svg'} alt='' className='w-full mb-4 max-w-[640px]' width='350' height='80' draggable='false' />
                                 <div className="divider"></div>
                                 <p className='text-2xl text-center my-4'>
                                     <strong>Tudo o que você precisa para ser <mark className="cor-2">referência em palmilhas</mark>, atender seus pacientes com segurança e ter um consultório <mark className="cor-3">realmente lucrativo</mark>.</strong>
@@ -101,26 +91,26 @@ export default function Home() {
                                 </p>
                                 <button
                                     className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-lg max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                                    onClick={() => $('#investimento').scrollIntoView({block:`${viewportWidth <= 820 ? 'start' : 'center'}`})}>
+                                    onClick={() => $('#investimento').scrollIntoView({block: `${viewportWidth <= 820 ? 'start' : 'center'}`})}>
                                     QUERO ENTRAR NO PROGRAMA
                                 </button>
                                 <p className='text-sm font-extralight my-4'>Continue lendo para saber mais</p>
                             </Container>
                         </Wrapper>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
-                <img className='absolute bottom-0 translate-y-[25%] w-screen z-20' src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/white-tab.svg'} alt='' draggable='false' />
+                <img className='absolute bottom-0 translate-y-[25%] w-screen z-20' src={ASSET_PREFIX + 'img/svg/white-tab.svg'} alt='' draggable='false' />
             </Section>
 
             <Section id='saiba-mais' className='relative z-20 bg-white cor-4 pb-16 pt-0 max-[1024px]:pb-10'>
                 <Content>
-                    <Content_Default>
+                    <ContentDefault>
 
                         <Wrapper className='max-[820px]:flex-col items-center justify-evenly relative bottom-6 max-[820px]:bottom-0'>
 
                             <Wrapper className='items-center justify-evenly w-9/12 max-[820px]:w-full fade px-4'>
                                 <Container className='items-center w-[45%] max-[820px]:w-[80%] max-[426px]:w-full'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/isolated_tablet_laptop_and_smartphone_composition.webp'} className='fade' alt='' width='512px' height='512px' draggable='false' />
+                                    <img src={ASSET_PREFIX + 'img/isolated_tablet_laptop_and_smartphone_composition.webp'} className='fade' alt='' width='512px' height='512px' draggable='false' />
                                 </Container>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>O que é o <mark className="cor-7">Palmilhando</mark>?</h2>
@@ -136,13 +126,13 @@ export default function Home() {
                                     <p>Para todos os níveis. Seja você um <mark className="cor-7 font-semibold">iniciante</mark> buscando aprender o básico sobre a confecção de palmilhas, ou um <mark className="cor-7 font-semibold">profissional experiente</mark> que deseja aprimorar sua prática e elevar seus lucros, <mark className="cor-7 font-semibold">o Palmilhando é o lugar certo para você</mark>.</p>
                                 </Container>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/passo-a-passo.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
+                                    <img src={ASSET_PREFIX + 'img/svg/passo-a-passo.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
                             </Wrapper>
 
                             <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 max-[820px]:w-full fade px-4'>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/comunidade-ativa.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
+                                    <img src={ASSET_PREFIX + 'img/svg/comunidade-ativa.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Comunidade <mark className="cor-7">ativa</mark> de membros</h2>
@@ -155,16 +145,16 @@ export default function Home() {
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Kit de palmilha <mark className="cor-7">enviado para a sua casa</mark></h2>
                                     <br />
-                                    <p>Todo mês você receberá um <mark className="cor-7 font-semibold">kit completo de materiais da Podoshop</mark> para confeccionar as suas palmilhas, chegando no total de 24 palmilhas no período de um ano. <span onClick={() => $('#kit-exclusivo').scrollIntoView({block:`${viewportWidth <= 820 ? 'start' : 'center'}`})} className='underline inline cursor-pointer'>Saiba mais</span></p>
+                                    <p>Todo mês você receberá um <mark className="cor-7 font-semibold">kit completo de materiais da Podoshop</mark> para confeccionar as suas palmilhas, chegando no total de 24 palmilhas no período de um ano. <span onClick={() => $('#kit-exclusivo').scrollIntoView({block: `${viewportWidth <= 820 ? 'start' : 'center'}`})} className='underline inline cursor-pointer'>Saiba mais</span></p>
                                 </Container>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/entrega-pacote.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
+                                    <img src={ASSET_PREFIX + 'img/svg/entrega-pacote.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
                             </Wrapper>
 
                             <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-evenly w-9/12 max-[820px]:w-full fade px-4'>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/vantagem-compras.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
+                                    <img src={ASSET_PREFIX + 'img/svg/vantagem-compras.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
                                 </Container>
                                 <Container className='w-[45%] max-[820px]:w-[80%] max-[426px]:w-full max-[820px]:my-8'>
                                     <h2>Vantagens de compra de produtos e <mark className="cor-7">frete grátis</mark> durante todo o curso</h2>
@@ -175,16 +165,16 @@ export default function Home() {
 
                         </Wrapper>
 
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
-                <img id='tab-2' className='absolute w-screen scale-x-[-1] bottom-0 translate-y-[98%] z-20' src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/tab.svg'} alt='' draggable='false' />
+                <img id='tab-2' className='absolute w-screen scale-x-[-1] bottom-0 translate-y-[98%] z-20' src={ASSET_PREFIX + 'img/svg/tab.svg'} alt='' draggable='false' />
             </Section>
 
             <div id='modulos' className='relative pt-24 max-[820px]:pt-0'>
 
                 <Section className='pb-0'>
                     <Content>
-                        <Content_Default>
+                        <ContentDefault>
                             <Wrapper className='max-[820px]:flex-col items-center justify-evenly relative bottom-6 max-[820px]:bottom-0'>
 
                                 <Container className='items-start'>
@@ -200,7 +190,7 @@ export default function Home() {
                                         <Container>
                                             <Wrapper className='border border-cyan-100 rounded-lg p-4 m-4 ml-16 pl-24 relative max-[820px]:ml-4 max-[820px]:pl-4 max-[820px]:pt-20 max-[820px]:mt-16 max-[820px]:text-center'>
                                                 <div className='absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-32 h-32 flex justify-center p-8 items-center border-t border-t-cyan-100 border-b-4 border-b-slate-800 bg-[var(--cor-4)] bg-[linear-gradient(var(--cor-1),var(--cor-4))] rounded-xl max-[820px]:left-1/2 max-[820px]:top-0'>
-                                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/sprout.svg'} alt='' draggable='false' className='w-full h-auto' width={32} height={32} />
+                                                    <img src={ASSET_PREFIX + 'img/svg/sprout.svg'} alt='' draggable='false' className='w-full h-auto' width={32} height={32} />
                                                 </div>
                                                 <div>
                                                     <p className='font-bold text-xl mb-4'>"Nunca trabalhei com palmilhas, o Palmilhando é para mim?"</p>
@@ -209,7 +199,7 @@ export default function Home() {
                                             </Wrapper>
                                             <Wrapper className='border border-cyan-100 rounded-lg p-4 m-4 ml-16 pl-24 relative max-[820px]:ml-4 max-[820px]:pl-4 max-[820px]:pt-20 max-[820px]:mt-16 max-[820px]:text-center'>
                                                 <div className='absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-32 h-32 flex justify-center p-8 items-center border-t border-t-cyan-100 border-b-4 border-b-slate-800 bg-[var(--cor-4)] bg-[linear-gradient(var(--cor-1),var(--cor-4))] rounded-xl max-[820px]:left-1/2 max-[820px]:top-0'>
-                                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/rocket.svg'} alt='' draggable='false' className='w-full h-auto' width={32} height={32} />
+                                                    <img src={ASSET_PREFIX + 'img/svg/rocket.svg'} alt='' draggable='false' className='w-full h-auto' width={32} height={32} />
                                                 </div>
                                                 <div>
                                                     <p className='font-bold text-xl mb-4'>"E eu, que já trabalho com palmilhas há algum tempo?"</p>
@@ -226,13 +216,13 @@ export default function Home() {
                                 </Container>
 
                             </Wrapper>
-                        </Content_Default>
+                        </ContentDefault>
                     </Content>
                 </Section>
 
                 <Section className='bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] border-t border-cyan-100'>
                     <Content className='max-[820px]:pt-8 relative z-10'>
-                        <Content_Default>
+                        <ContentDefault>
                             <h1 className='grad-text font-bold text-center'>O PALMILHANDO POR DENTRO</h1>
                             <div className="divider"></div>
                             <Carousel isInfinite withIndicator autoScrollEnabled={false} isFullWidth={true} className='mt-8'>
@@ -241,8 +231,8 @@ export default function Home() {
                                     <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
                                         <div className="relative w-82 max-[820px]:w-full overflow-hidden rounded-lg shadow-xl max-[820px]:overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/2.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/mobile/2.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
+                                            <img src={ASSET_PREFIX + 'img/2.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                            <img src={ASSET_PREFIX + 'img/mobile/2.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:h-[80%] max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS TERAPÊUTICAS: DO BÁSICO AO AVANÇADO</h2>
@@ -256,8 +246,8 @@ export default function Home() {
                                     <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
                                         <div className="relative w-82 max-[820px]:w-full overflow-hidden rounded-lg shadow-xl max-[820px]:overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/1.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/mobile/1.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
+                                            <img src={ASSET_PREFIX + 'img/1.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                            <img src={ASSET_PREFIX + 'img/mobile/1.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:h-[80%] max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS & NEGÓCIOS</h2>
@@ -271,8 +261,8 @@ export default function Home() {
                                     <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
                                         <div className="relative w-82 max-[820px]:w-full overflow-hidden rounded-lg shadow-xl max-[820px]:overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/3.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/mobile/3.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
+                                            <img src={ASSET_PREFIX + 'img/3.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                            <img src={ASSET_PREFIX + 'img/mobile/3.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:h-[80%] max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text text-3xl max-[426px]:text-xl'>TPC & LIVES</h2>
@@ -286,8 +276,8 @@ export default function Home() {
                                     <div className="flex max-[820px]:flex-col w-9/12 max-[820px]:w-full h-[512px] max-[820px]:h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:justify-start">
                                         <div className="relative w-82 max-[820px]:w-full overflow-hidden rounded-lg shadow-xl max-[820px]:overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/4.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
-                                            <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/mobile/4.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
+                                            <img src={ASSET_PREFIX + 'img/4.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:hidden' />
+                                            <img src={ASSET_PREFIX + 'img/mobile/4.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
                                         <div className='w-[55%] max-[820px]:w-full ml-[2.5%] max-[820px]:mx-auto max-[820px]:pr-0 max-h-[80%] max-[820px]:max-h-full max-[820px]:h-auto max-[820px]:mt-8 overflow-y-auto textbox'>
                                             <h2 className='grad-text grad-slide text-3xl max-[426px]:text-xl'>MENTORIAS AO VIVO</h2>
@@ -298,7 +288,7 @@ export default function Home() {
                                 </Wrapper>
 
                             </Carousel>
-                        </Content_Default>
+                        </ContentDefault>
                     </Content>
                 </Section>
             </div>
@@ -308,7 +298,7 @@ export default function Home() {
                     <h1>IMERSÃO EM PALMILHAS TERAPÊUTICAS</h1>
                 </div>
                 <Content>
-                    <Content_Default>
+                    <ContentDefault>
                         <h2 className='cor-5 font-bold my-8 text-center'>Saber fazer uma palmilha básica é importante, mas não é o suficiente.</h2>
                         <Wrapper className='flex-nowrap max-[820px]:flex-col items-start'>
                             <p className='cor-4 m-4'>
@@ -324,52 +314,52 @@ export default function Home() {
                             </p>
                         </Wrapper>
 
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <Section id='napratica'>
                 <Content>
-                    <Content_Default>
+                    <ContentDefault>
                         <h1 className='grad-text grad-slide text-center px-4 mb-8'>Tudo o que você precisa, num lugar só.</h1>
                         <h3 className='text-center px-4'>Confira a seguir algumas das aulas que o Palmilhando oferece</h3>
                         <div className="divider"></div>
                         <Carousel isInfinite withIndicator autoScrollEnabled={false} visibleItemsCount={viewportWidth <= 820 ? 1 : 7} className='mt-8 backlit' id='aulas-carrossel'>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_1.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_1.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_2.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_2.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_3.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_3.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_4.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_4.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_5.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_5.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_6.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_6.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_7.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_7.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_8.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_8.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_9.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_9.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_10.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_10.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_11.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_11.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                             <div className="rounded-lg shadow-md m-4 max-[820px]:ml-0">
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/capa_12.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
+                                <img src={ASSET_PREFIX + 'img/capa_12.webp'} alt='' draggable='false' width={300} height={580} className='rounded-[inherit]' />
                             </div>
                         </Carousel>
                         <button
@@ -377,16 +367,16 @@ export default function Home() {
                             onClick={() => $('#investimento').scrollIntoView()}>
                             QUERO ENTRAR AGORA
                         </button>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <Section id='podoshop-clube' className='pt-0 bg-[var(--cor-4)] border-y-[.5rem] border-[var(--cor-1)]'>
                 <div className='badge top-0 w-16 bg-[var(--cor-1)]'>
-                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/psclube-icone.svg'} width={32} height={32} className='absolute-center' alt='' draggable='false'/>
+                    <img src={ASSET_PREFIX + 'img/svg/psclube-icone.svg'} width={32} height={32} className='absolute-center' alt='' draggable='false' />
                 </div>
                 <Content>
-                    <Content_Default className='pt-16 relative z-10'>
+                    <ContentDefault className='pt-16 relative z-10'>
 
                         <Wrapper className='justify-evenly items-center max-[820px]:mt-0 flex-nowrap max-[820px]:flex-col' >
                             <Container className="w-[48rem] max-[820px]:w-[80%] max-[426px]:w-full m-4 px-4" id="kit-exclusivo">
@@ -397,7 +387,7 @@ export default function Home() {
                                     <br /><br />
                                 </p>
                                 <Container className='w-[36rem] min-[821px]:hidden max-[820px]:w-9/12 max-[426px]:w-[80%] mx-auto'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/kit-exclusivo.webp'} alt='' draggable='false' className='m-auto w-full h-auto my-4' />
+                                    <img src={ASSET_PREFIX + 'img/kit-exclusivo.webp'} alt='' draggable='false' className='m-auto w-full h-auto my-4' />
                                 </Container>
                                 <p>
                                     No período de um ano, você poderá fazer 24 palmilhas com o material disponibilizado e <mark className="cor-7">recuperar todo o seu investimento no curso</mark>.
@@ -412,17 +402,17 @@ export default function Home() {
                                 </p>
                             </Container>
                             <Container className='w-[36rem] max-[820px]:hidden m-4'>
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/kit-exclusivo.webp'} alt='' draggable='false' className='m-auto w-full h-auto my-4' />
+                                <img src={ASSET_PREFIX + 'img/kit-exclusivo.webp'} alt='' draggable='false' className='m-auto w-full h-auto my-4' />
                             </Container>
                         </Wrapper>
 
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <Section id='palmilhando-pbe'>
                 <Content>
-                    <Content_Default>
+                    <ContentDefault>
                         <Wrapper className="flex-nowrap max-[820px]:flex-col items-center justify-center">
                             <Container className='w-[36rem] max-[820px]:w-9/12 max-[426px]:w-[80%]'>
                                 <h2 className='my-4 text-3xl'>No Palmilhando, tabalhamos com a <mark className="grad-text">prática baseada em evidência</mark>.</h2>
@@ -439,16 +429,16 @@ export default function Home() {
                                 </button>
                             </Container>
                             <Container className='w-[36rem] max-[820px]:w-9/12 max-[426px]:w-full m-4 backlit'>
-                                <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/png/pbe_venn.png'} alt='' draggable='false' className='m-auto w-full h-auto my-4 fade' />
+                                <img src={ASSET_PREFIX + 'img/png/pbe_venn.png'} alt='' draggable='false' className='m-auto w-full h-auto my-4 fade' />
                             </Container>
                         </Wrapper>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <Section id='com-o-palmilhando' className='bg-slate-100 cor-4 light z-30'>
                 <Content className='border-[2px] border-white px-8 max-[820px]:px-0'>
-                    <Content_Default>
+                    <ContentDefault>
                         <Wrapper className='items-end justify-evenly py-8'>
                             <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-full px-4'>
                                 <h1 className='cor-7'>Com o Palmilhando® você vai:</h1>
@@ -463,8 +453,8 @@ export default function Home() {
                             </Container>
                             <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-full relative'>
                                 <div className='max-[820px]:hidden'>
-                                    <img className='absolute bottom-[12px] left-[50%] translate-x-[-50%] w-[50%] aspect-square' src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/andre-avental.webp'} alt="" draggable='false' />
-                                    <img className='absolute bottom-[240px] left-[50%] translate-x-[-75%] w-[45%]' src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/andre_prop.webp'} alt="" draggable='false' />
+                                    <img className='absolute bottom-[12px] left-[50%] translate-x-[-50%] w-[50%] aspect-square' src={ASSET_PREFIX + 'img/andre-avental.webp'} alt="" draggable='false' />
+                                    <img className='absolute bottom-[240px] left-[50%] translate-x-[-75%] w-[45%]' src={ASSET_PREFIX + 'img/andre_prop.webp'} alt="" draggable='false' />
                                 </div>
                                 <Button
                                     className='relative z-10 text-white shadow-md py-4 w-max max-[820px]:w-[80%] max-[426px]:w-full mx-auto text-2xl max-[820px]:my-8'
@@ -473,7 +463,7 @@ export default function Home() {
                                 </Button>
                             </Container>
                         </Wrapper>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
@@ -598,50 +588,53 @@ export default function Home() {
 
             <Section id='depoimentos' className='bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] z-40 border-t border-cyan-100'>
                 <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full top-0 bg-[var(--cor-4)] border-2 border-cyan-100 w-16 h-16'>
-                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/chat.svg'} alt="" draggable='false' className='w-1/2 aspect-square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
+                    <img src={ASSET_PREFIX + 'img/svg/chat.svg'} alt="" draggable='false' className='w-1/2 aspect-square absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
                 </div>
                 <Content>
-                    <Content_Default className='py-8'>
+                    <ContentDefault className='py-8'>
                         <h1 className='text-center'>Não acredita na gente?<br /><mark className="grad-text">Confira alguns depoimentos dos nossos alunos</mark></h1>
                         <Container className='pt-16 max-[820px]:pt-24 items-center'>
-                            <Depoimento title='Gláucia Mendonça, Podologista' src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/glaucia.webp'}>
+                            <Depoimento title='Gláucia Mendonça, Podologista' src={ASSET_PREFIX + 'img/glaucia.webp'}>
                                 A didática usada pelo Clayton e pelo André é maravilhosa, sempre nos dando dicas e nos incentivando a buscar melhorar a cada dia, sem falar no grupo de WhatsApp que a troca de experiências é riquíssima. A plataforma do Palmilhando veio como um divisor de águas pra mim, e hoje me destaco como a profissional que sou.
                             </Depoimento>
 
-                            <Depoimento reverse title='Jane Reis, Enfermeira Podiatra' src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/jane.webp'}>
+                            <Depoimento reverse title='Jane Reis, Enfermeira Podiatra' src={ASSET_PREFIX + 'img/jane.webp'}>
                                 No Palmilhando, com o André e o Clayton, vamos nos atualizando e discutindo ciência. Abri meu leque de atuação pois, além de palmilhas para pacientes portadores de Diabetes, atendo também outras demandas. Com certeza o Palmilhando e o Podoshop Clube são divisores de água na minha carreira. Obrigada André e Clayton pelo excelente trabalho e entrega.
                             </Depoimento>
 
-                            <Depoimento title='Luciana Negri, Fisioterapeuta' src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/luciana.webp'}>
+                            <Depoimento title='Luciana Negri, Fisioterapeuta' src={ASSET_PREFIX + 'img/luciana.webp'}>
                                 Na imersão eu conheci o Palmilhando, que hoje vejo como um divisor de águas na minha atuação como fisioterapeuta. Todo dia aprendo trocando ideias e não me sinto mais sozinha. Sempre tem novidades e as pesquisas e os estudos são constantes.
                             </Depoimento>
                         </Container>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <Section id='garantia' className='pt-36 text-center z-50 bg-[radial-gradient(circle_at_center,#ffffff,rgb(241_245_249))]'>
                 <div className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48'>
-                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/selo_garantia.webp'} alt="" draggable='false' className='m-auto' />
+                    <img src={ASSET_PREFIX + 'img/selo_garantia.webp'} alt="" draggable='false' className='m-auto' />
                 </div>
                 <Content>
-                    <Content_Default>
+                    <ContentDefault>
                         <Container className='w-full max-w-[48rem] mx-auto cor-4'>
                             <h1>Garantia incondicional de 7 dias.</h1>
                             <p>Se, após a inscrição, você acreditar que o Palmilhando não é para você, basta solicitar o reembolso em até 7 dias após a inscrição que 100% do seu investimento será devolvido sem questionamentos.</p>
                             <Button className='text-white mt-8 shadow-md w-full max-w-96 py-4 mx-auto' onClick={() => $('#investimento').scrollIntoView({block: 'center'})}>QUERO APROVEITAR A GARANTIA</Button>
                         </Container>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <Section id='criadores' className='overflow-hidden border-t-2 border-cyan-100'>
                 <Content className='relative z-10'>
-                    <Content_Default>
+                    <ContentDefault>
                         <h1 className='text-center'>Conheça os criadores do <mark className="cor-2">Palmilhando</mark>!</h1>
                         <Wrapper className='justify-center pt-32'>
                             <Container className='relative w-[40%] max-[820px]:w-full max-[820px]:mb-32 p-8 pt-28 border-2 border-cyan-100 bg-[var(--cor-1-5)] grad-light rounded-lg shadow-md mx-4 max-[820px]:mx-0'>
-                                <div className={'rounded-full shadow-md border-2 border-cyan-100 w-1/2 max-w-48 min-w-32 aspect-square absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-[var(--cor-2)] bg-[url(' + process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/andre-banner.webp)] bg-top bg-cover'}></div>
+                                <div
+                                    className='rounded-full shadow-md border-2 border-cyan-100 w-1/2 max-w-48 min-w-32 aspect-square absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-top bg-cover bg-[var(--cor-2)]'
+                                    style={{backgroundImage: `url('${ASSET_PREFIX + 'img/andre-banner.webp'}')`}}
+                                ></div>
                                 <h2 className='text-center'>André Mendes</h2>
                                 <div className="divider"></div>
                                 <List className='check-light pt-4 mx-auto'>
@@ -652,7 +645,10 @@ export default function Home() {
                                 </List>
                             </Container>
                             <Container className='relative w-[40%] max-[820px]:w-full p-8 pt-28 border-2 border-cyan-100 bg-[var(--cor-1-5)] grad-light rounded-lg shadow-md mx-4 max-[820px]:mx-0'>
-                                <div className={'rounded-full shadow-md border-2 border-cyan-100 w-1/2 max-w-48 min-w-32 aspect-square absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-[var(--cor-2)] bg-[url(' + process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/clayton-banner.webp)] bg-top bg-cover'}></div>
+                                <div
+                                    className='rounded-full shadow-md border-2 border-cyan-100 w-1/2 max-w-48 min-w-32 aspect-square absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-top bg-cover bg-[var(--cor-2)]'
+                                    style={{backgroundImage: `url('${ASSET_PREFIX + 'img/clayton-banner.webp'}')`}}
+                                ></div>
                                 <h2 className='text-center'>Clayton Fuzetti</h2>
                                 <div className="divider"></div>
                                 <List className='check-light pt-4 mx-auto'>
@@ -663,20 +659,20 @@ export default function Home() {
                                 </List>
                             </Container>
                         </Wrapper>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <div className='bg-[linear-gradient(#0c6b96,#1E3050)]'>
                 <Section id='faq'>
                     <Content>
-                        <Content_Default className='flex justify-evenly max-[820px]:flex-col'>
+                        <ContentDefault className='flex justify-evenly max-[820px]:flex-col'>
                             <Container className='w-[30%] max-[820px]:w-[90%] max-[820px]:mx-auto max-[820px]:mb-8 max-[820px]:text-center'>
                                 <h2>Ficou com alguma dúvida?</h2>
                                 <div className="divider left"></div>
                                 <p>Confira aqui as respostas para as dúvidas mais frequentes, ou entre em contato conosco via Whatsapp</p>
                                 <a href="https://wa.me//5512982628132" className='flex items-center justify-evenly py-4 my-4 px-8 border border-cyan-200 rounded-xl hover:backdrop-brightness-110 ease-out duration-200 cursor-pointer decoration-[none] text-white'>
-                                    <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_PALMILHANDO + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
+                                    <img src={ASSET_PREFIX + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
                                     <p className='w-full'>ATENDIMENTO POR <mark className="cor-3">WHATSAPP</mark></p>
                                 </a>
                             </Container>
@@ -710,11 +706,11 @@ export default function Home() {
                                     <p>Sim! A Imersão em Palmilhas Terapêuticas oferece aulas que te trarão resultados <strong>independentemente do seu estágio profissional</strong>.</p>
                                 </Collapsible>
                             </Container>
-                        </Content_Default>
+                        </ContentDefault>
                     </Content>
                 </Section>
             </div>
 
-        </div>
+        </main>
     );
 }

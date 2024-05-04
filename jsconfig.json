@@ -1,7 +1,14 @@
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+      "@/*": ["./src/*"],
+      "$/*": ["./public/*"]
+    },
+  },
+  "exclude": [
+    "./node_modules",
+    "./archive",
+    "./dist",
+    "./public"
+  ]
 }

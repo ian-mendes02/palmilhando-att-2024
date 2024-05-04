@@ -1,100 +1,84 @@
 'use client';
-import {Section, Content, Content_Default, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
+import {Section, Content, ContentDefault, Container, Wrapper, Badge} from '@/lib/modules/layout-components';
 import {Button, List} from '@/lib/modules/ui-components';
-import React from 'react';
 import Carousel from '@/lib/modules/carousel';
-export default function Page() {
+import React from 'react';
+import '$/css/carousel.css';
 
-    function $(el) {
-        return document.querySelector(el);
-    };
+export default function Page() {
+    const $ = (el) => document.querySelector(el);
 
     React.useEffect(() => {
         !function(e, t, a, n, g) {e[n] = e[n] || [], e[n].push({"gtm.start": (new Date).getTime(), event: "gtm.js"}); var m = t.getElementsByTagName(a)[0], r = t.createElement(a); r.async = !0, r.src = "https://www.googletagmanager.com/gtm.js?id=GTM-5TTGRP4", m.parentNode.insertBefore(r, m);}(window, document, "script", "dataLayer");
         document.title = 'Cursos Presenciais | Palmilhas Terapêuticas';
     }, []);
 
-    const locations = {
-        select: {
-            cityName: '',
-            location: '',
-            purchaseLink: '',
-            mapData: null
-        },
-        sao_jose_dos_campos: {
-            cityName: 'São José dos Campos - SP',
-            location: 'Grupo Equality',
-            eventDate: '23 e 24 de Fevereiro',
-            endDate: Date.parse('2024-02-24T00:00:00.000-03:00'),
-            purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299829',
-            mapData: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.682361024928!2d-45.91256568822172!3d-23.21824374899062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc358248ce2ec5%3A0x74eaa5023e4ca7eb!2sGrupo%20Equality!5e0!3m2!1sen!2sbr!4v1706649149402!5m2!1sen!2sbr"
-        },
-        curitiba: {
-            cityName: 'Curitiba - PR',
-            location: 'Confidence Hotel Batel',
-            eventDate: '15 e 16 de Março',
-            endDate: Date.parse('2024-03-16T00:00:00.000-03:00'),
-            purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299832',
-            mapData: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.1268876561558!2d-49.28252522258879!3d-25.43402104471572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce40ac8a88ea9%3A0xfe6a996ac4f7f5fd!2sAlameda%20Dr.%20Carlos%20de%20Carvalho%2C%20784%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080430-180!5e0!3m2!1sen!2sbr!4v1708037069655!5m2!1sen!2sbr"
-        },
-        belo_horizonte: {
-            cityName: 'Belo Horizonte - MG',
-            location: null,
-            eventDate: '5 e 6 de Abril',
-            endDate: Date.parse('2024-04-06T00:00:00.000-03:00'),
-            purchaseLink: 'https://wa.me/553181075257',
-            mapData: null
-        },
-        porto_alegre: {
-            cityName: 'Porto Alegre - RS',
-            location: null,
-            eventDate: '18 e 19 de Maio',
-            endDate: Date.parse('2024-05-19T00:00:00.000-03:00'),
-            purchaseLink: '',
-            mapData: null
-        }
-    };
-    
-    const date = React.useRef(Date.now());
-
-/*     const nextLocation = () => {
-        for (const [location, property] of Object.entries(locations)) {
-            if (property.endDate) {
-                if (date.current < property.endDate) {
-                    return locations[location]
-                }
+    const locations = React.useMemo(() => {
+        return {
+            select: {
+                cityName: '',
+                location: '',
+                purchaseLink: '',
+                mapData: null
+            },
+            sao_jose_dos_campos: {
+                cityName: 'São José dos Campos - SP',
+                location: 'Grupo Equality',
+                eventDate: '23 e 24 de Fevereiro',
+                endDate: Date.parse('2024-02-24T00:00:00.000-03:00'),
+                purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299829',
+                mapData: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.682361024928!2d-45.91256568822172!3d-23.21824374899062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc358248ce2ec5%3A0x74eaa5023e4ca7eb!2sGrupo%20Equality!5e0!3m2!1sen!2sbr!4v1706649149402!5m2!1sen!2sbr"
+            },
+            curitiba: {
+                cityName: 'Curitiba - PR',
+                location: 'Confidence Hotel Batel',
+                eventDate: '15 e 16 de Março',
+                endDate: Date.parse('2024-03-16T00:00:00.000-03:00'),
+                purchaseLink: 'https://www.sympla.com.br/curso-presencial-de-palmilhas-terapeuticas__2299832',
+                mapData: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.1268876561558!2d-49.28252522258879!3d-25.43402104471572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce40ac8a88ea9%3A0xfe6a996ac4f7f5fd!2sAlameda%20Dr.%20Carlos%20de%20Carvalho%2C%20784%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080430-180!5e0!3m2!1sen!2sbr!4v1708037069655!5m2!1sen!2sbr"
+            },
+            belo_horizonte: {
+                cityName: 'Belo Horizonte - MG',
+                location: null,
+                eventDate: '5 e 6 de Abril',
+                endDate: Date.parse('2024-04-06T00:00:00.000-03:00'),
+                purchaseLink: 'https://wa.me/553181075257',
+                mapData: null
+            },
+            porto_alegre: {
+                cityName: 'Porto Alegre - RS',
+                location: null,
+                eventDate: '18 e 19 de Maio',
+                endDate: Date.parse('2024-05-19T00:00:00.000-03:00'),
+                purchaseLink: '',
+                mapData: null
             }
         };
-    } */
-
-    const nextLocation = locations.curitiba;
+    }, []);
 
     const [option, setOption] = React.useState('select');
 
-    const [optionData, setOptionData] = React.useState(nextLocation);
+    const [optionData, setOptionData] = React.useState(locations.curitiba);
 
-    const MapContent = () => {
-        if (optionData.mapData) {
-            return <iframe src={optionData.mapData} style={{border: 0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className='w-full h-full rounded-md'></iframe>;
-        } else {
-            return <span className='absolute-center text-center'>&#x26A0;<br />Mapa indisponível</span>;
-        };
-    };
+    const MapContent = () => (
+        optionData.mapData
+            ? <iframe src={optionData.mapData} style={{border: 0}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className='w-full h-full rounded-md'></iframe>
+            : <span className='absolute-center text-center'>&#x26A0;<br />Mapa indisponível</span>
+    );
 
-    React.useEffect(() => {
-        if (option == "select") {
-            setOptionData(nextLocation);
-        } else {
-            setOptionData(locations[option]);
-        };
-    }, [option]);
+    React.useEffect(
+        () => option == "select"
+            ? setOptionData(nextLocation)
+            : setOptionData(locations[option])
+        , [option]
+    );
 
     return (
         <div>
             <div className='bg-[linear-gradient(#0a0a0a,#1E3050)]'>
                 <Section id="cp-header" className='h-[512px] flex flex-col justify-center pb-0 pt-0'>
                     <Content className='relative z-10'>
-                        <Content_Default>
+                        <ContentDefault>
                             <Wrapper className='pt-8'>
                                 <Container className='w-[32rem] max-[1024px]:w-96 max-[820px]:w-full px-8 mb-8 max-[820px]:text-center'>
                                     <img src='/img/svg/logo_cursos_presenciais.svg' alt='' draggable='false' />
@@ -103,10 +87,10 @@ export default function Page() {
                                     <br />
                                     <p>Dois dias intensos de teoria e muita prática de avaliação e confecção de palmilhas com diferentes técnicas de moldagem e configurações de elementos.</p>
                                     <br />
-                                    <Button onClick={() => document.getElementById('cp-investimento').scrollIntoView({block: 'start'})}>GARANTA JÁ A SUA VAGA!</Button>
+                                    <Button onClick={() => $('#cp-investimento').scrollIntoView({block: 'start'})}>GARANTA JÁ A SUA VAGA!</Button>
                                 </Container>
                             </Wrapper>
-                        </Content_Default>
+                        </ContentDefault>
                     </Content>
                 </Section>
                 <Section id="cp-proposta" className='pt-0'>
@@ -117,7 +101,7 @@ export default function Page() {
 
             <Section id='cp-conteudo' className='bg-[linear-gradient(#0c6b96,transparent)] pb-0'>
                 <Content>
-                    <Content_Default>
+                    <ContentDefault>
                         <div className="w-full text-center">
                             <h1 className='grad-text mx-auto my-4 font-bold text-3xl'>CONTEÚDO DO CURSO</h1>
                             <p className='font-extralight w-1/2 mx-auto max-[820px]:w-full'>Confira aqui tudo o que você vai aprender sobre prescrição, confecção e aplicação de palmilhas terapêuticas:</p>
@@ -157,26 +141,26 @@ export default function Page() {
                             </Container>
                         </Wrapper>
 
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <Section id="cp-sobre" className='py-32 px-8 flex items-center max-[820px]:pt-[120vw] max-[820px]:pb-8 border-b border-cyan-100'>
                 <Content className='relative z-10'>
-                    <Content_Default>
+                    <ContentDefault>
                         <Container className='w-1/2 max-[820px]:w-[80%] max-[426px]:w-[96%] pt-8 max-[820px]:pt-0'>
                             <p className='font-extralight'>Olá, meu nome é</p>
                             <h1 className='text-left grad-text font-bold text-3xl'>ANDRÉ MENDES</h1>
                             <div className="divider left"></div>
                             <p>Sou fisioterapeuta especialista em fisioterapia ortopédica com 20 anos de carreira. Sou mestre e doutorando em fisioterapia e autor do livro <i>Palmilhas Terapêuticas: Ciência e Prática Clínica</i>, sócio-criador da Podoshop® e do Palmilhando® com 15 anos de experiência na prescrição e confecção de palmilhas terapêuticas.</p>
                         </Container>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 
             <Section id='cp-investimento'>
                 <Content>
-                    <Content_Default>
+                    <ContentDefault>
                         <Wrapper className='items-center justify-evenly'>
                             <Container className='w-[40%] max-[820px]:w-[80%] max-[426px]:w-[96%] m-4 max-[820px]:mx-0'>
                                 <div className="flex flex-col items-center justify-between px-2 pb-[5%] pt-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative endDate-200 ease-out">
@@ -236,7 +220,7 @@ export default function Page() {
                                 <br />
                             </Container>
                         </Wrapper>
-                    </Content_Default>
+                    </ContentDefault>
                 </Content>
             </Section>
 

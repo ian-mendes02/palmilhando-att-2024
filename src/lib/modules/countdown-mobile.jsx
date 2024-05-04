@@ -1,25 +1,20 @@
 'use client';
 import {Wrapper} from '@/lib/modules/layout-components';
 import {useEffect, useMemo, useState} from 'react';
-import '../../../public/css/globals.css';
 
 export default function CountdownMobile({paused = false}) {
 
-    //Data do evento
-    const eventDate = useMemo(() => {
-        return new Date('2024-03-31T23:59:00.000-03:00').getTime();
-    }, []);
-
-    //Armazena o tempo restante dividido em partes
     const [time, setTime] = useState({d: '00', h: '00', m: '00', s: '00'});
+    
+    const eventDate = useMemo(() => new Date('2024-03-31T23:59:00.000-03:00').getTime(), []);
 
     useEffect(() => {
-        //Roda o cronômetro 1 vez por segundo
         var now = new Date().getTime();
         var del = eventDate - now;
         const timer = !paused && del > 0 && setInterval(() => {
             const _t = (n) => {
-                if (n < 10) {n = '0' + n;}
+                if (n < 10) 
+                    n = '0' + n;
                 return n;
             };
             var d = Math.floor(del / 86400000);
@@ -28,7 +23,6 @@ export default function CountdownMobile({paused = false}) {
             var s = Math.floor((del % 60000) / 1000);
             setTime({s: _t(s), m: _t(m), h: _t(h), d: _t(d)});
         }, 1000);
-
         return () => clearInterval(timer);
     }, []);
 

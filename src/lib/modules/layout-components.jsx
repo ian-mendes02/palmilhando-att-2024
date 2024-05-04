@@ -1,55 +1,135 @@
-import {classList, mobile} from './class-utils';
-
-const Section = (props) => {
+import {list} from './utils';
+/**
+ * @param {Object} props 
+ * @param {string} props.id
+ * @param {string} props.className
+ * @param {any} props.children
+ */
+export const Section = ({id, className, children}) => (
+    <section id={id} className={list('py-16 m-auto w-full relative', className)}>
+        {children}
+    </section>
+);
+/**
+ * @param {Object} props 
+ * @param {string} props.id
+ * @param {string} props.className
+ * @param {any} props.children
+ */
+export const Content = ({id, className, children}) => (
+    <div id={id} className={list('block m-auto w-full', className)}>
+        {children}
+    </div>
+);
+/**
+ * @param {Object} props 
+ * @param {string} props.id
+ * @param {string} props.className
+ * @param {any} props.children
+ */
+export const ContentDefault = ({id, className, children}) => (
+    <div id={id} className={list('w-[96%] max-w-[1280px] mx-auto', className)}>
+        {children}
+    </div>
+);
+/**
+ * @param {Object} props 
+ * @param {string} props.id
+ * @param {string} props.className
+ * @param {any} props.children
+ */
+export const Wrapper = ({id, className, children}) => (
+    <div id={id} className={list('flex flex-wrap', className)}>
+        {children}
+    </div>
+);
+/**
+ * @param {Object} props 
+ * @param {string} props.id
+ * @param {string} props.className
+ * @param {any} props.children
+ */
+export const Container = ({id, className, children}) => (
+    <div id={id} className={list('flex flex-col', className)}>
+        {children}
+    </div>
+);
+/**
+ * @param {Object} props 
+ * @param {string} props.id
+ * @param {string} props.className
+ * @param {number | string} props.cols
+ * @param {number | string} props.rows
+ * @param {any} props.children
+ */
+export const Grid = ({id, className, children}) => (
+    <div id={id} className={list('grid', className)}>
+        {children}
+    </div>
+);
+/**
+ * @param {Object} props 
+ * @param {string} props.id
+ * @param {string} props.className
+ * @param {number} props.width
+ * @param {any} props.children
+ */
+export const Badge = ({id, className, width = 24, children}) => (
+    <div
+        id={id}
+        className={list('bg-inherit rounded-full absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center justify-center p-4', className)}
+        style={{width: `${width}px`}}
+    >
+        {children}
+    </div>
+);
+/**
+ * @param {Object} props 
+ * @param {number} props.width
+ */
+export const Loading = ({width = 32}) => {
+    const size = width + 'px';
     return (
-        <section id={props.id} className={classList('py-16 m-auto w-full relative', props.className)} style={props.style}>
-            {props.children}
-        </section>
-    );
-};
-
-const Content = (props) => {
-    return (
-        <div id={props.id} className={classList('block m-auto w-full', props.className)}>
-            {props.children}
+        <div className='loading absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' style={{
+            width: size,
+            height: size
+        }}>
+            <img src="/img/gif/loading.gif"
+                width={size}
+                height={size}
+                draggable='false'
+                alt=""
+            />
         </div>
     );
 };
-
-const Content_Default = (props) => {
+/**
+ * @param {Object} props 
+ * @param {number | string} props.size
+ */
+export const Spacer = ({size = 1}) => (
+    <div 
+        className='w-full' 
+        style={{height: size + 'rem'}}
+    ></div>
+);
+/**
+ * @param {Object} props 
+ * @param {string} props.className
+ * @param {string} props.color
+ * @param {string} props.position
+ * @param {any} props.children
+ */
+export const Divider = ({className = '', color = '#ffffff', position = 'center'}) => {
+    var fill = {
+        center: `rgba(0,0,0,0), ${color}, rgba(0,0,0,0)`,
+        left: `${color}, rgba(0,0,0,0)`,
+        right: `rgba(0,0,0,0), ${color}` 
+    };
     return (
-        <div id={props.id} className={classList('mx-auto w-[95%] max-w-[1280px]', props.className)}>
-            {props.children}
-        </div>
+        <div
+            className={list('w-full h-[1px]', className)}
+            style={{backgroundImage: `linear-gradient(90deg, ${fill[position]})`}}
+        ></div>
     );
 };
-
-const Wrapper = (props) => {
-    return (
-        <div id={props.id} className={classList('flex flex-wrap', props.className)}>
-            {props.children}
-        </div>
-    );
-};
-
-const Container = (props) => {
-    return (
-        <div id={props.id} className={classList('flex flex-col', props.className)}>
-            {props.children}
-        </div>
-    );
-};
-
-const Badge = ({children, width = 24, className = ''}) => {
-    return (
-        <div className={classList(`bg-inherit rounded-full absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center justify-center p-4 w-${width}`, className)}>
-            {children}
-        </div>
-    )
-}
-
-const Loading = ({width = 32}) => {
-    return <img src={process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL + 'img/gif/loading.gif'} alt='' draggable='false' width={width} height={width} className='absolute-center'/>
-}
-
-export {Section, Content, Content_Default, Container, Wrapper, Badge, Loading};
