@@ -1,0 +1,792 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+    --cor-1: #0986bf;
+    --cor-1-5: #0985bf8e;
+    --cor-2: #11e9de;
+    --cor-3: #45f063;
+    --cor-4: #1E3050;
+    --cor-5: #0c6b96;
+    --cor-6: #46c15c;
+    --cor-7: #58a5f7;
+    --grad-1: #0986bf, #3fbac5, #00ffa2;
+    --grad-2: #7ed4db, #0986bf, #1E3050;
+    --grad-3: #0c6b96, #1E3050;
+    --grad-4: rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3);
+    --divider-bg: #fff, hsla(0, 0%, 100%, 0);
+    --divider-bg-2: var(--cor-4), hsla(0, 0%, 100%, 0);
+    font-size: 12pt;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    --divider-bg: #fff, hsla(0, 0%, 100%, 0);
+  }
+} */
+
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth
+}
+
+body, html {
+    color: #fff;
+    background: linear-gradient(var(--grad-3)) var(--cor-4) no-repeat;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cor-1 {
+    color: var(--cor-1)
+}
+
+.cor-2 {
+    color: var(--cor-2)
+}
+
+.cor-3 {
+    color: var(--cor-3)
+}
+
+.cor-4 {
+    color: var(--cor-4)
+}
+
+.cor-5 {
+    color: var(--cor-5)
+}
+
+.cor-6 {
+    color: var(--cor-6)
+}
+
+.cor-7 {
+    color: var(--cor-7)
+}
+
+.grad-alt {
+    background-image: linear-gradient(90deg, var(--cor-7), var(--cor-3)) !important;
+    background-size: 100% !important;
+}
+
+button, h1, h2, h3, h4, h5, h6, img, label, p, span, svg {
+    display: block;
+    margin: 0;
+    -moz-user-select: none;
+    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 800
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 300
+}
+
+input, li, p, span {
+    font-size: 1rem;
+    font-weight: 400
+}
+
+mark {
+    background: none
+}
+
+a:active, a:link, a:visited {
+    text-decoration: none;
+    -webkit-text-decoration: none;
+}
+
+button, img, svg {
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none
+}
+
+button:focus, input:focus, select:focus {
+    outline: none
+}
+
+@keyframes grad-slide {
+    to {
+        background-position: var(--bg-size) 0;
+    }
+}
+
+@keyframes fade-up {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade {
+    opacity: 0;
+}
+
+.fade-up {
+    transform: translateY(24px);
+    animation: fade-up 1000ms ease-out forwards;
+}
+
+.grad-text {
+    --bg-size: 200%;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(to right, var(--cor-7), #11e9de, var(--cor-7)) 0 0 / var(--bg-size) 100%;
+    background-clip: content-box;
+    -webkit-background-clip: text;
+}
+
+.grad-slide {
+    animation: grad-slide 3s ease infinite;
+}
+
+.grad-1 {
+    background-color: #009fb5;
+    background-image: linear-gradient(0deg, var(--grad-1));
+    background-image: -moz-linear-gradient(0deg, var(--grad-1));
+    background-image: -webkit-linear-gradient(0deg, var(--grad-1));
+    background-size: 150%;
+    background-position: 0%;
+}
+
+.grad-light {
+    background-image: linear-gradient(45deg, var(--grad-4));
+}
+
+.bg-fade-left {
+    -webkit-mask-image: linear-gradient(to left, black, transparent)
+}
+
+.bg-fade-right {
+    -webkit-mask-image: linear-gradient(to right, black, transparent)
+}
+
+.bg-fade-top {
+    -webkit-mask-image: linear-gradient(to top, black, transparent)
+}
+
+.bg-fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent)
+}
+
+.divider {
+    background-image: radial-gradient(var(--divider-bg));
+    background-size: contain;
+    background-position: center;
+    height: 1px;
+    margin: 10px auto;
+    opacity: .5;
+    width: 90%
+}
+
+.divider.left {
+    margin: 10px 0;
+    background-image: linear-gradient(90deg, var(--divider-bg));
+}
+
+.light .divider {
+    background-image: linear-gradient(var(--divider-bg-2));
+}
+
+.light .divider.left {
+    margin: 10px 0;
+    background-image: linear-gradient(90deg, var(--divider-bg-2));
+}
+
+.backlit {
+    position: relative;
+}
+.backlit > * {
+    position: relative;
+    z-index: 5;
+}
+
+.backlit::before {
+    content: '';
+    position: absolute;
+    display: block;
+    z-index: 0;
+    width: 50%;
+    height: auto;
+    aspect-ratio: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at center, #ffffff, rgba(255, 255, 255, 0));
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    mix-blend-mode: overlay;
+    filter: blur(200px);
+}
+
+.badge {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    aspect-ratio: 1;
+}
+
+.absolute-top-center {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.collapsible {
+    max-height: 3.25rem;
+    transition:
+        max-height 300ms ease-out,
+        background-color 200ms ease-out;
+}
+
+.collapsible span {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.caret {
+    transition: 300ms ease-out;
+}
+
+.collapsible.active .caret {
+    transform: rotate(90deg);
+}
+
+.collapsible.active span {
+    overflow: visible;
+    white-space: wrap;
+}
+
+.my-list {
+    list-style: none;
+    padding: none;
+}
+
+.my-list li {
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.my-list li::before {
+    content: '';
+    position: absolute;
+    width: .75rem;
+    height: .75rem;
+    left: 0;
+    top: .25rem;
+}
+
+.check-light li::before {
+    background-image: url(../img/svg/check.svg);
+}
+
+.check-dark li::before {
+    background-image: url(../img/svg/check-dark.svg);
+}
+
+.bullet-green li::before {
+    background: var(--cor-3);
+    top: .5rem;
+    width: .5rem;
+    height: .5rem;
+    border-radius: 100%;
+}
+
+.arrow li::before {
+    content: '\21E8';
+    top: 0;
+}
+
+.my-list li:not(:last-of-type) {
+    margin-bottom: 1rem;
+}
+
+.checklist li {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.my-list .include::before {
+    content: '\2714';
+    color: rgb(74 222 128);
+    width: 1rem;
+    height: 1rem;
+    top: 0
+}
+
+.my-list .not-include::before {
+    content: '\2718';
+    color: rgb(255, 99, 71);
+    width: 1rem;
+    height: 1rem;
+    top: 0
+}
+
+.my-list .not-include {
+    opacity: .5;
+}
+
+.card-shine-effect {
+    --shine-deg: 45deg;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+
+    background-repeat: no-repeat;
+    background-position: -100% 0, 0 0;
+
+    background-image: linear-gradient(var(--shine-deg),
+            transparent 20%,
+            transparent 40%,
+            rgb(255, 255, 255, 0.2) 50%,
+            rgb(255, 255, 255, 0.2) 55%,
+            transparent 70%,
+            transparent 100%);
+
+    background-size: 250% 250%, 100% 100%;
+}
+
+@keyframes sheen {
+    to {
+        background-position: 200%0, 0 0;
+    }
+}
+
+.card-shine-effect.sheen {
+    animation: sheen 1500ms ease forwards;
+}
+
+.textbox {
+    padding-right: 2rem;
+}
+
+.textbox.fade-text {
+    -webkit-mask-image: linear-gradient(black 80%, transparent)
+}
+
+.textbox::-webkit-scrollbar {
+    background: #1e305037;
+    width: 6px;
+}
+
+.textbox::-webkit-scrollbar-thumb {
+    background: #80b4de72;
+    border-radius: 24px;
+}
+
+@keyframes slideDown {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.slide-down {
+    transform: translateY(-150%);
+    animation: slideDown 1000ms ease-out forwards;
+}
+
+.chuva-palmilhas::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+    background-image: url(../img/chuva-palmilhas.webp);
+}
+
+#header {
+    background: url(../img/palmilhando-header-bg.webp);
+    background-size: cover;
+    background-position: top;
+}
+
+#criadores::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(../img/andre-banner.webp);
+    background-size: cover;
+    background-position: top right;
+    height: 100%;
+    width: 50%;
+    max-width: 32rem;
+    transform: scaleX(-1);
+    opacity: .3;
+    -webkit-mask-image: linear-gradient(to right, transparent, black, black 80%)
+}
+
+#criadores::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: url(../img/clayton-banner.webp);
+    background-size: cover;
+    background-position: top left;
+    height: 100%;
+    width: 50%;
+    max-width: 32rem;
+    transform: scaleX(-1);
+    opacity: .3;
+    -webkit-mask-image: linear-gradient(to left, transparent, black, black 80%)
+}
+
+#podoshop-clube::before, #modulos::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../img/chuva-palmilhas.webp);
+    opacity: .3;
+    filter: blur(15px);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent)
+}
+
+#aulas-carrossel .carousel-content-wrapper {
+    mask-image: linear-gradient(0deg, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: -webkit-linear-gradient(0deg, transparent, black 15%, black 85%, transparent);
+}
+
+@media screen and (max-width:820px) {
+    #aulas-carrossel .carousel-content-wrapper {
+        mask-image: none;
+        -webkit-mask-image: none
+    }
+}
+
+#investimento li {
+    font-size: .8rem;
+}
+
+#investimento li:not(:last-of-type) {
+    margin-bottom: .5rem;
+}
+
+#tabela-planos {
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: auto;
+    max-width: 100%;
+    margin: auto;
+}
+
+#tabela-planos td, #tabela-planos th {
+    padding: .75rem;
+    text-align: center;
+}
+
+#tabela-planos th {
+    font-weight: 700;
+}
+
+.chain {
+    position: relative;
+    list-style: none;
+    padding-bottom: 1rem;
+}
+
+#cp-conteudo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8rem;
+    height: 4.5rem;
+    background: #1E3050;
+    -webkit-mask-image: url(../img/svg/tab_2.svg);
+    -webkit-mask-repeat: no-repeat;
+}
+
+#cp-conteudo::after {
+    content: '';
+    position: absolute;
+    display: flex;
+    padding-top: .5rem;
+    justify-content: center;
+    align-items: center;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: #0c6b96;
+    background-image: url(../../public/img/svg/caret-light.svg);
+    background-position: 55% 50%;
+    background-repeat: no-repeat;
+    background-size: 15%;
+    border-radius: 100%;
+}
+
+.chain li:not(:last-of-type) {
+    margin-bottom: 1rem;
+}
+
+.chain::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: .5rem;
+    display: block;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(white 80%, transparent);
+}
+
+.chain li {
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.chain li::before {
+    content: '';
+    position: absolute;
+    top: .25rem;
+    left: 0;
+    transform: translateX(-50%);
+    height: 1rem;
+    width: 1rem;
+    border-radius: 100%;
+    border: solid 1px var(--cor-3);
+}
+
+.chain li::after {
+    content: '';
+    position: absolute;
+    top: .5rem;
+    left: 0;
+    transform: translateX(-50%);
+    height: .5rem;
+    width: .5rem;
+    border-radius: 100%;
+    background: #ffffff;
+}
+
+#cp-header::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url(../img/foto-capa-publico-quente.webp);
+    background-position: top right;
+    background-size: cover;
+    -webkit-mask-image: linear-gradient(black, transparent)
+}
+
+#cp-sobre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url(../img/foto-andre-mendes.webp);
+    background-position: top right;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#evt-valor::before {
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    filter: blur(12px);
+}
+
+#evt-local::before, #evt-hoteis-parceiros::before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    background-image: url('../img/mercure_sjc.webp');
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: cover;
+    mix-blend-mode: overlay;
+    opacity: .5;
+    -webkit-mask-image: linear-gradient(to left, black, transparent)
+}
+
+#evt-o-que-fazer::before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    background-image: url('../img/sjc.webp');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: cover;
+    mix-blend-mode: overlay;
+    opacity: .5;
+    -webkit-mask-image: linear-gradient(black, transparent)
+}
+
+#countdown::before {
+    content: '';
+    background-image: url(../img/[evento]_header_bg.webp);
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+    mix-blend-mode: overlay;
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 100%;
+    opacity: .5;
+    bottom: 0;
+    right: 0;
+}
+
+#evt-palestrantes::before {
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    filter: blur(10px);
+    opacity: .2;
+}
+
+.group .border:nth-of-type(1) {
+    border-right-width: 0 !important;
+}
+
+.group .border:nth-of-type(2) {
+    border-width: 1px 0 1px 0 !important;
+}
+
+.group .border:nth-of-type(3) {
+    border-left-width: 0 !important;
+}
+
+@media screen and (min-width:1600px) {
+    #modulos {
+        padding-top: 7.5vw;
+    }
+}
+
+@media screen and (max-width:820px) {
+    h1 {
+        text-align: center;
+    }
+
+    #criadores::before {
+        max-width: 80%;
+        width: 80%;
+        height: 50%;
+        top: 0;
+        left: -25%;
+        -webkit-mask-image: linear-gradient(to top, transparent, black, black 80%)
+    }
+
+    #criadores::after {
+        max-width: 80%;
+        width: 80%;
+        height: 50%;
+        top: auto;
+        bottom: 0;
+        right: -25%;
+        -webkit-mask-image: linear-gradient(to top, transparent, black, black 80%)
+    }
+
+    #tabela-planos td, #tabela-planos th {
+        padding: .5rem .25rem;
+        font-weight: 400;
+        font-size: .8rem;
+    }
+
+    #cp-sobre:before {
+        background-position: 100% 0;
+        background-repeat: no-repeat;
+        background-size: 200%;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100vw;
+    }
+
+    #cp-header::before {
+        filter: blur(15px) brightness(60%);
+    }
+
+}
+
+@media screen and (max-width:426px) {
+
+    #criadores::before {
+        -webkit-mask-image: linear-gradient(to top, transparent 25%, black)
+    }
+
+    #criadores::after {
+        -webkit-mask-image: linear-gradient(to top, transparent 25%, black)
+    }
+}
+
+/* @media screen and (max-width:820px) and (max-height:720px) {
+  #header {
+    height: calc(428px + 70vh);
+  }
+}
+
+@media screen and (max-width:820px) and (min-height:720px) {
+  #header {
+    height: calc(428px + 55vh);
+  }
+}
+
+@media screen and (max-width:540px) and (height:720px) {
+  #header {
+    height: calc(428px + 75vh);
+  }
+} */
