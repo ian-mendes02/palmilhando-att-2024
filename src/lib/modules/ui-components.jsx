@@ -9,11 +9,11 @@ import {list} from './utils';
  * @param {string} props.fill
  * @param {string | number} props.width
  */
-export const Caret = ({id, className, fill, width}) => (
+export const Caret = ({id, className, fill = '#1E3050', width = 12}) => (
     <svg
         id={id}
         className={'caret ' + className}
-        fill={fill || '#1E3050'}
+        fill={fill}
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -22,8 +22,8 @@ export const Caret = ({id, className, fill, width}) => (
         viewBox="0 0 12 12"
         style={{enableBackground: 'new 0 0 12 12'}}
         xmlSpace="preserve"
-        width={(width || 12) + 'px'}
-        height={(width || 12) + 'px'}
+        width={width + 'px'}
+        height={width + 'px'}
     >
         <path d="M9.2,6.8c0.5-0.5,0.5-1.2,0-1.7L4.5,0.5C4.2,0.2,3.7,0.1,3.2,0.3S2.5,0.9,2.5,1.3v9.3c0,0.5,0.3,0.9,0.7,1.1s0.9,0.1,1.3-0.3L9.2,6.8L9.2,6.8L9.2,6.8L9.2,6.8z" />
     </svg>

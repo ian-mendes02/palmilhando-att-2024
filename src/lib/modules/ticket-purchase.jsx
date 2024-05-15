@@ -65,13 +65,8 @@ function EventoIngressos() {
         log('Fetching data from server...', "info");
         await fetch(API_URL + "evento2024/integration/", {
             method: 'POST',
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                action: action,
-                data: data
-            })
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({action: action, data: data})
         })
             .then((res) => res.json())
             .then((json) => setAjaxResponse(json))
@@ -126,7 +121,6 @@ function EventoIngressos() {
 
     useEffect(() => {
         if (requireValidation && ajaxResponse) {
-           // log(ajaxResponse);
             setValidDiscount(ajaxResponse.discount_elegible);
             if (ajaxResponse.valid_member)
                 setDiscountMessage("Desconto Palmilhando®");
@@ -135,13 +129,6 @@ function EventoIngressos() {
             else
                 setDiscountMessage(null);
             log("Verification complete.", "success");
-            /* if (!localStorage.getItem("validated_user")) {
-                localStorage.setItem("validated_user", JSON.stringify({
-                    user_mail: userEmail,
-                    user_name: userName,
-                    user_ip: userIP
-                }));
-            } */
             setRequireValidation(false);
         }
         setButtonText("ENVIAR");
@@ -220,7 +207,7 @@ function EventoIngressos() {
                                     <span>
                                         <span className='text-3xl font-semibold grad-text'>R${price[loteAtual].discount}</span>
                                         <span className="inline-flex items-center relative">
-                                            <span className='grad-text'>Desconto exclusivo</span>
+                                            <span className='grad-text'>{discountMessage || 'Desconto exclusivo'}</span>
                                             <i
                                                 className="fa-solid fa-circle-question ml-2 cursor-pointer text-orange-400"
                                                 onMouseEnter={() => setShowDiscountInfo(true)}
@@ -316,7 +303,7 @@ function EventoIngressos() {
 
     return (
         <div>
-            <h2 className='grad-text font-bold mb-2 relative text-center'>GARANTA SUA PARTICIPAÇÃO</h2>
+            <h2 className='grad-text font-bold mb-2 relative text-center text-2xl'>GARANTA SUA PARTICIPAÇÃO</h2>
             <div className='relative z-10 my-8'>
                 <Ingressos />
             </div>

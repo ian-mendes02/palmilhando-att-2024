@@ -1,7 +1,6 @@
 'use client';
 //import {FloatingButton, ButtonContainer} from '@/lib/modules/floating-button';
-import CountdownMobile from '@/lib/modules/countdown-mobile';
-import EventCountdown from '@/lib/modules/countdown-timer';
+import Countdown from '@/lib/modules/countdown';
 import {Section, Content, ContentDefault, Container, Wrapper, Loading, Grid} from '@/lib/modules/layout-components';
 import {List, Collapsible} from '@/lib/modules/ui-components';
 import {EventoIngressos} from '@/lib/modules/ticket-purchase';
@@ -120,7 +119,7 @@ export default function Main() {
         }, [isActive]);
 
         return (
-            <div className='w-full place-content-center'>
+            <div className='w-full flex items-start justify-center'>
                 <div
                     className='p-2 rounded-2xl shadow-md bg-[#121e31] border-t-2 border-sky-900 hover:scale-[101%] hover:brightness-95 duration-200 ease-out w-full h-full overflow-hidden cursor-pointer'
                     onClick={() => setIsActive(!isActive)}
@@ -174,7 +173,7 @@ export default function Main() {
 
     const Checkout = () => (
         <div
-            className='block w-max py-2 px-8 my-8 mx-auto rounded-full shadow-lg bg-sky-700 grad-alt cursor-pointer hover:brightness-105 hover:-scale-y-[5px] duration-150 ease-out'
+            className='block w-max py-4 px-8 my-8 mx-auto rounded-full shadow-lg bg-sky-700 grad-alt cursor-pointer hover:brightness-105 hover:-scale-y-[5px] duration-150 ease-out'
             onClick={() => scrollToTop('#evt-valor')}
         ><span className='m-auto text-center text-white font-bold'>QUERO GARANTIR MINHA VAGA</span></div>
     );
@@ -195,7 +194,7 @@ export default function Main() {
                 </div>
             )}
 
-            {isMobile ? <CountdownMobile/> : <EventCountdown/>}
+            <Countdown isMobile={isMobile}/>
 
             <Section id='evt-header' className='pt-24 pb-12 h-[576px] max-[820px]:!h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
 
@@ -237,7 +236,7 @@ export default function Main() {
                         </Container>
                     </ContentDefault>
                 </Content>
-            </Section>{/** go to checkout */}
+            </Section>
 
             <Section id="evt-vantagens" className='border-t-2 border-sky-800 bg-[#121e31] py-4'>
                 <Content>
@@ -346,7 +345,7 @@ export default function Main() {
                                             <span className="font-extralight text-base">Mercure São José dos Campos<br /> 20% OFF</span>
                                             <span className="font-extralight text-base">Ibis São José dos Campos<br /> 15% OFF</span>
                                         </div>
-                                        <a className='inline !underline font-light cursor-pointer text-sm' href='mailto:h5168-re@accor.com?subject=Reserva%20de%20estadia%20-%20Palmilhas%20%26%20Ci%C3%AAncia%20Aplicada%202024'>Clique aqui para fazer sua reserva</a>
+                                        <a className='inline !underline font-light cursor-pointer text-sm' href='mailto:h5168-re@accor.com?subject=Reserva%20de%20estadia%20-%20Palmilhas%20%26%20Ci%C3%AAncia%20Aplicada%202024'>Clique aqui para fazer sua reserva por email</a>
                                     </div>
                                 </Wrapper>
                             </Container>
@@ -357,7 +356,7 @@ export default function Main() {
                         <Checkout/>
                     </ContentDefault>
                 </Content>
-            </Section>{/** go to checkout */}
+            </Section>
 
             <Section id='evt-palestrantes' className='shadow-lg bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] max-[820px]:!py-4 border-y-2 border-sky-800 chuva-palmilhas overflow-hidden rounded-bl-3xl rounded-br-3xl'>
                 <Content className='relative z-20'>
@@ -370,7 +369,7 @@ export default function Main() {
                         <Container className='items-center justify-center'>
 
                             <Container className='mt-4 items-center'>
-                                <h2 className='grad-text text-center'>Ciência Aplicada</h2>
+                                <h2 className='grad-text text-center font-semibold text-lg'>Ciência Aplicada</h2>
                                 <Grid className='mt-4 mx-auto grid-cols-2 max-[820px]:!grid-cols-1 w-full gap-4'>
                                     <Palestrante
                                         src={ASSET_PREFIX + 'img/palestrantes-2024/andre-mendes.webp'}
@@ -424,7 +423,7 @@ export default function Main() {
                             </Container>
 
                             <Container className='mt-8'>
-                                <h2 className='grad-text text-center'>Empreendedorismo</h2>
+                                <h2 className='grad-text text-center font-semibold text-lg'>Empreendedorismo</h2>
                                 <Grid className='mt-4 mx-auto grid-cols-2 max-[820px]:!grid-cols-1 w-full gap-4'>
                                     <Palestrante
                                         src={ASSET_PREFIX + 'img/palestrantes-2024/mariana-pereira.webp'}
@@ -476,7 +475,7 @@ export default function Main() {
 
             <Section id='evt-video' className='shadow-xl !py-0'>
                 <div className='my-8'>
-                    <h1 className='grad-text text-center font-normal'>Confira como foi nosso último encontro</h1>
+                    <h1 className='grad-text text-center font-semibold text-lg'>Confira como foi nosso último encontro</h1>
                 </div>
                 <div className='relative pt-24 h-[576px] max-[820px]:!h-[90vh] flex items-center overflow-hidden'>
                     <div className='cursor-pointer' onClick={() => toggleFullscreen(VideoEvento)}>
@@ -505,7 +504,7 @@ export default function Main() {
                 <Content>
                     <ContentDefault>
                         <Container className='my-4'>
-                            <h1 className='grad-text font-normal'>Como chegar até o local do evento?</h1>
+                            <h1 className='grad-text font-semibold text-lg'>Como chegar até o local do evento?</h1>
                             <p className='text-xs opacity-50 italic my-4  max-[820px]:!text-center'>Tempos aproximados e sujeitos a variação.</p>
                             <div className="divider left max-[820px]:!hidden"></div>
                             <div className="divider min-[821px]:hidden"></div>
@@ -538,13 +537,13 @@ export default function Main() {
                         <Checkout/>
                     </ContentDefault>
                 </Content>
-            </Section>{/** go to checkout */}
+            </Section>
 
             <Section id='evt-o-que-fazer'>
                 <Content className='relative z-30'>
                     <ContentDefault>
                         <Container>
-                            <h1 className='grad-text font-normal text-center'>O que fazer na região?</h1>
+                            <h1 className='grad-text font-semibold text-lg text-center'>O que fazer na região?</h1>
                             <div className="divider"></div>
                         </Container>
                         <Wrapper className='items-center justify-center'>
@@ -615,14 +614,13 @@ export default function Main() {
                         </Container>
                         <Container className='w-[70%] max-[820px]:!w-full ml-8 max-[820px]:!ml-0'>
                             <Collapsible title='Quando vai ser o evento?'>
-                                <p>Dias 13 e 14 de setembro de 2024.</p>
+                                <p>Dias 13 e 14 de setembro de 2024. Em ambos os dias, as atividades acontecerão das 8h às 18h.</p>
                             </Collapsible>
                             <Collapsible title='Onde será o evento?'>
                                 <p>
                                     O evento será realizado no Hotel Mercure São José dos Campos, na torre II.
                                     <br /><br />
-                                    Endereço: Avenida Dr - Av. Jorge Zarur, 81 - Torre II - Jardim Apolo, São José dos Campos -
-                                    SP, 12243-081
+                                    Endereço: Avenida Dr - Av. Jorge Zarur, 81 - Torre II - Jardim Apolo, São José dos Campos - SP, 12243-081
                                 </p>
                             </Collapsible>
                             <Collapsible title='Para quem é o evento?'>
@@ -635,7 +633,7 @@ export default function Main() {
                         </Container>
                     </ContentDefault>
                 </Content>
-            </Section>{/** go to checkout */}
+            </Section>
 
             <Section id='evt-footer'>
                 <div className='w-36 m-auto text-center'>
