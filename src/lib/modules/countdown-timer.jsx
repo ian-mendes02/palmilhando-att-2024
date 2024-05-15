@@ -3,7 +3,7 @@ import {Wrapper} from '@/lib/modules/layout-components';
 import {useEffect, useMemo, useState} from 'react';
 export default function EventCountdown({paused = false}) {
 
-    const eventDate = useMemo(() => new Date('2024-03-31T23:59:00.000-03:00').getTime(), []);
+    const eventDate = useMemo(() => new Date('2024-05-27T23:59:00.000-03:00').getTime(), []);
 
     const [time, setTime] = useState({d: '00', h: '00', m: '00', s: '00'});
 

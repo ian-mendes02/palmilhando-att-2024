@@ -300,7 +300,7 @@ export default function Main() {
                 </Content>
             </Section>
 
-            <Section id='evt-local' className='min-[821px]:!py-0 max-[820px]:py-16 bg-[linear-gradient(45deg,var(--cor-4),var(--cor-5))] duration-200 ease-out overflow-hidden'>
+            <Section id='evt-local' className='max-[820px]:py-16 bg-[linear-gradient(45deg,var(--cor-4),var(--cor-5))] duration-200 ease-out overflow-hidden'>
                 <Content className='relative z-20'>
                     <ContentDefault>
                         <Wrapper className='!flex-nowrap max-[820px]:flex-col justify-start items-center h-[420px] max-[820px]:h-auto w-9/12 max-[820px]:!w-full mx-auto'>

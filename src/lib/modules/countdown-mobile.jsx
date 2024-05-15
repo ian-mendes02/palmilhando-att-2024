@@ -6,7 +6,7 @@ export default function CountdownMobile({paused = false}) {
 
     const [time, setTime] = useState({d: '00', h: '00', m: '00', s: '00'});
     
-    const eventDate = useMemo(() => new Date('2024-03-31T23:59:00.000-03:00').getTime(), []);
+    const eventDate = useMemo(() => new Date('2024-05-27T23:59:00.000-03:00').getTime(), []);
 
     useEffect(() => {
         var now = new Date().getTime();

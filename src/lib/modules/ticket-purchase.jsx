@@ -20,12 +20,7 @@ function EventoIngressos() {
     const [userName, setUserName] = useState('');
     const [userIP, setUserIP] = useState(null);
 
-    const API_URL = useMemo(
-        () => process.env.NEXT_PUBLIC_DEV_ENV === 'true'
-            ? process.env.NEXT_PUBLIC_API_URL_DEV
-            : process.env.NEXT_PUBLIC_API_URL_PROD
-        , []
-    );
+    const API_URL = process.env.NEXT_PUBLIC_API_URL_PROD;
 
     const price = useMemo(() => {
         return {
@@ -166,7 +161,7 @@ function EventoIngressos() {
     );
 
     const Ingressos = () => (
-        <Grid className='grid-cols-3 max-[820px]:grid-cols-1 w-full gap-4'>
+        <Grid className='grid-cols-3 max-[820px]:!grid-cols-1 w-full gap-4'>
 
             <Container id="online" className='w-full relative'>
                 <div className="flex flex-col items-center p-4 border-t-2 border-sky-600 rounded-2xl bg-sky-900 shadow-lg h-max w-full relative">
@@ -256,6 +251,7 @@ function EventoIngressos() {
                                 <Container className='w-full p-8'>
                                     <Container className='text-center items-center w-[96%]'>
                                         <h2 className='grad-text font-bold mb-2 relative z-40'>GARANTA SEU DESCONTO</h2>
+                                        <p className='text-xs font-light'>Informe seus dados para que possamos confirmar sua assinatura ou participação e disponibilizar seu desconto exclusivo!</p>
                                     </Container>
                                     <div className="divider"></div>
                                     <form id='compra-ingresso' onSubmit={(e) => e.preventDefault()}>
