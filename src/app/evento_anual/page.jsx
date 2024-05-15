@@ -1,12 +1,13 @@
 'use client';
 //import {FloatingButton, ButtonContainer} from '@/lib/modules/floating-button';
-//import CountdownMobile from '@/lib/modules/countdown-mobile';
-//import EventCountdown from '@/lib/modules/countdown-timer';
+import CountdownMobile from '@/lib/modules/countdown-mobile';
+import EventCountdown from '@/lib/modules/countdown-timer';
 import {Section, Content, ContentDefault, Container, Wrapper, Loading, Grid} from '@/lib/modules/layout-components';
 import {List, Collapsible} from '@/lib/modules/ui-components';
 import {EventoIngressos} from '@/lib/modules/ticket-purchase';
 import {useEffect, useRef, useMemo, useState} from 'react';
 import '$/css/carousel.css';
+import {scrollToTop} from '@/lib/modules/utils';
 
 export default function Main() {
 
@@ -171,6 +172,13 @@ export default function Main() {
         </div>
     );
 
+    const Checkout = () => (
+        <div
+            className='block w-max py-2 px-8 my-8 mx-auto rounded-full shadow-lg bg-sky-700 grad-alt cursor-pointer hover:brightness-105 hover:-scale-y-[5px] duration-150 ease-out'
+            onClick={() => scrollToTop('#evt-valor')}
+        ><span className='m-auto text-center text-white font-bold'>QUERO GARANTIR MINHA VAGA</span></div>
+    );
+
     function toggleFullscreen(content) {
         setFullscreenContent(content);
         setModalActive(true);
@@ -187,6 +195,8 @@ export default function Main() {
                 </div>
             )}
 
+            {isMobile ? <CountdownMobile/> : <EventCountdown/>}
+
             <Section id='evt-header' className='pt-24 pb-12 h-[576px] max-[820px]:h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
 
                 <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
@@ -198,19 +208,19 @@ export default function Main() {
                 <Content className='relative z-20'>
                     <ContentDefault className='flex flex-col justify-center items-center text-center'>
                         <Container className='h-full w-[48rem] max-[1024px]:w-[80%] max-[426px]:w-full items-center justify-center'>
-                            <Container className='w-9/12'>
+                            <Container className='w-1/2'>
                                 <img src={ASSET_PREFIX + 'img/svg/encontro_logo_3.svg'} alt='' draggable='false' />
                             </Container>
                             <div className="divider"></div>
                             <Container className='my-4'>
-                                <p className='text-xl'>Viva a experiência do empreendedorismo e da prática baseada em evidência para se destacar no mercado de trabalho.</p>
+                                <p className='text-3xl'>Viva a experiência do empreendedorismo e da prática baseada em evidência para se destacar no mercado de trabalho.</p>
                             </Container>
                             <Wrapper className='flex-nowrap max-[820px]:flex-col'>
                                 <Wrapper className="items-center flex-nowrap w-max m-2">
                                     <div className='w-8 h-8 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
                                         <img src={ASSET_PREFIX + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
                                     </div>
-                                    <h2 className='font-light text-base'>13 e 14 de Setembro</h2>
+                                    <h2 className='font-light text-base text-left'>13 e 14 de Setembro <br />das 8h às 18h</h2>
                                 </Wrapper>
                                 <Wrapper className="items-center flex-nowrap w-max m-2">
                                     <div className='w-8 h-8 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
@@ -227,7 +237,7 @@ export default function Main() {
                         </Container>
                     </ContentDefault>
                 </Content>
-            </Section>
+            </Section>{/** go to checkout */}
 
             <Section id="evt-vantagens" className='border-t-2 border-sky-800 bg-[#121e31] py-4'>
                 <Content>
@@ -253,44 +263,42 @@ export default function Main() {
                 </Content>
             </Section>
 
-            <div className='bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] border-t-2 border-sky-800 z-20 shadow-lg'>
-                <Section id="evt-prof">
-                    <Content>
-                        <ContentDefault>
-                            <Container className="text-center mx-auto w-9/12 max-[820px]:!w-full mb-8">
-                                <h1 className='font-bold text-3xl grad-text mb-2 max-[820px]:!text-2xl'>A PROFISSIONALIZAÇÃO É O ÚNICO CAMINHO</h1>
-                                <h2 className='mx-auto w-9/12 max-[820px]:!w-full text-base font-light'>Não importa o seu tempo de mercado: o <mark className="cor-7">Encontro Anual Palmilhas e Ciência Aplicada</mark> é o lugar perfeito para você ter ainda mais resultados.</h2>
+            <Section id="evt-prof" className='bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] border-t-2 border-sky-800 z-20 shadow-lg'>
+                <Content>
+                    <ContentDefault>
+                        <Container className="text-center mx-auto w-9/12 max-[820px]:!w-full mb-8">
+                            <h1 className='font-bold text-3xl grad-text mb-2 max-[820px]:!text-2xl'>A PROFISSIONALIZAÇÃO É O ÚNICO CAMINHO</h1>
+                            <h2 className='mx-auto w-9/12 max-[820px]:!w-full text-base font-light'>Não importa o seu tempo de mercado: o <mark className="cor-7">Encontro Anual Palmilhas e Ciência Aplicada</mark> é o lugar perfeito para você ter ainda mais resultados.</h2>
+                        </Container>
+                        <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-center'>
+                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                                <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
+                                    <h2>Se é iniciante</h2>
+                                    <i className="fa-solid fa-seedling text-3xl grad-text" aria-hidden="true"></i>
+                                </span>
+                                <div className="divider left"></div>
+                                <p>Vai descobrir como ser um profissional acima da média desde o início da jornada</p>
                             </Container>
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-center'>
-                                <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
-                                    <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
-                                        <h2>Se é iniciante</h2>
-                                        <i className="fa-solid fa-seedling text-3xl grad-text" aria-hidden="true"></i>
-                                    </span>
-                                    <div className="divider left"></div>
-                                    <p>Vai descobrir como ser um profissional acima da média desde o início da jornada</p>
-                                </Container>
-                                <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
-                                    <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
-                                        <h2>Se já tem experiência</h2>
-                                        <i className="fa-solid fa-gears text-3xl grad-text" aria-hidden="true"></i>
-                                    </span>
-                                    <div className="divider left"></div>
-                                    <p>Vai conhecer novas formas de melhorar ainda mais seu trabalho e poder cobrar mais pelo seu serviço</p>
-                                </Container>
-                                <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
-                                    <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
-                                        <h2>Se já é avançado</h2>
-                                        <i className="fa-solid fa-rocket text-3xl grad-text" aria-hidden="true"></i>
-                                    </span>
-                                    <div className="divider left"></div>
-                                    <p>Vai aumentar o seu networking, fazer parcerias e ter contato com grandes profissionais do país.</p>
-                                </Container>
-                            </Wrapper>
-                        </ContentDefault>
-                    </Content>
-                </Section>
-            </div>
+                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                                <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
+                                    <h2>Se já tem experiência</h2>
+                                    <i className="fa-solid fa-gears text-3xl grad-text" aria-hidden="true"></i>
+                                </span>
+                                <div className="divider left"></div>
+                                <p>Vai conhecer novas formas de melhorar ainda mais seu trabalho e poder cobrar mais pelo seu serviço</p>
+                            </Container>
+                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                                <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
+                                    <h2>Se já é avançado</h2>
+                                    <i className="fa-solid fa-rocket text-3xl grad-text" aria-hidden="true"></i>
+                                </span>
+                                <div className="divider left"></div>
+                                <p>Vai aumentar o seu networking, fazer parcerias e ter contato com grandes profissionais do país.</p>
+                            </Container>
+                        </Wrapper>
+                    </ContentDefault>
+                </Content>
+            </Section>
 
             <Section id='evt-local' className='min-[821px]:!py-0 max-[820px]:py-16 bg-[linear-gradient(45deg,var(--cor-4),var(--cor-5))] duration-200 ease-out overflow-hidden'>
                 <Content className='relative z-20'>
@@ -298,7 +306,7 @@ export default function Main() {
                         <Wrapper className='!flex-nowrap max-[820px]:flex-col justify-start items-center h-[420px] max-[820px]:h-auto w-9/12 max-[820px]:!w-full mx-auto'>
                             <Container className='w-[32rem] max-[820px]:w-full p-4'>
                                 <Container className='mb-2'>
-                                    <h2 className='grad-text font-bold text-3xl mb-2'>QUANDO E ONDE?</h2>
+                                    <h2 className='grad-text font-bold text-3xl mb-2'>ONDE E QUANDO?</h2>
                                     <div className="divider left"></div>
                                 </Container>
                                 <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:w-full">
@@ -310,7 +318,8 @@ export default function Main() {
                                     <h2 className='font-extralight text-base'>
                                         {isMobile && <i className="fa-solid fa-calendar-days mr-2" aria-hidden="true"></i>}
                                         <strong>13 e 14 de Setembro</strong><br />
-                                        Sexta-feira e sábado
+                                        Sexta-feira e sábado<br/>
+                                        Das 8h às 18h
                                     </h2>
                                 </Wrapper>
                                 <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:w-full">
@@ -334,8 +343,8 @@ export default function Main() {
                                     <div>
                                         <div className='mb-2'>
                                             <h2 className="font-extralight text-base m-0"><strong>Em parceria com:</strong></h2>
-                                            <span className="font-extralight text-base">Mercure São José dos Campos - 20% OFF</span>
-                                            <span className="font-extralight text-base">Ibis São José dos Campos - 15% OFF</span>
+                                            <span className="font-extralight text-base">Mercure São José dos Campos<br /> 20% OFF</span>
+                                            <span className="font-extralight text-base">Ibis São José dos Campos<br /> 15% OFF</span>
                                         </div>
                                         <a className='inline !underline font-light cursor-pointer text-sm' href='mailto:h5168-re@accor.com?subject=Reserva%20de%20estadia%20-%20Palmilhas%20%26%20Ci%C3%AAncia%20Aplicada%202024'>Clique aqui para fazer sua reserva</a>
                                     </div>
@@ -345,9 +354,10 @@ export default function Main() {
                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14668.122128172752!2d-45.90516370000002!3d-23.205557899999988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc3589bc020f0d%3A0x96bc968352c2c899!2sMercure%20Sao%20Jose%20dos%20Campos!5e0!3m2!1sen!2sbr!4v1710790411443!5m2!1sen!2sbr" className='outline-none border-none w-full h-full absolute rounded-lg' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                             </Container>
                         </Wrapper>
+                        <Checkout/>
                     </ContentDefault>
                 </Content>
-            </Section>
+            </Section>{/** go to checkout */}
 
             <Section id='evt-palestrantes' className='shadow-lg bg-[radial-gradient(circle_at_center,#1E3050,#121e31)] max-[820px]:!py-4 border-y-2 border-sky-800 chuva-palmilhas overflow-hidden rounded-bl-3xl rounded-br-3xl'>
                 <Content className='relative z-20'>
@@ -464,22 +474,23 @@ export default function Main() {
                 </Content>
             </Section>
 
-            <h1 className='grad-text text-center font-normal my-8'>Confira como foi nosso último encontro</h1>
-
-            <Section id='evt-video' className='pt-24 pb-12 h-[576px] max-[820px]:h-[90vh] flex items-center overflow-hidden shadow-xl'>
-                <div className='cursor-pointer' onClick={() => toggleFullscreen(VideoEvento)}>
-                    {!modalActive && <div className='absolute-center w-20 h-20 z-30'>
-                        <img src={ASSET_PREFIX + 'img/svg/play_button.svg'} alt='' draggable='false' className='w-full h-full' />
-                    </div>}
-                    <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
-                        <video id='evento-video' autoPlay muted playsInline loop className='inline-block align-baseline w-full max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
-                            <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
-                        </video>
+            <Section id='evt-video' className='shadow-xl !py-0'>
+                <div className='my-8'>
+                    <h1 className='grad-text text-center font-normal'>Confira como foi nosso último encontro</h1>
+                </div>
+                <div className='relative pt-24 h-[576px] max-[820px]:h-[90vh] flex items-center overflow-hidden'>
+                    <div className='cursor-pointer' onClick={() => toggleFullscreen(VideoEvento)}>
+                        {!modalActive && <div className='absolute-center w-20 h-20 z-30'>
+                            <img src={ASSET_PREFIX + 'img/svg/play_button.svg'} alt='' draggable='false' className='w-full h-full' />
+                        </div>}
+                        <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
+                            <video id='evento-video' autoPlay muted playsInline loop className='inline-block align-baseline w-full max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
+                                <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
+                            </video>
+                        </div>
                     </div>
                 </div>
-
                 {modalActive && <Fullscreen>{fullscreenContent}</Fullscreen>}
-
             </Section>
 
             <Section id='evt-valor'>
@@ -504,13 +515,12 @@ export default function Main() {
                                 <li className='include text-lg font-semibold'> - Aeroporto de São José dos Campos <br />
                                     <span className="inline-flex items-center mt-2">
                                         <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-car"></i><br />20min</span>
-                                        <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-bus"></i><br />1h15min</span>
                                     </span>
                                 </li>
                                 <li className='include text-lg font-semibold'> - Aeroporto de Guarulhos <br />
                                     <span className="inline-flex items-center mt-2">
                                         <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-car"></i><br />1h</span>
-                                        <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-bus"></i><br />+2h</span>
+                                        <span className='font-bold text-center m-2 border border-sky-500 rounded-xl p-2 w-24 h-fit'><i aria-hidden="true" className="fa-solid fa-bus"></i><br />1h15min</span>
                                     </span>
                                 </li>
                                 <li className='include text-lg font-semibold'> - Rodoviária de São José dos Campos <br />
@@ -525,9 +535,10 @@ export default function Main() {
                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14668.122128172752!2d-45.90516370000002!3d-23.205557899999988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc3589bc020f0d%3A0x96bc968352c2c899!2sMercure%20Sao%20Jose%20dos%20Campos!5e0!3m2!1sen!2sbr!4v1710790411443!5m2!1sen!2sbr" className='outline-none border-none w-full h-full absolute rounded-lg' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                             </Container>
                         </Grid>
+                        <Checkout/>
                     </ContentDefault>
                 </Content>
-            </Section>
+            </Section>{/** go to checkout */}
 
             <Section id='evt-o-que-fazer'>
                 <Content className='relative z-30'>
@@ -620,15 +631,11 @@ export default function Main() {
                             <Collapsible title='Como recebo meu ingresso?'>
                                 <p>O ingresso será enviado para o seu e-mail. Será necessário que você mostre seu ingresso na entrada do evento. Por isso, no momento da compra, informe um e-mail ao qual você tenha acesso. Você poderá apresentar o seu ingresso de forma impressa ou digital, por meio de um print.</p>
                             </Collapsible>
-                            <button
-                                className='font-bold text-xl max-[820px]:text-base shadow-md w-fit py-4 px-16 mx-auto mt-8 rounded-full max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200'
-                                onClick={() => $('#evt-valor').scrollIntoView({block: 'start'})}>
-                                QUERO GARANTIR MEU INGRESSO
-                            </button>
+                            <Checkout/>
                         </Container>
                     </ContentDefault>
                 </Content>
-            </Section>
+            </Section>{/** go to checkout */}
 
             <Section id='evt-footer'>
                 <div className='w-36 m-auto text-center'>

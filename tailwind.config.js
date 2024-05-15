@@ -5,4 +5,4 @@ module.exports = {
     './node_modules/tw-elements/dist/js/**/*.js'
   ],
   plugins: [require("tw-elements-react/dist/plugin.cjs")],
-}
+};

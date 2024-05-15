@@ -29,7 +29,7 @@ export default function CountdownMobile({paused = false}) {
     return (
         <div id='countdown' className='fixed top-0 w-full h-20 bg-[var(--cor-4)] flex items-center border-b-2 border-sky-800 rounded-bl-3xl rounded-br-3xl z-50 slide-down overflow-clip'>
             <Wrapper className='flex-col justify-center items-center m-auto'>
-                <span className='my-2 font-light text-sm'>A pré-venda acaba em:</span>
+                <span className='my-2 font-light text-sm'>Garanta seu ingresso no 1º lote</span>
                 <span className='text-lg font-bold'>{`${time.d}:${time.h}:${time.m}:${time.s}`}</span>
             </Wrapper>
         </div>

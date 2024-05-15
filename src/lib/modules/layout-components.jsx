@@ -58,12 +58,13 @@ export const Container = ({id, className, children}) => (
  * @param {Object} props 
  * @param {string} props.id
  * @param {string} props.className
+ * @param {object} props.style
  * @param {number | string} props.cols
  * @param {number | string} props.rows
  * @param {any} props.children
  */
-export const Grid = ({id, className, children}) => (
-    <div id={id} className={list('grid', className)}>
+export const Grid = ({id, className, style, children}) => (
+    <div id={id} className={list('grid', className)} style={style}>
         {children}
     </div>
 );

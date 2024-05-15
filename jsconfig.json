@@ -4,6 +4,7 @@
       "@/*": ["./src/*"],
       "$/*": ["./public/*"]
     },
+    "esModuleInterop": true,
   },
   "exclude": [
     "./node_modules",

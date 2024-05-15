@@ -1,6 +1,6 @@
 'use client';
 import {Container, Wrapper, Loading, Grid} from '@/lib/modules/layout-components';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo, useState, useRef} from 'react';
 import {List} from '@/lib/modules/ui-components';
 import {TEInput} from 'tw-elements-react';
 import {log} from './utils';
@@ -10,6 +10,7 @@ function EventoIngressos() {
 
     const [showValidationPrompt, setShowValidationPrompt] = useState(false);
     const [requireValidation, setRequireValidation] = useState(true);
+    const [showDiscountInfo, setShowDiscountInfo] = useState(false);
     const [discountMessage, setDiscountMessage] = useState(null);
     const [displayMessage, setDisplayMessage] = useState(null);
     const [validDiscount, setValidDiscount] = useState(false);
@@ -62,9 +63,9 @@ function EventoIngressos() {
             server_error: <span className='text-orange-500 text-center font-light text-sm'>Servidor indisponível no momento, tente novamente mais tarde.</span>,
         };
     }, []);
-    /**
-     * Fetch user validation from server
-     */
+
+    const messageRef = useRef(null);
+
     async function userAjax(action, data) {
         log('Fetching data from server...', "info");
         await fetch(API_URL + "evento2024/integration/", {
@@ -81,11 +82,8 @@ function EventoIngressos() {
             .then((json) => setAjaxResponse(json))
             .catch((reason) => log(reason));
     }
-    /**
-     * Handle form submission
-     */
+
     async function handleValidation() {
-        //Exits if name or email are blank
         if (userEmail == '' || userName == '') {
             setDisplayMessage(statusMessage.error_no_input);
             return;
@@ -99,18 +97,14 @@ function EventoIngressos() {
         setDisplayMessage(null);
         setButtonText(<Loading width={24} />);
     }
-    /**
-     * Fetch client IP address from ipfy.org
-     */
+
     async function getIP() {
         await fetch('https://api.ipify.org/?format=json')
             .then((res) => res.json())
             .then((ip) => setUserIP(ip.ip));
     }
-    /**
-     * Verify user data from localStorage if available
-     */
-    useEffect(() => {
+
+    /* useEffect(() => {
         getIP();
         var user = JSON.parse(localStorage.getItem("validated_user"));
         if (user && requireValidation) {
@@ -123,7 +117,7 @@ function EventoIngressos() {
         } else {
             setShowValidationPrompt(true);
         };
-    }, []);
+    }, []); */
 
     useEffect(() => {
         if (userIP) {
@@ -132,14 +126,12 @@ function EventoIngressos() {
             xhr.open("POST", API_URL + "evento2024/integration/");
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.send(body);
-        }
+        } else getIP()
     }, [userIP]);
-    /**
-    * Process ajax response once available
-    */
+
     useEffect(() => {
         if (requireValidation && ajaxResponse) {
-            log(ajaxResponse);
+           // log(ajaxResponse);
             setValidDiscount(ajaxResponse.discount_elegible);
             if (ajaxResponse.valid_member)
                 setDiscountMessage("Desconto Palmilhando®");
@@ -148,27 +140,35 @@ function EventoIngressos() {
             else
                 setDiscountMessage(null);
             log("Verification complete.", "success");
-            if (!localStorage.getItem("validated_user")) {
+            /* if (!localStorage.getItem("validated_user")) {
                 localStorage.setItem("validated_user", JSON.stringify({
                     user_mail: userEmail,
                     user_name: userName,
                     user_ip: userIP
                 }));
-            }
+            } */
             setRequireValidation(false);
         }
         setButtonText("ENVIAR");
     }, [ajaxResponse]);
-    /**
-    * Clears warning message if input value is changed
-    */
+
+    useEffect(() => {
+        const handleClickOutside = (e) =>
+            !messageRef.current?.contains(e.target)
+                ? setShowDiscountInfo(false)
+                : null;
+        if (showDiscountInfo) document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [showDiscountInfo]);
+
     useEffect(
         () => setDisplayMessage(null), [userName, userEmail]
     );
-    const Ingressos = () => (
-        <Wrapper className='flex-nowrap max-[820px]:flex-col'>
 
-            <Container id="online" className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 max-[820px]:mx-0'>
+    const Ingressos = () => (
+        <Grid className='grid-cols-3 max-[820px]:grid-cols-1 w-full gap-4'>
+
+            <Container id="online" className='w-full relative'>
                 <div className="flex flex-col items-center p-4 border-t-2 border-sky-600 rounded-2xl bg-sky-900 shadow-lg h-max w-full relative">
                     <Grid className="w-full mb-4 grid-cols-2">
                         <Wrapper className='items-center justify-start flex-nowrap'>
@@ -195,8 +195,8 @@ function EventoIngressos() {
                 </div>
             </Container>
 
-            <Container id="presencial" className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 relative max-[820px]:mx-0'>
-                <div className="flex flex-col items-center p-4 border-t-2 border-sky-800 rounded-2xl bg-primary-900 shadow-xl h-max w-full">
+            <Container id="presencial" className='w-full relative'>
+                <div className="flex flex-col p-4 border-t-2 border-sky-800 rounded-2xl bg-primary-900 shadow-xl h-max w-full overflow-hidden">
                     <Grid className="w-full mb-4 grid-cols-2">
                         <Wrapper className='items-center justify-start flex-nowrap'>
                             <div className='w-10 h-10 min-w-10 mr-2 bg-primary-500 rounded-full flex items-center justify-center shadow-md'>
@@ -206,38 +206,90 @@ function EventoIngressos() {
                         </Wrapper>
                         <span className='bg-sky-100 rounded-full text-sky-800 px-4 py-1 h-fit w-fit justify-self-end max-[1024px]:my-4'>1º LOTE</span>
                     </Grid>
-                    <Container className='p-8 rounded-lg border-2 border-sky-900 items-center'>
-                        <List className='text-left checklist'>
-                            <li className='include'>Acesso presencial ao evento</li>
-                            <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
-                            <li className='include'>Kit de brindes para participantes</li>
-                            <li className='include'>Happy hour</li>
-                        </List>
-                        <div className="divider"></div>
-                        {validDiscount
-                            ? (
-                                <span className='inline-flex my-4 flex-col items-center'>
-                                    <h1 className='text-2xl mr-2 line-through font-light'>R${price[loteAtual].base}</h1>
-                                    <h1 className='text-4xl font-semibold grad-text grad-slide'>R${price[loteAtual].discount}</h1>
-                                </span>
-                            )
-                            : (
-                                <span className='my-4'>
-                                    <h1 className='text-4xl font-semibold my-4'>R${price[loteAtual].base}</h1>
-                                </span>
-                            )
-                        }
-                        <span className='text-center grad-text font-bold'>{discountMessage}</span>
-                        <a
-                            href={validDiscount ? link.presencial.discount : link.presencial.default}
-                            className='font-bold text-xl max-[1024px]:text-base shadow-md w-fit py-2 px-4 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center'>
-                            GARANTA SUA VAGA
-                        </a>
-                    </Container>
+                    <Grid className='grid-cols-2 w-[200%]'>
+                        {!showValidationPrompt ? (
+                            <Container className='p-4 rounded-lg border-2 border-sky-900 items-center w-full'>
+                                <List className='text-left checklist p-2 mb-2'>
+                                    <li className='include'>Acesso presencial ao evento</li>
+                                    <li className='include'>3 meses de acesso ao conteúdo gravado, planilhas e material de apoio</li>
+                                    <li className='include'>Kit de brindes para participantes</li>
+                                    <li className='include'>Happy hour</li>
+                                </List>
+                                <div className="divider"></div>
+                                <div className='w-full my-4 text-center'>
+                                    <span>
+                                        <span className='text-3xl font-semibold'>R${price[loteAtual].base}</span>
+                                        <span>Preço padrão</span>
+                                    </span>
+                                    <br />
+                                    <span>
+                                        <span className='text-3xl font-semibold grad-text'>R${price[loteAtual].discount}</span>
+                                        <span className="inline-flex items-center relative">
+                                            <span className='grad-text'>Desconto exclusivo</span>
+                                            <i
+                                                className="fa-solid fa-circle-question ml-2 cursor-pointer text-orange-400"
+                                                onMouseEnter={() => setShowDiscountInfo(true)}
+                                                onMouseLeave={() => setShowDiscountInfo(false)}
+                                                aria-hidden="true"
+                                            ></i>
+                                            {showDiscountInfo &&
+                                                <span ref={messageRef} className='bg-slate-900 bg-opacity-95 backdrop-blur-sm absolute w-64 h-max bottom-8 left-[calc(-50%-12px)] translate-x-1/2 text-left text-sm p-6 rounded-lg shadow-md z-50 max-[820px]:-left-full'>
+                                                    Membros do Palmilhando® e participantes do evento Palmilhas e Ciência Aplicada 2023 recebem um desconto especial na reserva dos ingressos.
+                                                    Selecione a opção de garantir seu desconto abaixo para confirmarmos sua assinatura ou presença e garantir seu desconto exclusivo!
+                                                </span>
+                                            }
+                                        </span>
+                                    </span>
+                                </div>
+                                {/* <span className='text-center grad-text font-bold'>{discountMessage}</span> */}
+                                <a
+                                    href={validDiscount ? link.presencial.discount : link.presencial.default}
+                                    className='font-bold text-xl max-[1024px]:text-base shadow-md w-full py-2 rounded-full bg-primary-500 hover:brightness-95 duration-200 my-2 text-center'>
+                                    RESERVE SUA VAGA</a>
+                                <a
+                                    className='font-bold text-xl max-[1024px]:text-base shadow-md w-full py-2 rounded-full bg-cyan-700 hover:brightness-95 duration-200 my-2 text-center cursor-pointer'
+                                    onClick={() => setShowValidationPrompt(true)}
+                                >GARANTA SEU DESCONTO</a>
+                            </Container>
+                        ) : (
+                            <Container className='items-center rounded-lg border-2 border-sky-900 w-full'>
+                                <Container className='w-full p-8'>
+                                    <Container className='text-center items-center w-[96%]'>
+                                        <h2 className='grad-text font-bold mb-2 relative z-40'>GARANTA SEU DESCONTO</h2>
+                                    </Container>
+                                    <div className="divider"></div>
+                                    <form id='compra-ingresso' onSubmit={(e) => e.preventDefault()}>
+                                        <Container>
+                                            <Container className="my-2">
+                                                <TEInput type="text" id="user_name" defaultValue={userName} onChange={(e) => setUserName(e.target.value)} label='Nome completo' className='text-white !outline-none'></TEInput>
+                                            </Container>
+                                            <Container className='my-2'>
+                                                <TEInput type='email' id='user_email' defaultValue={userEmail} onChange={(e) => setUserEmail(e.target.value)} label='Email' className='text-white !outline-none'></TEInput>
+                                            </Container>
+                                        </Container>
+                                        <button
+                                            onClick={() => requireValidation? handleValidation() : null}
+                                            className='block font-semibold text-lg shadow-md w-full py-2 px-8 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center mx-auto relative h-12'>
+                                            {requireValidation ? buttonText : <i className="fa-solid fa-check" aria-hidden="true"></i>}
+                                        </button>
+                                        {!requireValidation && <a
+                                            href={link.presencial.discount}
+                                            className='block font-semibold text-lg shadow-md w-full py-2 px-8 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center mx-auto relative h-12'>
+                                            RESERVE SUA VAGA
+                                        </a>}
+                                        <span onClick={() => setShowValidationPrompt(!1)} className='underline underline-offset-2 text-center cursor-pointer'>Voltar</span>
+                                        <div className='my-2'>
+                                            {displayMessage}
+                                        </div>
+                                    </form>
+                                </Container>
+                            </Container>
+                        )}
+                    </Grid>
                 </div>
             </Container>
 
-            <Container id="vip" className='w-[28rem] max-[820px]:w-[80%] max-[426px]:w-full m-2 max-[820px]:mx-0'>
+            <Container id="vip" className='w-full relative'>
                 <div className="flex flex-col items-center p-4 border-t-2 border-sky-800 rounded-2xl bg-[#121e31] shadow-lg h-max w-full relative brightness-90 opacity-50 grayscale">
                     <Grid className="w-full mb-4 grid-cols-2">
                         <Wrapper className='items-center justify-start flex-nowrap'>
@@ -263,48 +315,13 @@ function EventoIngressos() {
                 </div>
             </Container>
 
-        </Wrapper>
+        </Grid>
     );
 
     return (
-        <div
-            className='overflow-hidden'
-            style={{height: requireValidation ? '30rem' : '100%'}}>
-            {requireValidation && (
-                <div className='absolute top-0 left-0 w-full h-full backdrop-blur-md backdrop-brightness-75 z-30 flex items-center justify-center'>
-                    {showValidationPrompt ? (
-                        <Container className='rounded-2xl shadow-xl bg-[linear-gradient(65deg,#0b131f,#121e31)] bg-[size:300%] bg-right-top border-t-2 border-sky-800 w-[32rem] h-96 max-[820px]:h-[28rem] max-[820px]:w-[96%] p-8'>
-                            <Container className='text-center items-center w-[96%]'>
-                                <h2 className='grad-text font-bold mb-2 relative z-40'>GARANTA SUA PARTICIPAÇÃO</h2>
-                                <p className='text-sm font-light'>Informe seus dados para liberar as opções de compra.</p>
-                            </Container>
-                            <div className="divider"></div>
-                            <form id='compra-ingresso' onSubmit={(e) => e.preventDefault()}>
-                                <Container className='px-4'>
-                                    <Container className="my-2">
-                                        <TEInput type="text" id="user_name" onChange={(e) => setUserName(e.target.value)} label='Nome completo' className='text-white !outline-none'></TEInput>
-                                    </Container>
-                                    <Container className='my-2'>
-                                        <TEInput type='email' id='user_email' onChange={(e) => setUserEmail(e.target.value)} label='Email' className='text-white !outline-none'></TEInput>
-                                    </Container>
-                                </Container>
-                                <button
-                                    onClick={handleValidation}
-                                    className='font-semibold text-lg shadow-md w-[80%] py-2 px-8 rounded-full max-[820px]:max-w-[340px] bg-primary-500 hover:brightness-95 duration-200 my-4 text-center mx-auto relative h-12'>
-                                    {buttonText}
-                                </button>
-                                <div className='my-2'>
-                                    {displayMessage}
-                                </div>
-                            </form>
-                        </Container>
-                    ) : <Loading width={64} />}
-                </div>
-            )}
-            {!requireValidation &&
-                <h2 className='grad-text font-bold mb-2 relative text-center'>GARANTA SUA PARTICIPAÇÃO</h2>
-            }
-            <div className='relative z-10'>
+        <div>
+            <h2 className='grad-text font-bold mb-2 relative text-center'>GARANTA SUA PARTICIPAÇÃO</h2>
+            <div className='relative z-10 my-8'>
                 <Ingressos />
             </div>
         </div>
