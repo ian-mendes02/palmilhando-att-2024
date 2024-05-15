@@ -69,14 +69,14 @@ export default function Main() {
     }, [modalActive]);
 
     const VideoEvento = useMemo(
-        () => <iframe src='https://www.youtube.com/embed/4Q2rD4ZH31M?si=DcurTOerXO3Rtc8o&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none aspect-video w-full max-[820px]:w-screen rounded-lg relative z-50'></iframe>, []
+        () => <iframe src='https://www.youtube.com/embed/4Q2rD4ZH31M?si=DcurTOerXO3Rtc8o&autoplay=1&rel=0' allow='autoplay; picture-in-picture; web-share' allowFullScreen className='outline-none aspect-video w-full max-[820px]:!w-screen rounded-lg relative z-50'></iframe>, []
     );
 
     const Fullscreen = () => (
-        <div className='bg-[rgb(0,0,0,0.5)] backdrop-blur-lg fixed z-[999] top-0 left-0 w-[100vw] h-[100vh] flex justify-center items-center px-32 py-[2.5%] max-[820px]:p-0' ref={containerRef}>
+        <div className='bg-[rgb(0,0,0,0.5)] backdrop-blur-lg fixed z-[999] top-0 left-0 w-[100vw] h-[100vh] flex justify-center items-center px-32 py-[2.5%] max-[820px]:!p-0' ref={containerRef}>
             <div className='w-full h-full flex items-center justify-center relative'>
                 <div className='h-auto w-full relative' ref={contentRef}>
-                    <div className='w-12 h-12 absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 max-[820px]:-translate-x-1/2 max-[820px]:-translate-y-full'>
+                    <div className='w-12 h-12 absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 max-[820px]:!-translate-x-1/2 max-[820px]:!-translate-y-full'>
                         <span className='w-full text-right cursor-pointer' onClick={() => setModalActive(false)}><i className="fa-regular fa-circle-xmark text-2xl" aria-hidden="true"></i></span>
                     </div>
                     <Loading width={32} />
@@ -127,13 +127,13 @@ export default function Main() {
                     style={{height: maxHeight}}
                 >
                     <div className="flex flex-col justify-between relative duration-300 ease-out" ref={containerRef}>
-                        <div className='speaker-header w-full flex items-center justify-start p-2 max-[820px]:p-0'>
+                        <div className='speaker-header w-full flex items-center justify-start p-2 max-[820px]:!p-0'>
                             <div
                                 className='speaker-profile w-24 min-w-24 aspect-square left-0 bottom-0 rounded-full mr-4 bg-center bg-cover'
                                 style={{backgroundImage: `url('${src}')`}}
                             ></div>
                             <div className='speaker-title'>
-                                <h2 className='font-bold text-lg mb-1 max-[820px]:text-base'>{theme}</h2>
+                                <h2 className='font-bold text-lg mb-1 max-[820px]:!text-base'>{theme}</h2>
                                 <h2 className='font-normal text-sm'>{name}</h2>
                                 <h3 className='italic opacity-80 text-xs'>{occupation}</h3>
                             </div>
@@ -197,10 +197,10 @@ export default function Main() {
 
             {isMobile ? <CountdownMobile/> : <EventCountdown/>}
 
-            <Section id='evt-header' className='pt-24 pb-12 h-[576px] max-[820px]:h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
+            <Section id='evt-header' className='pt-24 pb-12 h-[576px] max-[820px]:!h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
 
-                <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
-                    <video autoPlay muted playsInline loop className='inline-block align-baseline w-full relative max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
+                <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:!h-full'>
+                    <video autoPlay muted playsInline loop className='inline-block align-baseline w-full relative max-[820px]:!h-full max-[820px]:!w-full object-cover bg-cover'>
                         <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
                     </video>
                 </div>
@@ -215,7 +215,7 @@ export default function Main() {
                             <Container className='my-4'>
                                 <p className='text-3xl'>Viva a experiência do empreendedorismo e da prática baseada em evidência para se destacar no mercado de trabalho.</p>
                             </Container>
-                            <Wrapper className='flex-nowrap max-[820px]:flex-col'>
+                            <Wrapper className='flex-nowrap max-[820px]:!flex-col'>
                                 <Wrapper className="items-center flex-nowrap w-max m-2">
                                     <div className='w-8 h-8 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
                                         <img src={ASSET_PREFIX + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
@@ -230,7 +230,7 @@ export default function Main() {
                                 </Wrapper>
                             </Wrapper>
                             <button
-                                className='font-bold text-2xl max-[820px]:text-base shadow-md w-fit py-4 px-16 rounded-full max-[820px]:max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
+                                className='font-bold text-2xl max-[820px]:!text-base shadow-md w-fit py-4 px-16 rounded-full max-[820px]:!max-w-[340px] grad-alt hover:scale-105 hover:brightness-105 duration-200 my-4'
                                 onClick={() => $('#evt-valor').scrollIntoView({block: 'start'})}>
                                 GARANTA SUA VAGA
                             </button>
@@ -242,7 +242,7 @@ export default function Main() {
             <Section id="evt-vantagens" className='border-t-2 border-sky-800 bg-[#121e31] py-4'>
                 <Content>
                     <ContentDefault>
-                        <Grid className='grid-rows-1 grid-cols-4 max-[820px]:grid-rows-4 max-[820px]:grid-cols-1 gap-4'>
+                        <Grid className='grid-rows-1 grid-cols-4 max-[820px]:!grid-rows-4 max-[820px]:!grid-cols-1 gap-4'>
                             <Vantagem icon='fa-regular fa-clock'>
                                 <p className='text-sm'><strong className='grad-text'>19 horas</strong> de atividades e palestras</p>
                             </Vantagem>
@@ -270,8 +270,8 @@ export default function Main() {
                             <h1 className='font-bold text-3xl grad-text mb-2 max-[820px]:!text-2xl'>A PROFISSIONALIZAÇÃO É O ÚNICO CAMINHO</h1>
                             <h2 className='mx-auto w-9/12 max-[820px]:!w-full text-base font-light'>Não importa o seu tempo de mercado: o <mark className="cor-7">Encontro Anual Palmilhas e Ciência Aplicada</mark> é o lugar perfeito para você ter ainda mais resultados.</h2>
                         </Container>
-                        <Wrapper className='flex-nowrap max-[820px]:flex-col items-center justify-center'>
-                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                        <Wrapper className='flex-nowrap max-[820px]:!flex-col items-center justify-center'>
+                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:!w-[96%]'>
                                 <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
                                     <h2>Se é iniciante</h2>
                                     <i className="fa-solid fa-seedling text-3xl grad-text" aria-hidden="true"></i>
@@ -279,7 +279,7 @@ export default function Main() {
                                 <div className="divider left"></div>
                                 <p>Vai descobrir como ser um profissional acima da média desde o início da jornada</p>
                             </Container>
-                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:!w-[96%]'>
                                 <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
                                     <h2>Se já tem experiência</h2>
                                     <i className="fa-solid fa-gears text-3xl grad-text" aria-hidden="true"></i>
@@ -287,7 +287,7 @@ export default function Main() {
                                 <div className="divider left"></div>
                                 <p>Vai conhecer novas formas de melhorar ainda mais seu trabalho e poder cobrar mais pelo seu serviço</p>
                             </Container>
-                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:w-[96%]'>
+                            <Container className='w-96 min-h-40 m-2 p-4 rounded-3xl shadow-md bg-[#121e31] border-t-2 border-sky-900 max-[820px]:!w-[96%]'>
                                 <span className='flex w-full justify-between items-center font-bold grad-text text-lg'>
                                     <h2>Se já é avançado</h2>
                                     <i className="fa-solid fa-rocket text-3xl grad-text" aria-hidden="true"></i>
@@ -300,16 +300,16 @@ export default function Main() {
                 </Content>
             </Section>
 
-            <Section id='evt-local' className='max-[820px]:py-16 bg-[linear-gradient(45deg,var(--cor-4),var(--cor-5))] duration-200 ease-out overflow-hidden'>
+            <Section id='evt-local' className='max-[820px]:!py-16 bg-[linear-gradient(45deg,var(--cor-4),var(--cor-5))] duration-200 ease-out overflow-hidden'>
                 <Content className='relative z-20'>
                     <ContentDefault>
-                        <Wrapper className='!flex-nowrap max-[820px]:flex-col justify-start items-center h-[420px] max-[820px]:h-auto w-9/12 max-[820px]:!w-full mx-auto'>
-                            <Container className='w-[32rem] max-[820px]:w-full p-4'>
+                        <Wrapper className='!flex-nowrap max-[820px]:!flex-col justify-start items-center h-[420px] max-[820px]:!h-auto w-9/12 max-[820px]:!w-full mx-auto'>
+                            <Container className='w-[32rem] max-[820px]:!w-full p-4'>
                                 <Container className='mb-2'>
                                     <h2 className='grad-text font-bold text-3xl mb-2'>ONDE E QUANDO?</h2>
                                     <div className="divider left"></div>
                                 </Container>
-                                <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:w-full">
+                                <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:!w-full">
                                     {!isMobile && (
                                         <div className='w-12 h-12 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
                                             <img src={ASSET_PREFIX + 'img/svg/calendar.svg'} alt='' draggable='false' className='w-1/2' />
@@ -322,7 +322,7 @@ export default function Main() {
                                         Das 8h às 18h
                                     </h2>
                                 </Wrapper>
-                                <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:w-full">
+                                <Wrapper className="items-center flex-nowrap w-max m-2 max-[820px]:!w-full">
                                     {!isMobile && (
                                         <div className='w-12 h-12 mr-4 bg-[var(--cor-1)] rounded-full flex items-center justify-center shadow-md'>
                                             <img src={ASSET_PREFIX + 'img/svg/map_pin.svg'} alt='' draggable='false' className='w-[40%]' />
@@ -335,7 +335,7 @@ export default function Main() {
                                         São José dos Campos, SP - 12243-081 <br />
                                     </h2>
                                 </Wrapper>
-                                <Wrapper className='flex-nowrap items-center w-max m-2 max-[820px]:w-full'>
+                                <Wrapper className='flex-nowrap items-center w-max m-2 max-[820px]:!w-full'>
                                     <div className="relative w-16 h-12 aspect-square">
                                         <div className='absolute h-2/3 aspect-square left-0 top-0 rounded-full mr-4 bg-center bg-cover' style={{backgroundImage: `url(${ASSET_PREFIX + 'img/mercure.webp'})`}}></div>
                                         <div className='absolute h-2/3 aspect-square right-0 bottom-0 mr-4 bg-center bg-cover' style={{backgroundImage: `url(${ASSET_PREFIX + 'img/png/logo_ibis.png'})`}}></div>
@@ -350,7 +350,7 @@ export default function Main() {
                                     </div>
                                 </Wrapper>
                             </Container>
-                            <Container className='w-[32rem] p-4 aspect-video max-[820px]:w-full max-[820px]:p-0 relative'>
+                            <Container className='w-[32rem] p-4 aspect-video max-[820px]:!w-full max-[820px]:!p-0 relative'>
                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14668.122128172752!2d-45.90516370000002!3d-23.205557899999988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc3589bc020f0d%3A0x96bc968352c2c899!2sMercure%20Sao%20Jose%20dos%20Campos!5e0!3m2!1sen!2sbr!4v1710790411443!5m2!1sen!2sbr" className='outline-none border-none w-full h-full absolute rounded-lg' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                             </Container>
                         </Wrapper>
@@ -363,7 +363,7 @@ export default function Main() {
                 <Content className='relative z-20'>
                     <ContentDefault>
                         <Container className='w-9/12 max-[820px]:!w-full my-4 px-4 mx-auto'>
-                            <h2 className='text-2xl text-center max-[820px]:text-xl font-bold grad-text mb-2'>CONHEÇA OS PALESTRANTES DE 2024</h2>
+                            <h2 className='text-2xl text-center max-[820px]:!text-xl font-bold grad-text mb-2'>CONHEÇA OS PALESTRANTES DE 2024</h2>
                             <p className='text-center text-sm'>Selecione um palestrante para ver mais informações</p>
                             <div className="divider"></div>
                         </Container>
@@ -371,7 +371,7 @@ export default function Main() {
 
                             <Container className='mt-4 items-center'>
                                 <h2 className='grad-text text-center'>Ciência Aplicada</h2>
-                                <Grid className='mt-4 mx-auto grid-cols-2 max-[820px]:grid-cols-1 w-full gap-4'>
+                                <Grid className='mt-4 mx-auto grid-cols-2 max-[820px]:!grid-cols-1 w-full gap-4'>
                                     <Palestrante
                                         src={ASSET_PREFIX + 'img/palestrantes-2024/andre-mendes.webp'}
                                         name='André Mendes'
@@ -425,7 +425,7 @@ export default function Main() {
 
                             <Container className='mt-8'>
                                 <h2 className='grad-text text-center'>Empreendedorismo</h2>
-                                <Grid className='mt-4 mx-auto grid-cols-2 max-[820px]:grid-cols-1 w-full gap-4'>
+                                <Grid className='mt-4 mx-auto grid-cols-2 max-[820px]:!grid-cols-1 w-full gap-4'>
                                     <Palestrante
                                         src={ASSET_PREFIX + 'img/palestrantes-2024/mariana-pereira.webp'}
                                         name='Mariana Pereira'
@@ -478,13 +478,13 @@ export default function Main() {
                 <div className='my-8'>
                     <h1 className='grad-text text-center font-normal'>Confira como foi nosso último encontro</h1>
                 </div>
-                <div className='relative pt-24 h-[576px] max-[820px]:h-[90vh] flex items-center overflow-hidden'>
+                <div className='relative pt-24 h-[576px] max-[820px]:!h-[90vh] flex items-center overflow-hidden'>
                     <div className='cursor-pointer' onClick={() => toggleFullscreen(VideoEvento)}>
                         {!modalActive && <div className='absolute-center w-20 h-20 z-30'>
                             <img src={ASSET_PREFIX + 'img/svg/play_button.svg'} alt='' draggable='false' className='w-full h-full' />
                         </div>}
-                        <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:h-full'>
-                            <video id='evento-video' autoPlay muted playsInline loop className='inline-block align-baseline w-full max-[820px]:h-full max-[820px]:w-full object-cover bg-cover'>
+                        <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:!h-full'>
+                            <video id='evento-video' autoPlay muted playsInline loop className='inline-block align-baseline w-full max-[820px]:!h-full max-[820px]:!w-full object-cover bg-cover'>
                                 <source src={ASSET_PREFIX + 'img/evt_banner.webm'} />
                             </video>
                         </div>
@@ -506,11 +506,11 @@ export default function Main() {
                     <ContentDefault>
                         <Container className='my-4'>
                             <h1 className='grad-text font-normal'>Como chegar até o local do evento?</h1>
-                            <p className='text-xs opacity-50 italic my-4  max-[820px]:text-center'>Tempos aproximados e sujeitos a variação.</p>
-                            <div className="divider left max-[820px]:hidden"></div>
+                            <p className='text-xs opacity-50 italic my-4  max-[820px]:!text-center'>Tempos aproximados e sujeitos a variação.</p>
+                            <div className="divider left max-[820px]:!hidden"></div>
                             <div className="divider min-[821px]:hidden"></div>
                         </Container>
-                        <Grid className='grid-cols-2 max-[820px]:grid-cols-1'>
+                        <Grid className='grid-cols-2 max-[820px]:!grid-cols-1'>
                             <List className='checklist ml-8'>
                                 <li className='include text-lg font-semibold'> - Aeroporto de São José dos Campos <br />
                                     <span className="inline-flex items-center mt-2">
@@ -531,7 +531,7 @@ export default function Main() {
                                 </li>
                                 <li className='include text-lg font-semibold'> - Acesso pela via Dutra</li>
                             </List>
-                            <Container className='w-full aspect-video max-[820px]:p-0 relative my-auto max-[820px]:mt-8'>
+                            <Container className='w-full aspect-video max-[820px]:!p-0 relative my-auto max-[820px]:!mt-8'>
                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14668.122128172752!2d-45.90516370000002!3d-23.205557899999988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc3589bc020f0d%3A0x96bc968352c2c899!2sMercure%20Sao%20Jose%20dos%20Campos!5e0!3m2!1sen!2sbr!4v1710790411443!5m2!1sen!2sbr" className='outline-none border-none w-full h-full absolute rounded-lg' allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                             </Container>
                         </Grid>
@@ -603,8 +603,8 @@ export default function Main() {
 
             <Section id='faq'>
                 <Content>
-                    <ContentDefault className='flex justify-evenly max-[820px]:flex-col'>
-                        <Container className='w-[30%] max-[820px]:!w-[90%] max-[820px]:mx-auto max-[820px]:mb-8 max-[820px]:text-center'>
+                    <ContentDefault className='flex justify-evenly max-[820px]:!flex-col'>
+                        <Container className='w-[30%] max-[820px]:!w-[90%] max-[820px]:!mx-auto max-[820px]:!mb-8 max-[820px]:!text-center'>
                             <h2 className='font-semibold text-xl'>Ficou com alguma dúvida?</h2>
                             <div className="divider left"></div>
                             <p>Confira aqui as respostas para as dúvidas mais frequentes, ou entre em contato conosco via Whatsapp</p>
