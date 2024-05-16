@@ -1,4 +1,4 @@
-import os, shutil, inquirer, datetime, re, sys
+import os, shutil, inquirer, datetime, re, sys, subprocess
 from concurrent.futures import ThreadPoolExecutor
 
 LIVE = "/var/www/html/live"
@@ -39,9 +39,9 @@ def deploy(url):
     print("Deploying changes...")
     time = datetime.datetime.now()
     date = time.strftime("%c")
-    print(os.popen(f"/home/ian/scripts/deploy_auto.sh {url} {date}").read())
-
-def transfer_files(dist, target, html, url):
+    subprocess.run(["/home/ian/scripts/deploy_auto.sh", url, date], capture_output=True)
+    
+def transfer_files(dist, target, html):
     print("Copying dist files...")
     for folder in TARGET_FOLDERS:
         old = os.path.join(target, folder)
@@ -57,8 +57,6 @@ def transfer_files(dist, target, html, url):
                 os.remove(old_html)
             new_html = shutil.copy(os.path.join(dist, html), target)
             os.rename(new_html, f"{target}/index.html")
-            deploy(url)
-            
         except:
             print(f"Error: unable to transfer {old}")
             exit()
@@ -90,7 +88,8 @@ html = select(
 url = select(id="url", msg="Deploy to where?", options=URLS)
 
 next_build()
-transfer_files(dist, target, html, url)
+transfer_files(dist, target, html)
+deploy(url)
 
 print("Done!")
 exit(0)
