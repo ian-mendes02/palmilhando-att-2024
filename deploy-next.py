@@ -39,8 +39,7 @@ def deploy(url):
         "git push origin main",
         f"ssh -p '65002' 'u232384656@62.72.62.21' \"cd domains/{url}/public_html; git stash; git pull; git stash pop; exit\"",
     ]
-    for c in cmd:
-        print(os.popen(c).read())
+    for c in cmd: os.popen(c)
 
 def transfer_files(dist, target, html):
     _target = os.path.join(LIVE, target)
