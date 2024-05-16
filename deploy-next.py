@@ -33,7 +33,7 @@ def get_dist():
 
 def next_build():
     print("Running 'next build'...")
-    os.popen("npx next build")    
+    print(os.popen("npx next build").read())    
     return 0
 
 def deploy(url):
