@@ -1,5 +1,4 @@
 import os, shutil, inquirer, datetime, re, sys, subprocess
-from concurrent.futures import ThreadPoolExecutor
 
 LIVE = "/var/www/html/live"
 TARGET_FOLDERS = ["_next", "css", "img"]
@@ -7,10 +6,12 @@ IGNORE_LIST = [".git", "api", "archive", "_next", "img", "css", "node_modules"]
 URLS = ["palmilhasterapeuticas.com.br", "palmilhando.com.br"]
 cwd = sys.argv[1]
 
+
 def select(id, msg, options):
     list = {inquirer.List(id, message=msg, choices=options)}
     input = inquirer.prompt(list)[id]
     return input
+
 
 def get_dist():
     if os.path.exists(cwd):
@@ -18,11 +19,11 @@ def get_dist():
         if parent_folder == "dist":
             return cwd
         else:
-            dist = ''
+            dist = ""
             for file in os.scandir(cwd):
                 if re.search(r"\bdist\b", file.path):
                     dist = os.path.join(cwd, file)
-            if dist != '':
+            if dist != "":
                 return dist
             else:
                 print("Error: couldn't find a valid 'dist' directory.")
@@ -31,16 +32,24 @@ def get_dist():
         print("Error: Invalid path.")
         exit()
 
+
 def next_build():
     print("Running 'next build'...")
-    print(os.popen("npx next build").read())    
+    print(os.popen("npx next build").read())
+
 
 def deploy(url):
     print("Deploying changes...")
     time = datetime.datetime.now()
     date = time.strftime("%c")
-    print(subprocess.run(["/home/ian/scripts/deploy_auto.sh", url, date], capture_output=True).stdout)
-    
+    subprocess.Popen(
+        f"/home/ian/scripts/deploy_auto.sh {url} {date}",
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    ).communicate()
+
+
 def transfer_files(dist, target, html):
     print("Copying dist files...")
     for folder in TARGET_FOLDERS:
@@ -60,7 +69,8 @@ def transfer_files(dist, target, html):
         except:
             print(f"Error: unable to transfer {old}")
             exit()
-            
+
+
 def get_targets():
     folders = [f.path for f in os.scandir(LIVE) if f.is_dir()]
     subfolders = []
@@ -70,6 +80,7 @@ def get_targets():
             if f.is_dir() and not (basename in IGNORE_LIST):
                 subfolders.append(f.path)
     return subfolders
+
 
 dist = get_dist()
 
@@ -82,12 +93,14 @@ target = select(
 html = select(
     id="file",
     msg="Select target file",
-    options=[f.path.split("/")[-1] for f in os.scandir(dist) if f.path.endswith(".html")],
+    options=[
+        f.path.split("/")[-1] for f in os.scandir(dist) if f.path.endswith(".html")
+    ],
 )
 
 url = select(id="url", msg="Deploy to where?", options=URLS)
 
-next_build()
+# next_build()
 transfer_files(dist, target, html)
 deploy(url)
 
