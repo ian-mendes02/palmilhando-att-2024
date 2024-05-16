@@ -40,7 +40,7 @@ def deploy(url):
     print("Deploying changes...")
     time = datetime.datetime.now()
     date = time.strftime("%c")
-    print(os.popen(f"/home/ian/scripts/deploy_auto.sh {url} {date}"))
+    print(os.popen(f"/home/ian/scripts/deploy_auto.sh {url} {date}").read())
 
 def transfer_files(dist, target, html):
     print("Copying dist files...")
