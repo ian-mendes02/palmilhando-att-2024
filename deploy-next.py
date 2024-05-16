@@ -38,16 +38,8 @@ def next_build():
     print(os.popen("npx next build").read())
 
 
-def deploy(url):
-    print("Deploying changes...")
-    time = datetime.datetime.now()
-    date = time.strftime("%c")
-    subprocess.Popen(
-        f"/home/ian/scripts/deploy_auto.sh {url} {date}",
-        shell=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    ).communicate()
+# def deploy(url):
+
 
 
 def transfer_files(dist, target, html):
@@ -102,7 +94,15 @@ url = select(id="url", msg="Deploy to where?", options=URLS)
 
 # next_build()
 transfer_files(dist, target, html)
-deploy(url)
+print("Deploying changes...")
+time = datetime.datetime.now()
+date = time.strftime("%c")
+subprocess.Popen(
+    f"/home/ian/scripts/deploy_auto.sh {url} {date}",
+    shell=True,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+).communicate()
 
 print("Done!")
 exit(0)
