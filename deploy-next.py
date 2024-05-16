@@ -87,7 +87,7 @@ html = select(
 url = select(id="url", msg="Deploy to where?", options=URLS)
 
 print("Running 'npx next build'...")
-os.popen("npx next build")
+print(os.popen("npx next build").read())
 
 print("Copying dist files...")
 transfer_files(dist, target, html)
