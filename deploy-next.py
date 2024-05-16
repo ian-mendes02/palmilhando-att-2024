@@ -38,8 +38,28 @@ def next_build():
     print(os.popen("npx next build").read())
 
 
-# def deploy(url):
-
+def deploy(url, target):
+    print("Deploying changes...")
+    time = datetime.datetime.now()
+    date = time.strftime("%c")
+    cmd = [
+        "git add .", 
+        f"git commit -m \"deployment - {date}\"", 
+        "git push origin main"
+    ]
+    for c in cmd:
+        print(os.popen(c).read())
+    # change dir to target folder
+    os.chdir(target)
+    # deploy changes to ssh
+    subprocess.Popen(
+        f"/home/ian/scripts/deploy_auto.sh {url} {date}",
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    ).communicate()
+    # change back to original location
+    os.chdir(cwd)
 
 
 def transfer_files(dist, target, html):
@@ -92,17 +112,9 @@ html = select(
 
 url = select(id="url", msg="Deploy to where?", options=URLS)
 
-# next_build()
+next_build()
 transfer_files(dist, target, html)
-print("Deploying changes...")
-time = datetime.datetime.now()
-date = time.strftime("%c")
-subprocess.Popen(
-    f"/home/ian/scripts/deploy_auto.sh {url} {date}",
-    shell=True,
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-).communicate()
+deploy(url, target)
 
 print("Done!")
 exit(0)
