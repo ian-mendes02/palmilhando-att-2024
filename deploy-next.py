@@ -97,10 +97,9 @@ html = select(
 
 url = select(id="url", msg="Deploy to where?", options=URLS)
 
-with ThreadPoolExecutor(max_workers=1) as e:
-    e.submit(next_build)
-    e.submit(transfer_files, dist, target, html)
-    e.submit(deploy, url)
+next_build()
+transfer_files(dist, target, html)
+deploy(url)
 
 print("Done!")
 exit(0)
