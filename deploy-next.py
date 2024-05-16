@@ -40,15 +40,7 @@ def deploy(url):
     print("Deploying changes...")
     time = datetime.datetime.now()
     date = time.strftime("%c")
-    cmd = [
-        "git add .",
-        f"git commit -m 'deployment - {date}'",
-        "git push origin main",
-        f"ssh -p '65002' 'u232384656@62.72.62.21' \"cd domains/{url}/public_html; git stash; git pull; git stash pop; exit\"",
-    ]
-    for c in cmd: 
-        print(os.popen(c).read())
-    return 0
+    print(os.popen(f"/home/ian/scripts/deploy_auto.sh {url} {date}"))
 
 def transfer_files(dist, target, html):
     print("Copying dist files...")
@@ -66,7 +58,6 @@ def transfer_files(dist, target, html):
                 os.remove(old_html)
             new_html = shutil.copy(os.path.join(dist, html), target)
             os.rename(new_html, f"{target}/index.html")
-            return 0
         except:
             print(f"Error: unable to transfer {old}")
             exit()
