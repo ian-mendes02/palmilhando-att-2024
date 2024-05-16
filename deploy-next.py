@@ -39,12 +39,11 @@ def deploy(url):
         "git push origin main",
         f"ssh -p '65002' 'u232384656@62.72.62.21' \"cd domains/{url}/public_html; git stash; git pull; git stash pop; exit\"",
     ]
-    for c in cmd: os.popen(c)
+    for c in cmd: print(os.popen(c).read())
 
 def transfer_files(dist, target, html):
-    _target = os.path.join(LIVE, target)
     for folder in TARGET_FOLDERS:
-        old = os.path.join(_target, folder)
+        old = os.path.join(target, folder)
         new = os.path.join(dist, folder)
         try:
             if os.path.exists(old):
@@ -52,11 +51,11 @@ def transfer_files(dist, target, html):
             os.mkdir(old)
             shutil.copytree(new, old, dirs_exist_ok=True)
 
-            old_html = os.path.join(_target, "index.html")
+            old_html = os.path.join(target, "index.html")
             if os.path.exists(old_html):
                 os.remove(old_html)
-            new_html = shutil.copy(os.path.join(dist, html), _target)
-            os.rename(new_html, f"{_target}/index.html")
+            new_html = shutil.copy(os.path.join(dist, html), target)
+            os.rename(new_html, f"{target}/index.html")
         except:
             print(f"Error: unable to transfer {old}")
             exit()
@@ -98,4 +97,3 @@ deploy(url)
 
 print("Done!")
 exit(0)
-
