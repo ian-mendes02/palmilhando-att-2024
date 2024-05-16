@@ -39,7 +39,7 @@ def deploy(url):
     print("Deploying changes...")
     time = datetime.datetime.now()
     date = time.strftime("%c")
-    subprocess.run(["/home/ian/scripts/deploy_auto.sh", url, date], capture_output=True)
+    print(subprocess.run(["/home/ian/scripts/deploy_auto.sh", url, date], capture_output=True).stdout)
     
 def transfer_files(dist, target, html):
     print("Copying dist files...")
