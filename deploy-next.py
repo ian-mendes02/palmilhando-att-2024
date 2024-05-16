@@ -1,4 +1,5 @@
-import os, shutil, inquirer, datetime, re, sys, subprocess
+import os, shutil, inquirer, datetime, re, sys
+from concurrent.futures import ThreadPoolExecutor
 
 LIVE = "/var/www/html/live"
 TARGET_FOLDERS = ["_next", "css", "img"]
@@ -30,7 +31,13 @@ def get_dist():
         print("Error: Invalid path.")
         exit()
 
+def next_build():
+    print("Running 'next build'...")
+    os.popen("npx next build")    
+    return 0
+
 def deploy(url):
+    print("Deploying changes...")
     time = datetime.datetime.now()
     date = time.strftime("%c")
     cmd = [
@@ -40,11 +47,11 @@ def deploy(url):
         f"ssh -p '65002' 'u232384656@62.72.62.21' \"cd domains/{url}/public_html; git stash; git pull; git stash pop; exit\"",
     ]
     for c in cmd: 
-        process = subprocess.Popen(c, stdout=subprocess.PIPE, stderr=None, shell=True)
-        out = process.communicate()
-        print(out[0])
+        print(os.popen(c).read())
+    return 0
 
 def transfer_files(dist, target, html):
+    print("Copying dist files...")
     for folder in TARGET_FOLDERS:
         old = os.path.join(target, folder)
         new = os.path.join(dist, folder)
@@ -59,6 +66,7 @@ def transfer_files(dist, target, html):
                 os.remove(old_html)
             new_html = shutil.copy(os.path.join(dist, html), target)
             os.rename(new_html, f"{target}/index.html")
+            return 0
         except:
             print(f"Error: unable to transfer {old}")
             exit()
@@ -89,14 +97,10 @@ html = select(
 
 url = select(id="url", msg="Deploy to where?", options=URLS)
 
-print("Running 'npx next build'...")
-print(os.popen("npx next build").read())
-
-print("Copying dist files...")
-transfer_files(dist, target, html)
-
-print("Deploying changes...")
-deploy(url)
+with ThreadPoolExecutor(max_workers=1) as e:
+    e.submit(next_build)
+    e.submit(transfer_files, dist, target, html)
+    e.submit(deploy, url)
 
 print("Done!")
 exit(0)
