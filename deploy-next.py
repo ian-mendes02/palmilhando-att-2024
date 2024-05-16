@@ -1,4 +1,4 @@
-import os, shutil, inquirer, datetime, re, sys
+import os, shutil, inquirer, datetime, re, sys, subprocess
 
 LIVE = "/var/www/html/live"
 TARGET_FOLDERS = ["_next", "css", "img"]
@@ -39,7 +39,10 @@ def deploy(url):
         "git push origin main",
         f"ssh -p '65002' 'u232384656@62.72.62.21' \"cd domains/{url}/public_html; git stash; git pull; git stash pop; exit\"",
     ]
-    for c in cmd: print(os.popen(c).read())
+    for c in cmd: 
+        process = subprocess.Popen(c, stdout=subprocess.PIPE, stderr=None, shell=True)
+        out = process.communicate()
+        print(out[0])
 
 def transfer_files(dist, target, html):
     for folder in TARGET_FOLDERS:
