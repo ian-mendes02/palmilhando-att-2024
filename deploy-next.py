@@ -1,7 +1,8 @@
-import os, glob, shutil, inquirer, datetime, re, sys
+import os, shutil, inquirer, datetime, re, sys
 
 LIVE = "/var/www/html/live"
 TARGET_FOLDERS = ["_next", "css", "img"]
+IGNORE_LIST = [".git", "api", "archive", "_next", "img", "css", "node_modules"]
 URLS = ["palmilhasterapeuticas.com.br", "palmilhando.com.br"]
 cwd = sys.argv[1]
 
@@ -60,24 +61,42 @@ def transfer_files(dist, target, html):
         except:
             print(f"Error: unable to transfer {old}")
             exit()
+            
+def get_targets():
+    folders = [f.path for f in os.scandir(LIVE) if f.is_dir()]
+    subfolders = []
+    for folder in folders:
+        for f in os.scandir(folder):
+            basename = f.path.split("/")[-1]
+            if f.is_dir() and not (basename in IGNORE_LIST):
+                subfolders.append(f.path)
+    return subfolders
 
 dist = get_dist()
+
 target = select(
     id="folder",
     msg="Select target directory",
-    options=[f.path for f in os.scandir(LIVE) if f.is_dir()],
+    options=get_targets(),
 )
+
 html = select(
     id="file",
     msg="Select target file",
     options=[f.path.split("/")[-1] for f in os.scandir(dist) if f.path.endswith(".html")],
 )
+
 url = select(id="url", msg="Deploy to where?", options=URLS)
 
 print("Running 'npx next build'...")
-print(os.popen("npx next build").read())
-transfer_files(dist, target, html)
-deploy(url)
-os.popen("clear")
+os.popen("npx next build")
 
+print("Copying dist files...")
+transfer_files(dist, target, html)
+
+print("Deploying changes...")
+deploy(url)
+
+print("Done!")
 exit(0)
+
