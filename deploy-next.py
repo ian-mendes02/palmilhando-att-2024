@@ -1,4 +1,4 @@
-import os, shutil, inquirer, datetime, re, sys, subprocess
+import os, shutil, inquirer, datetime, sys, subprocess
 
 LIVE = "/var/www/html/live"
 TARGET_FOLDERS = ["_next", "css", "img"]
@@ -19,12 +19,9 @@ def get_dist():
         if parent_folder == "dist":
             return cwd
         else:
-            dist = ""
-            for file in os.scandir(cwd):
-                if re.search(r"\bdist\b", file.path):
-                    dist = os.path.join(cwd, file)
-            if dist != "":
-                return dist
+            dist = [file.path for file in os.scandir(cwd) if file.path.endswith("dist")]
+            if dist != []:
+                return os.path.join(cwd, dist[0])
             else:
                 print("Error: couldn't find a valid 'dist' directory.")
                 exit()
