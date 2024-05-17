@@ -194,7 +194,7 @@ export default function Home() {
                                             </List>
                                         </Container>
                                         <Container>
-                                            <Wrapper className='border border-cyan-100 rounded-lg p-4 m-4 ml-16 pl-24 relative max-[820px]:!ml-4 max-[820px]:!pl-4 max-[820px]:!pt-20 max-[820px]:!mt-16 max-[820px]:!text-center'>
+                                            <Wrapper className='border border-cyan-100 rounded-lg !p-4 !m-4 !ml-16 !pl-24 relative max-[820px]:!ml-4 max-[820px]:!pl-4 max-[820px]:!pt-20 max-[820px]:!mt-16 max-[820px]:!text-center'>
                                                 <div className='absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-32 h-32 flex justify-center p-8 items-center border-t border-t-cyan-100 border-b-4 border-b-slate-800 bg-[var(--cor-4)] bg-[linear-gradient(var(--cor-1),var(--cor-4))] rounded-xl max-[820px]:!left-1/2 max-[820px]:!top-0'>
                                                     <img src={ASSET_PREFIX + 'img/svg/sprout.svg'} alt='' draggable='false' className='w-full h-auto' width={32} height={32} />
                                                 </div>
@@ -203,7 +203,7 @@ export default function Home() {
                                                     <p>Claro! O Palmilhando oferece todo o apoio e conteúdo que você precisa para iniciar sua carreira com palmilhas, te preparando para o mercado competitivo.</p>
                                                 </div>
                                             </Wrapper>
-                                            <Wrapper className='border border-cyan-100 rounded-lg p-4 m-4 ml-16 pl-24 relative max-[820px]:!ml-4 max-[820px]:!pl-4 max-[820px]:!pt-20 max-[820px]:!mt-16 max-[820px]:!text-center'>
+                                            <Wrapper className='border border-cyan-100 rounded-lg !p-4 !m-4 !ml-16 !pl-24 relative max-[820px]:!ml-4 max-[820px]:!pl-4 max-[820px]:!pt-20 max-[820px]:!mt-16 max-[820px]:!text-center'>
                                                 <div className='absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-32 h-32 flex justify-center p-8 items-center border-t border-t-cyan-100 border-b-4 border-b-slate-800 bg-[var(--cor-4)] bg-[linear-gradient(var(--cor-1),var(--cor-4))] rounded-xl max-[820px]:!left-1/2 max-[820px]:!top-0'>
                                                     <img src={ASSET_PREFIX + 'img/svg/rocket.svg'} alt='' draggable='false' className='w-full h-auto' width={32} height={32} />
                                                 </div>
