@@ -195,7 +195,7 @@ export default function Main() {
 
             <Countdown isMobile={isMobile}/>
 
-            <Section id='evt-header' className='pt-24 pb-12 h-[576px] max-[820px]:!h-[90vh] flex items-center overflow-hidden bg-[var(--cor-4)]'>
+            <Section id='evt-header' className='pt-48 pb-12 flex items-center overflow-hidden bg-[var(--cor-4)]'>
 
                 <div className='absolute top-0 left-0 w-screen h-auto overflow-clip mix-blend-soft-light opacity-75 z-10 max-[820px]:!h-full'>
                     <video autoPlay muted playsInline loop className='inline-block align-baseline w-full relative max-[820px]:!h-full max-[820px]:!w-full object-cover bg-cover'>
