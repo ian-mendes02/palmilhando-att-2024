@@ -20,7 +20,6 @@ export default function Main() {
     const isMobile = useMemo(() => viewportWidth <= 820, [viewportWidth]);
     const ASSET_PREFIX = useMemo(() => process.env.NEXT_PUBLIC_DEV_ENV == 'true' ? "/" : process.env.NEXT_PUBLIC_ASSET_PREFIX_GLOBAL, []);
     const defaultUserProfile = useMemo(() => ASSET_PREFIX + 'img/default_user.jpg', []);
-    /** test comment */
     const defaultText = 'Teremos mais informações em breve. Fique ligado!';
     const defaultOccupation = '?';
 
