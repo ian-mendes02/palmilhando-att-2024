@@ -30,27 +30,27 @@ export default function Countdown({paused = false, timestamp = '2024-06-05T23:59
     }, []);
 
     const timer = useMemo(() => (
-        <div id='countdown' className='fixed top-0 w-full max-[820px]:h-32 h-20 bg-[var(--cor-4)] flex items-center border-b-2 border-sky-800 rounded-bl-3xl rounded-br-3xl z-50 slide-down overflow-hidden'>
-            <Grid className='justify-center items-center m-auto grid-cols-2 max-[820px]:grid-cols-1 h-full gap-1'>
+        <div id='countdown' className='fixed top-0 w-full max-[820px]:!h-32 h-20 bg-[var(--cor-4)] flex items-center border-b-2 border-sky-800 rounded-bl-3xl rounded-br-3xl z-50 slide-down overflow-hidden'>
+            <Grid className='justify-center items-center m-auto grid-cols-2 max-[820px]:!grid-cols-1 h-full gap-1'>
                 <span className='text-center mx-4'>
                     <span className='font-bold my-1'>Garanta seu ingresso no 1º lote</span>
                     <span className='font-light text-xs'>Tempo restante:</span>
                 </span>
                 <Grid className="grid-cols-4">
-                    <div className='flex flex-col items-center justify-center w-20 h-16 max-[820px]:w-[4.5rem] max-[820px]:h-[3.5rem] rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
-                        <span className='text-xl font-extrabold max-[820px]:text-lg'>{time.d}</span>
+                    <div className='flex flex-col items-center justify-center w-20 h-16 max-[820px]:!w-[4.5rem] max-[820px]:!h-[3.5rem] rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
+                        <span className='text-xl font-extrabold max-[820px]:!text-lg'>{time.d}</span>
                         <span className='text-xs font-light'>DIAS</span>
                     </div>
-                    <div className='flex flex-col items-center justify-center w-20 h-16 max-[820px]:w-[4.5rem] max-[820px]:h-[3.5rem] rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
-                        <span className='text-xl font-extrabold max-[820px]:text-lg'>{time.h}</span>
+                    <div className='flex flex-col items-center justify-center w-20 h-16 max-[820px]:!w-[4.5rem] max-[820px]:!h-[3.5rem] rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
+                        <span className='text-xl font-extrabold max-[820px]:!text-lg'>{time.h}</span>
                         <span className='text-xs font-light'>HORAS</span>
                     </div>
-                    <div className='flex flex-col items-center justify-center w-20 h-16 max-[820px]:w-[4.5rem] max-[820px]:h-[3.5rem] rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
-                        <span className='text-xl font-extrabold max-[820px]:text-lg'>{time.m}</span>
+                    <div className='flex flex-col items-center justify-center w-20 h-16 max-[820px]:!w-[4.5rem] max-[820px]:!h-[3.5rem] rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
+                        <span className='text-xl font-extrabold max-[820px]:!text-lg'>{time.m}</span>
                         <span className='text-xs font-light'>MINUTOS</span>
                     </div>
-                    <div className='flex flex-col items-center justify-center w-20 h-16 max-[820px]:w-[4.5rem] max-[820px]:h-[3.5rem] rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
-                        <span className='text-xl font-extrabold max-[820px]:text-lg'>{time.s}</span>
+                    <div className='flex flex-col items-center justify-center w-20 h-16 max-[820px]:!w-[4.5rem] max-[820px]:!h-[3.5rem] rounded-2xl border border-sky-800 mx-1 bg-sky-950'>
+                        <span className='text-xl font-extrabold max-[820px]:!text-lg'>{time.s}</span>
                         <span className='text-xs font-light'>SEGUNDOS</span>
                     </div>
                 </Grid>
