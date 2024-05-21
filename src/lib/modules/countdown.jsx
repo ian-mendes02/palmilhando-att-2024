@@ -1,7 +1,7 @@
 'use client';
 import {Wrapper} from '@/lib/modules/layout-components';
 import {useEffect, useMemo, useState} from 'react';
-export default function Countdown({paused = false, timestamp = '2024-05-27T23:59:00.000-03:00', isMobile}) {
+export default function Countdown({paused = false, timestamp = '2024-06-05T23:59:00.000-03:00', isMobile}) {
 
     const eventDate = useMemo(() => new Date(timestamp).getTime(), []);
 
