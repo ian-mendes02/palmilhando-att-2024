@@ -32,7 +32,7 @@ body, html {
     color: #fff;
     background: linear-gradient(var(--grad-3)) var(--cor-4) no-repeat;
     overflow-x: hidden;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
 }
 
 .cor-1 {
@@ -435,10 +435,6 @@ button:focus, input:focus, select:focus {
     background: url('../img/svg/white-tab.svg');
     top: 0;
     transform: translateY(-100%);
-}
-
-#saiba-mais:after {
-
 }
 
 #criadores::before {
