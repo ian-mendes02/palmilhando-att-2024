@@ -1,8 +1,9 @@
 'use client';
 import {Section, Content, ContentDefault, Container, Wrapper, Badge, Grid, Divider} from '@/lib/modules/layout-components';
 import {Button, Collapsible, List} from '@/lib/modules/ui-components';
-import { scrollToTop, list } from '@/lib/modules/utils';
+import {scrollToTop, list, url} from '@/lib/modules/utils';
 import Carousel from '@/lib/modules/carousel';
+import Pagamento from '@/lib/modules/pagamento';
 import '$/css/carousel.css';
 import '$/css/globals.css';
 import React from 'react';
@@ -14,7 +15,7 @@ export default function Home() {
     const [viewportWidth, setViewportWidth] = React.useState(null);
 
     const ASSET_PREFIX = process.env.NEXT_PUBLIC_ASSET_PREFIX;
-    
+
     const isMobile = React.useMemo(() => viewportWidth <= 820, [viewportWidth]);
 
     React.useEffect(() => {
@@ -39,7 +40,7 @@ export default function Home() {
                 });
             }
         });
-        function isVisible(el) {
+        /* function isVisible(el) {
             var rect = el.getBoundingClientRect();
             return (rect.top >= 0 && rect.bottom <= window.innerHeight * 1.5);
         }
@@ -50,7 +51,7 @@ export default function Home() {
                     fade[i]?.classList?.add('fade-up');
         }
         window.addEventListener('scroll', fadeIn);
-        return () => window.removeEventListener('scroll', fadeIn);
+        return () => window.removeEventListener('scroll', fadeIn); */
     }, []);
 
     React.useEffect(() => {
@@ -86,20 +87,20 @@ export default function Home() {
 
     return (
         <main>
-            <Section id='header' className='h-[55rem] max-[820px]:!h-[95vh]'>
+            <Section id='header'>
                 <Content className='relative z-10 w-full'>
                     <ContentDefault>
                         <Wrapper className='justify-center' id='header-box'>
-                            <Container className='items-center w-[65%] max-[820px]:!w-[80%] max-[426px]:w-full max-w-[820px]'>
+                            <Container className='items-center w-[65%] max-[820px]:!w-[96%] max-[426px]:w-full max-w-[820px]'>
                                 <img src={ASSET_PREFIX + 'img/svg/logo_palmilhando.svg'} alt='' className='w-72 mb-4 max-w-[640px]' draggable='false' />
                                 <div className="divider"></div>
                                 <p className='text-2xl text-center my-4'>
-                                    <strong>Tudo o que você precisa para ser <mark className="cor-2">referência em palmilhas</mark>, atender seus pacientes com segurança e ter um consultório <mark className="cor-3">realmente lucrativo</mark>.</strong>
+                                    <strong>Seja referência em palmilhas na sua cidade, atenda seus pacientes com segurança e tenha um consultório realmente lucrativo</strong>
                                 </p>
                                 <p className='text-center mb-8'>
-                                    O <strong className='text-sky-600'>Palmilhando</strong> é um programa desenvolvido <mark className="font-semibold text-white">por clínicos, para clínicos</mark>, para facilitar sua vida profissional com conteúdos teóricos e aulas práticas com materiais enviados mensalmente até a sua casa - <strong>sem nenhum custo adicional</strong>.
+                                    Um programa desenvolvido para facilitar o seu dia a dia clínico através de conteúdos teóricos e aulas práticas com materiais enviados mensalmente até a sua casa - <strong>sem nenhum custo adicional</strong>.
                                 </p>
-                                <Checkout text='QUERO ENTRAR NO PROGRAMA'/>
+                                <Checkout text='QUERO ENTRAR NO PROGRAMA' />
                                 <p className='text-sm font-extralight my-4'>Continue lendo para saber mais</p>
                             </Container>
                         </Wrapper>
@@ -114,60 +115,47 @@ export default function Home() {
 
                         <Wrapper className='max-[820px]:!flex-col items-center justify-evenly relative bottom-6 max-[820px]:!bottom-0'>
 
-                            <Wrapper className='items-center justify-evenly w-9/12 max-[820px]:!w-full fade px-4'>
-                                <Container className='items-center w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full'>
-                                    <img src={ASSET_PREFIX + 'img/isolated_tablet_laptop_and_smartphone_composition.webp'} className='fade' alt='' width='512px' height='512px' draggable='false' />
-                                </Container>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
+                                <div className='w-full h-96 bg-contain bg-center bg-no-repeat' style={{backgroundImage: url('img/isolated_tablet_laptop_and_smartphone_composition.webp')}}></div>
+                                <div className='flex flex-col justify-center'>
                                     <h2 className='text-xl font-semibold'>O que é o <mark className="text-sky-600">Palmilhando</mark>?</h2>
-                                    <br />
-                                    <p>O Palmilhando é o único lugar que reúne <mark className="text-sky-600 font-semibold">absolutamente tudo</mark> o que você precisa para aprender a prescrever, confeccionar e empreender com palmilhas terapêuticas, fazendo delas o carro-chefe do seu consultório.</p>
-                                </Container>
-                            </Wrapper>
+                                    <p>O Palmilhando é o único lugar que reúne absolutamente tudo o que você precisa para aprender a prescrever, confeccionar e empreender com palmilhas terapêuticas, tornando-as o carro-chefe do seu consultório.</p>
+                                </div>
+                            </Grid>
 
-                            <Wrapper className='flex-nowrap max-[820px]:!flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:!w-full fade px-4'>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
+                                <div className='w-full h-96 bg-contain bg-center bg-no-repeat order-1 max-[820px]:!order-[0]' style={{backgroundImage: url('img/svg/passo-a-passo.svg')}}></div>
+                                <div className='flex flex-col justify-center'>
                                     <h2 className='text-xl font-semibold'>Conteúdo <mark className="text-sky-600">passo a passo</mark></h2>
-                                    <br />
-                                    <p>Para todos os níveis. Seja você um <mark className="text-sky-600 font-semibold">iniciante</mark> buscando aprender o básico sobre a confecção de palmilhas, ou um <mark className="text-sky-600 font-semibold">profissional experiente</mark> que deseja aprimorar sua prática e elevar seus lucros, <mark className="text-sky-600 font-semibold">o Palmilhando é o lugar certo para você</mark>.</p>
-                                </Container>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
-                                    <img src={ASSET_PREFIX + 'img/svg/passo-a-passo.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
-                                </Container>
-                            </Wrapper>
+                                    <p>Para todos os níveis. Não importa se você não tem experiência nenhuma ou quer aprimorar os seus conhecimentos teóricos e práticos: o Palmilhando é o lugar certo para você.</p>
+                                </div>
+                            </Grid>
 
-                            <Wrapper className='flex-nowrap max-[820px]:!flex-col items-center justify-evenly w-9/12 max-[820px]:!w-full fade px-4'>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
-                                    <img src={ASSET_PREFIX + 'img/svg/comunidade-ativa.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
-                                </Container>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
-                                    <h2 className='text-xl font-semibold'>Comunidade <mark className="text-sky-600">ativa</mark> de membros</h2>
-                                    <br />
-                                    <p>Para você tirar todas as suas dúvidas, discutir casos clínicos, trocar indicações de pacientes e receber apoio para seguir mais forte. <mark className="text-sky-600 font-semibold">Com o Palmilhando, você não fica sozinho</mark>.</p>
-                                </Container>
-                            </Wrapper>
-
-                            <Wrapper className='flex-nowrap max-[820px]:!flex-col-reverse items-center justify-evenly w-9/12 max-[820px]:!w-full fade px-4'>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
-                                    <h2 className='text-xl font-semibold'>Kit de palmilha <mark className="text-sky-600">enviado para a sua casa</mark></h2>
-                                    <br />
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
+                                <div className='w-full h-96 bg-contain bg-center bg-no-repeat' style={{backgroundImage: url('img/svg/entrega-pacote.svg')}}></div>
+                                <div className='flex flex-col justify-center'>
+                                    <h2 className='text-xl font-semibold'>Kit de materiais <mark className="text-sky-600">enviado para a sua casa</mark></h2>
                                     <p>Todo mês você receberá um <mark className="text-sky-600 font-semibold">kit completo de materiais da Podoshop</mark> para confeccionar as suas palmilhas, chegando no total de 24 palmilhas no período de um ano.</p>
-                                </Container>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
-                                    <img src={ASSET_PREFIX + 'img/svg/entrega-pacote.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
-                                </Container>
-                            </Wrapper>
+                                </div>
+                            </Grid>
 
-                            <Wrapper className='flex-nowrap max-[820px]:!flex-col items-center justify-evenly w-9/12 max-[820px]:!w-full fade px-4'>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
-                                    <img src={ASSET_PREFIX + 'img/svg/vantagem-compras.svg'} width={480} height={480} className='w-full' alt='' draggable='false' />
-                                </Container>
-                                <Container className='w-[45%] max-[820px]:!w-[80%] max-[426px]:w-full max-[820px]:!my-8'>
-                                    <h2 className='text-xl font-semibold'>Vantagens de compra de produtos e <mark className="text-sky-600">frete grátis</mark> durante todo o curso</h2>
-                                    <br />
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
+                                <div className='w-full h-96 bg-contain bg-center bg-no-repeat order-1 max-[820px]:!order-[0]' style={{backgroundImage: url('img/svg/comunidade-ativa.svg')}}></div>
+                                <div className='flex flex-col justify-center'>
+                                    <h1 className='grad-text grad-slide text-3xl font-bold max-[820px]:!text-left'>BÔNUS</h1>
+                                    <h2 className='text-xl font-semibold my-2'>Comunidade <mark className="text-sky-600">ativa</mark> de membros</h2>
+                                    <p>Para você tirar todas as suas dúvidas, discutir casos clínicos, trocar indicações de pacientes e receber apoio para seguir mais forte. <mark className="text-sky-600 font-semibold">Com o Palmilhando, você não fica sozinho</mark>.</p>
+                                </div>
+                            </Grid>
+
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
+                                <div className='w-full h-96 bg-contain bg-center bg-no-repeat' style={{backgroundImage: url('img/svg/vantagem-compras.svg')}}></div>
+                                <div className='flex flex-col justify-center'>
+                                    <h1 className='grad-text grad-slide text-3xl font-bold max-[820px]:!text-left'>BÔNUS</h1>
+                                    <h2 className='text-xl font-semibold my-2'>Vantagens de compra de produtos e <mark className="text-sky-600">frete grátis</mark> durante todo o curso</h2>
                                     <p>Para você aproveitar os nossos produtos da Podoshop e fazer as suas palmilhas com os <mark className="text-sky-600 font-semibold">melhores materiais</mark>.</p>
-                                </Container>
-                            </Wrapper>
+                                </div>
+                            </Grid>
 
                         </Wrapper>
 
@@ -188,9 +176,9 @@ export default function Home() {
                                         <Container className='basis-[100%] mx-8 max-[820px]:!mx-0 px-4 self-center'>
                                             <h1 className='m-8 mb-0 text-3xl font-bold'>Pra quem é o <mark className="grad-text">Palmilhando</mark>?</h1>
                                             <List className='chain mx-auto max-w-[480px] my-8'>
-                                                <li>Profissionais que desejam <strong>proporcionar um tratamento mais eficiente</strong> para os seus pacientes.</li>
-                                                <li>Clínicos que buscam <strong>conciliar a prática clínica com seus negócios</strong>.</li>
-                                                <li><strong>Empreendedores</strong> que visam a utilizar a confecção e prescrição de palmilhas como um <strong>modelo de negócio rentável</strong>, fazendo delas o <strong>carro-chefe</strong> do consultório.</li>
+                                                <li>Profissionais que desejam <strong className='grad-text grad-slide'>proporcionar um tratamento mais eficiente</strong> para os seus pacientes.</li>
+                                                <li>Clínicos que buscam <strong className='grad-text grad-slide'>conciliar a prática clínica com seus negócios</strong>.</li>
+                                                <li><strong className='grad-text grad-slide'>Empreendedores</strong> que visam a utilizar a confecção e prescrição de palmilhas como um <strong className='grad-text grad-slide'>modelo de negócio rentável</strong>, fazendo delas o <strong className='grad-text grad-slide'>carro-chefe</strong> do consultório.</li>
                                             </List>
                                         </Container>
                                         <Container>
@@ -291,11 +279,11 @@ export default function Home() {
                             </Carousel>
                         </ContentDefault>
                     </Content>
-                    <Checkout className='my-8'/>
+                    <Checkout className='my-8' />
                 </Section>
             </div>
 
-            <Section className='bg-[#d7eeff] pt-0'>
+            {/* <Section className='bg-[#d7eeff] pt-0'>
                 <div className='w-full bg-[var(--cor-7)] p-4 text-center'>
                     <h1 className='uppercase font-semibold text-lg'>Saber fazer uma palmilha básica é importante, mas não é o suficiente.</h1>
                 </div>
@@ -317,7 +305,7 @@ export default function Home() {
 
                     </ContentDefault>
                 </Content>
-            </Section>
+            </Section> */}
 
             <Section id='napratica'>
                 <Content>
@@ -401,7 +389,7 @@ export default function Home() {
 
                     </ContentDefault>
                 </Content>
-                <Checkout className='my-8 relative z-50'/>
+                <Checkout className='my-8 relative z-50' />
             </Section>
 
             <Section id='palmilhando-pbe'>
@@ -418,7 +406,7 @@ export default function Home() {
                                 </List>
                             </Container>
                             <Container className='w-9/12 justify-self-center self-center m-4 backlit'>
-                                <img src={ASSET_PREFIX + 'img/png/pbe_venn.png'} alt='' draggable='false' className='m-auto w-full h-auto my-4 fade' />
+                                <img src={ASSET_PREFIX + 'img/png/pbe_venn.png'} alt='' draggable='false' className='m-auto w-full h-auto my-4' />
                             </Container>
                         </Grid>
                     </ContentDefault>
@@ -429,9 +417,9 @@ export default function Home() {
                 <Content className='border-[2px] border-white px-8 max-[820px]:!px-0'>
                     <ContentDefault>
                         <Wrapper className='items-end justify-evenly py-8'>
-                            <Container className='w-1/2 max-[820px]:!w-[80%] max-[426px]:w-full px-4'>
+                            <Container className='w-1/2 max-[820px]:!w-[96%] max-[426px]:w-full px-4'>
                                 <h1 className='text-sky-600 text-3xl font-bold'>Com o Palmilhando® você vai:</h1>
-                                <Divider color='var(--cor-7)' className='my-4' position={isMobile ? 'center' : 'left'}/>
+                                <Divider color='var(--cor-7)' className='my-4' position={isMobile ? 'center' : 'left'} />
                                 <br />
                                 <List className='check-dark'>
                                     <li>Ter mais segurança desde a indicação até a confecção das palmilhas</li>
@@ -445,17 +433,17 @@ export default function Home() {
                                     <img className='absolute bottom-[12px] left-[50%] translate-x-[-50%] w-[50%] aspect-square' src={ASSET_PREFIX + 'img/andre-avental.webp'} alt="" draggable='false' />
                                     <img className='absolute bottom-[240px] left-[50%] translate-x-[-75%] w-[45%]' src={ASSET_PREFIX + 'img/andre_prop.webp'} alt="" draggable='false' />
                                 </div>
-                                <Checkout className='relative z-50' />
+                                <Checkout className='relative z-50 max-[820px]:!mt-8' />
                             </Container>
                         </Wrapper>
                     </ContentDefault>
                 </Content>
             </Section>
 
-            <Section id='seu-investimento' className='bg-[linear-gradient(#0c6b96,#1E3050)] border-y-2 border-y-cyan-100 z-30 max-[820px]:!pt-4'>
+            <Section id='seu-investimento' className='bg-[linear-gradient(#0c6b96,#1E3050)] border-y-2 border-y-cyan-100 z-30 max-[820px]:!pt-12'>
                 <h1 className='z-20 text-center text-xl absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 max-[820px]:!w-[90%]'><mark className="grad-text font-semibold">SEU INVESTIMENTO</mark></h1>
                 <Content className='mb-16'>
-                    <Wrapper className='mb-12'>
+                    {!isMobile && <Wrapper className='mb-12'>
                         <table id='tabela-planos' className='shadow-lg text-lg max-w-[820px] w-[75%] max-[820px]:!hidden select-none'>
                             <thead>
                                 <tr>
@@ -474,7 +462,7 @@ export default function Home() {
                             <tbody>
                                 <tr className='bg-[#156d9f] border-b border-cyan-100'>
                                     <td className='font-bold'>Básico</td>
-                                    <td className='font-bold'>R$ 1900</td>
+                                    <td className='font-bold'>R$ 1897</td>
                                     <td className='text-green-500'>&#10004;</td>
                                     <td className='text-green-500'>&#10004;</td>
                                     <td className='text-rose-700'>&#10008;</td>
@@ -482,7 +470,7 @@ export default function Home() {
                                 </tr>
                                 <tr className='bg-[#2e5064] border-b border-cyan-100'>
                                     <td className='font-bold cor-3'>Business</td>
-                                    <td className='font-bold cor-3'>R$ 2400</td>
+                                    <td className='font-bold cor-3'>R$ 2397</td>
                                     <td className='text-green-500'>&#10004;</td>
                                     <td className='text-green-500'>&#10004;</td>
                                     <td className='text-green-500'>&#10004;</td>
@@ -490,7 +478,7 @@ export default function Home() {
                                 </tr>
                                 <tr className='bg-[#092b3f] rounded-md'>
                                     <td className='font-bold grad-text grad-slide rounded-bl-[inherit]'>Premium</td>
-                                    <td className='font-bold grad-text grad-slide'>R$ 2900</td>
+                                    <td className='font-bold grad-text grad-slide'>R$ 2897</td>
                                     <td className='text-green-500'>&#10004;</td>
                                     <td className='text-green-500'>&#10004;</td>
                                     <td className='text-green-500'>&#10004;</td>
@@ -498,9 +486,9 @@ export default function Home() {
                                 </tr>
                             </tbody>
                         </table>
-                    </Wrapper>
+                    </Wrapper>}
                     <ContentDefault id="investimento">
-                        <Grid className='grid-cols-3 max-[820px]:!grid-cols-1 gap-4'>
+                        <Grid className='grid-cols-3 max-[820px]:!grid-cols-1 gap-4 max-[820px]:!gap-8'>
 
                             <Container className='w-full'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-125 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
@@ -508,22 +496,22 @@ export default function Home() {
                                     <p className='font-extralight text-xs w-9/12 h-12'>O essencial para você se destacar como profissional</p>
                                     <div className="divider"></div>
                                     <br />
-                                    <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$ 197<sup><small>,33</small></sup></h1>
-                                    <h2 className='text-xs font-light my-4'>(R$ 1900 à vista)</h2>
+                                    <h1 className='text-3xl font-bold'><mark className="font-light text-white">12x de</mark> R$ 196<sup><small>,19</small></sup></h1>
+                                    <h2 className='text-xs font-light my-4'>(R$ 1897 à vista)</h2>
                                     <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90O0O8' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
-                                    <br />
+                                    <Pagamento />
                                     <div className="divider"></div>
                                     <h2 className='font-extralight'>Vantagens</h2>
                                     <List className='text-left pt-4 px-[10%] checklist'>
-                                        <li className='include'>Acesso a todo o conteúdo teórico e prático</li>
+                                        <li className='include'>Acesso a todo conteúdo teórico e prático sobre palmilhas terapêuticas</li>
                                         <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                        <li className='not-include'>Curso de Palmilhas e Negócios</li>
+                                        <li className='not-include'>Curso "Fazendo negócios com palmilhas"</li>
                                         <li className='not-include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
                                     </List>
                                 </div>
                             </Container>
 
-                            <Container className='w-full'>
+                            <Container className='w-full max-[820px]:!order-2'>
                                 <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
                                     <div className="card-shine-effect rounded-lg top-0"></div>
                                     <Badge className='border border-inherit rounded-full !w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
@@ -533,16 +521,16 @@ export default function Home() {
                                     <p className='font-extralight text-xs w-9/12 h-12'>Tenha acesso a todas as vantagens de ser um membro premium do Palmilhando®</p>
                                     <div className="divider"></div>
                                     <br />
-                                    <h1 className='text-3xl'><mark className="font-light text-white">12x de</mark> R$ 299<sup><small>,93</small></sup></h1>
-                                    <h2 className='text-xs font-light my-4'>(R$ 2900 à vista)</h2>
+                                    <h1 className='text-3xl font-bold'><mark className="font-light text-white">12x de</mark> R$ 299<sup><small>,62</small></sup></h1>
+                                    <h2 className='text-xs font-light my-4'>(R$ 2897 à vista)</h2>
                                     <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90JO0J' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
-                                    <br />
+                                    <Pagamento />
                                     <div className="divider"></div>
                                     <h2 className='font-extralight'>Vantagens</h2>
                                     <List className='text-left pt-4 px-[10%] checklist'>
-                                        <li className='include'>Acesso a todo o conteúdo teórico e prático</li>
+                                        <li className='include'>Acesso a todo conteúdo teórico e prático sobre palmilhas terapêuticas</li>
                                         <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                        <li className='include'>Curso de Palmilhas e Negócios</li>
+                                        <li className='include'>Curso "Fazendo negócios com palmilhas"</li>
                                         <li className='include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
                                     </List>
                                 </div>
@@ -555,16 +543,16 @@ export default function Home() {
                                     <p className='font-extralight text-xs w-9/12 h-12'>Para o profissional que deseja transformar sua prática em um negócio lucrativo</p>
                                     <div className="divider"></div>
                                     <br />
-                                    <h1 className=' text-3xl'><mark className="font-light text-white">12x de</mark> R$ 248<sup><small>,22</small></sup></h1>
-                                    <h2 className='text-xs font-light my-4'>(R$ 2400 à vista)</h2>
+                                    <h1 className=' text-3xl font-bold'><mark className="font-light text-white">12x de</mark> R$ 247<sup><small>,91</small></sup></h1>
+                                    <h2 className='text-xs font-light my-4'>(R$ 2397 à vista)</h2>
                                     <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90JO08' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
-                                    <br />
+                                    <Pagamento />
                                     <div className="divider"></div>
                                     <h2 className='font-extralight'>Vantagens</h2>
                                     <List className='text-left pt-4 px-[10%] checklist'>
-                                        <li className='include'>Acesso a todo o conteúdo teórico e prático</li>
+                                        <li className='include'>Acesso a todo conteúdo teórico e prático sobre palmilhas terapêuticas</li>
                                         <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                        <li className='include'>Curso de Palmilhas e Negócios</li>
+                                        <li className='include'>Curso "Fazendo negócios com palmilhas"</li>
                                         <li className='not-include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
                                     </List>
                                 </div>
@@ -660,11 +648,13 @@ export default function Home() {
                                 <h2 className='font-bold text-xl'>Ficou com alguma dúvida?</h2>
                                 <div className="divider left"></div>
                                 <p>Confira aqui as respostas para as dúvidas mais frequentes, ou entre em contato conosco via Whatsapp</p>
-                                <a href="https://wa.me//5512982628132" className='flex items-center justify-evenly py-4 my-4 px-8 border border-cyan-200 rounded-xl hover:backdrop-brightness-110 ease-out duration-200 cursor-pointer decoration-[none] text-white'>
-                                    <img src={ASSET_PREFIX + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
-                                    <p className='w-full'>ATENDIMENTO POR <mark className="cor-3">WHATSAPP</mark></p>
-                                </a>
-                                <Checkout />
+                                <div className='max-[820px]:!hidden'>
+                                    <a href="https://wa.me//5512982628132" className='flex items-center justify-evenly py-4 my-4 px-8 border border-cyan-200 rounded-xl hover:backdrop-brightness-110 ease-out duration-200 cursor-pointer decoration-[none] text-white'>
+                                        <img src={ASSET_PREFIX + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
+                                        <p className='w-full'>ATENDIMENTO POR <mark className="cor-3">WHATSAPP</mark></p>
+                                    </a>
+                                    <Checkout />
+                                </div>
                             </Container>
                             <Container className='w-[70%] max-[820px]:!w-full ml-8 max-[820px]:!ml-0'>
                                 <Collapsible title='Quais são as formas de pagamento?'>
@@ -696,6 +686,13 @@ export default function Home() {
                                     <p>Sim! A Imersão em Palmilhas Terapêuticas oferece aulas que te trarão resultados <strong>independentemente do seu estágio profissional</strong>.</p>
                                 </Collapsible>
                             </Container>
+                            <div className='min-[821px]:!hidden'>
+                                <a href="https://wa.me//5512982628132" className='flex items-center justify-evenly py-4 my-4 px-8 border border-cyan-200 rounded-xl hover:backdrop-brightness-110 ease-out duration-200 cursor-pointer decoration-[none] text-white'>
+                                    <img src={ASSET_PREFIX + 'img/svg/whatsapp-green.svg'} alt="" draggable='false' width='32px' height='32px' className='mr-2' />
+                                    <p className='w-full'>ATENDIMENTO POR <mark className="cor-3">WHATSAPP</mark></p>
+                                </a>
+                                <Checkout />
+                            </div>
                         </ContentDefault>
                     </Content>
                 </Section>
