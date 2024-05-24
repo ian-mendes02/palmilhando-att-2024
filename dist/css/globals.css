@@ -526,38 +526,6 @@ button:focus, input:focus, select:focus {
     padding-bottom: 1rem;
 }
 
-#cp-conteudo::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8rem;
-    height: 4.5rem;
-    background: #1E3050;
-    -webkit-mask-image: url(../img/svg/tab_2.svg);
-    -webkit-mask-repeat: no-repeat;
-}
-
-#cp-conteudo::after {
-    content: '';
-    position: absolute;
-    display: flex;
-    padding-top: .5rem;
-    justify-content: center;
-    align-items: center;
-    top: -2rem;
-    left: 50%;
-    transform: translateX(-50%) rotate(90deg);
-    width: 3.5rem;
-    height: 3.5rem;
-    background-color: #0c6b96;
-    background-image: url(../../public/img/svg/caret-light.svg);
-    background-position: 55% 50%;
-    background-repeat: no-repeat;
-    background-size: 15%;
-    border-radius: 100%;
-}
 
 .chain li:not(:last-of-type) {
     margin-bottom: 1rem;
@@ -601,93 +569,6 @@ button:focus, input:focus, select:focus {
     width: .5rem;
     border-radius: 100%;
     background: #ffffff;
-}
-
-#cp-header::before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-image: url(../img/foto-capa-publico-quente.webp);
-    background-position: top right;
-    background-size: cover;
-    -webkit-mask-image: linear-gradient(black, transparent)
-}
-
-#cp-sobre::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    height: 100%;
-    width: 100%;
-    background: url(../img/foto-andre-mendes.webp);
-    background-position: top right;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-#evt-valor::before {
-    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
-    filter: blur(12px);
-}
-
-#evt-local::before, #evt-hoteis-parceiros::before {
-    content: '';
-    position: absolute;
-    display: block;
-    height: 100%;
-    width: 100%;
-    bottom: 0;
-    right: 0;
-    background-image: url('../img/mercure_sjc.webp');
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: cover;
-    mix-blend-mode: overlay;
-    opacity: .5;
-    -webkit-mask-image: linear-gradient(to left, black, transparent)
-}
-
-#evt-o-que-fazer::before {
-    content: '';
-    position: absolute;
-    display: block;
-    height: 100%;
-    width: 100%;
-    bottom: 0;
-    right: 0;
-    background-image: url('../img/sjc.webp');
-    background-repeat: no-repeat;
-    background-position: bottom left;
-    background-size: cover;
-    mix-blend-mode: overlay;
-    opacity: .5;
-    -webkit-mask-image: linear-gradient(black, transparent)
-}
-
-#countdown::before {
-    content: '';
-    background-image: url(../img/[evento]_header_bg.webp);
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    background-size: cover;
-    mix-blend-mode: overlay;
-    position: absolute;
-    display: block;
-    height: 100%;
-    width: 100%;
-    opacity: .5;
-    bottom: 0;
-    right: 0;
-}
-
-#evt-palestrantes::before {
-    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
-    filter: blur(10px);
-    opacity: .2;
 }
 
 #grid-presencial::after {
