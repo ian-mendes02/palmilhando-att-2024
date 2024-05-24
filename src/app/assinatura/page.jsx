@@ -13,8 +13,8 @@ export default function Home() {
 
     const [viewportWidth, setViewportWidth] = React.useState(null);
 
-    const DEV = React.useMemo(() => process.env.NEXT_PUBLIC_DEV_ENV === 'true', []);
     const ASSET_PREFIX = process.env.NEXT_PUBLIC_ASSET_PREFIX;
+    
     const isMobile = React.useMemo(() => viewportWidth <= 820, [viewportWidth]);
 
     React.useEffect(() => {
