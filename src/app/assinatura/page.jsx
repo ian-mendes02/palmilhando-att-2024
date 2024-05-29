@@ -109,59 +109,62 @@ export default function Home() {
                 <img className='absolute bottom-0 translate-y-[25%] w-screen z-20' src={ASSET_PREFIX + 'img/svg/white-tab.svg'} alt='' draggable='false' />
             </Section>
 
-            <Section id='saiba-mais' className='relative z-20 bg-slate-100 cor-4 pb-16 pt-0 max-[1024px]:pb-10'>
+            <Section id='saiba-mais' className='relative z-20 bg-slate-100 cor-4 pb-16 pt-0 max-[1024px]:pb-0'>
                 <Content>
                     <ContentDefault>
 
                         <Wrapper className='max-[820px]:!flex-col items-center justify-evenly relative bottom-6 max-[820px]:!bottom-0'>
 
-                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2 place-content-center'>
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
                                 <div className='w-full h-96 bg-contain bg-center bg-no-repeat' style={{backgroundImage: url('img/isolated_tablet_laptop_and_smartphone_composition.webp')}}></div>
-                                <div className='flex flex-col justify-center items-center max-[820px]:!text-center'>
+                                <div className='flex flex-col justify-center max-[820px]:!text-center'>
                                     <h2 className='text-xl font-semibold'>O que é o <mark className="text-sky-600">Palmilhando</mark>?</h2>
                                     <p>O Palmilhando é o único lugar que reúne absolutamente tudo o que você precisa para aprender a prescrever, confeccionar e empreender com palmilhas terapêuticas, tornando-as o carro-chefe do seu consultório.</p>
                                 </div>
                             </Grid>
 
-                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2 place-content-center'>
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
                                 <div className='w-full h-96 bg-contain bg-center bg-no-repeat order-1 max-[820px]:!order-[0]' style={{backgroundImage: url('img/svg/passo-a-passo.svg')}}></div>
-                                <div className='flex flex-col justify-center items-center max-[820px]:!text-center'>
+                                <div className='flex flex-col justify-center max-[820px]:!text-center'>
                                     <h2 className='text-xl font-semibold'>Conteúdo <mark className="text-sky-600">passo a passo</mark></h2>
                                     <p>Para todos os níveis. Não importa se você não tem experiência nenhuma ou quer aprimorar os seus conhecimentos teóricos e práticos: o Palmilhando é o lugar certo para você.</p>
                                 </div>
                             </Grid>
 
-                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2 place-content-center'>
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
                                 <div className='w-full h-96 bg-contain bg-center bg-no-repeat' style={{backgroundImage: url('img/svg/entrega-pacote.svg')}}></div>
-                                <div className='flex flex-col justify-center items-center max-[820px]:!text-center'>
+                                <div className='flex flex-col justify-center max-[820px]:!text-center'>
                                     <h2 className='text-xl font-semibold'>Kit de materiais <mark className="text-sky-600">enviado para a sua casa</mark></h2>
                                     <p>Todo mês você receberá um <mark className="text-sky-600 font-semibold">kit completo de materiais da Podoshop</mark> para confeccionar as suas palmilhas, chegando no total de 24 palmilhas no período de um ano.</p>
                                 </div>
                             </Grid>
-
-                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2 place-content-center'>
+                        </Wrapper>
+                    </ContentDefault>
+                </Content>
+                <Content className='bg-[#092b3f] relative z-20 mt-64 max-[820px]:!pb-16'>
+                    <ContentDefault>
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1440 280" style={{enableBackground: "new 0 0 1440 280"}} xmlSpace="preserve" className='absolute w-screen left-0 top-0 -translate-y-1/2'><g><path fill='#092b3f' d="M0,280V19.7c556.6-100.3,815.9,226.4,1440,0.6V280H0z" /></g></svg>
+                        <Container className='items-center justify-center relative pt-16 text-white'>
+                            <h1 className='grad-text grad-slide text-5xl font-bold max-[820px]:!text-left py-4'>BÔNUS</h1>
+                            <Divider color='white' className='my-4'/>
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
                                 <div className='w-full h-96 bg-contain bg-center bg-no-repeat order-1 max-[820px]:!order-[0]' style={{backgroundImage: url('img/svg/comunidade-ativa.svg')}}></div>
-                                <div className='flex flex-col justify-center items-center max-[820px]:!text-center'>
-                                    <h1 className='grad-text grad-slide text-3xl font-bold max-[820px]:!text-left'>BÔNUS</h1>
-                                    <h2 className='text-xl font-semibold my-2'>Comunidade <mark className="text-sky-600">ativa</mark> de membros</h2>
+                                <div className='flex flex-col justify-center max-[820px]:!text-center'>
+                                    <h2 className='text-2xl font-semibold my-2 grad-text'>Comunidade <mark className="text-sky-600">ativa</mark> de membros</h2>
                                     <p>Para você tirar todas as suas dúvidas, discutir casos clínicos, trocar indicações de pacientes e receber apoio para seguir mais forte. <mark className="text-sky-600 font-semibold">Com o Palmilhando, você não fica sozinho</mark>.</p>
                                 </div>
                             </Grid>
-
-                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2 place-content-center'>
+                            <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
                                 <div className='w-full h-96 bg-contain bg-center bg-no-repeat' style={{backgroundImage: url('img/svg/vantagem-compras.svg')}}></div>
-                                <div className='flex flex-col justify-center items-center max-[820px]:!text-center'>
-                                    <h1 className='grad-text grad-slide text-3xl font-bold max-[820px]:!text-left'>BÔNUS</h1>
-                                    <h2 className='text-xl font-semibold my-2'>Vantagens de compra de produtos e <mark className="text-sky-600">frete grátis</mark> durante todo o curso</h2>
+                                <div className='flex flex-col justify-center max-[820px]:!text-center'>
+                                    <h2 className='text-2xl font-semibold my-2 grad-text'>Vantagens de compra de produtos e <mark className="text-sky-600">frete grátis</mark> durante todo o curso</h2>
                                     <p>Para você aproveitar os nossos produtos da Podoshop e fazer as suas palmilhas com os <mark className="text-sky-600 font-semibold">melhores materiais</mark>.</p>
                                 </div>
                             </Grid>
-
-                        </Wrapper>
-
+                        </Container>
                     </ContentDefault>
+                    <img id='tab-2' className='absolute w-screen scale-x-[-1] bottom-0 translate-y-full z-20' src={ASSET_PREFIX + 'img/svg/tab.svg'} alt='' draggable='false' />
                 </Content>
-                <img id='tab-2' className='absolute w-screen scale-x-[-1] bottom-0 translate-y-[98%] z-20' src={ASSET_PREFIX + 'img/svg/tab.svg'} alt='' draggable='false' />
             </Section>
 
             <div id='modulos' className='relative pt-24 max-[820px]:!pt-0'>
