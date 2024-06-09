@@ -146,7 +146,7 @@ export default function Home() {
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1440 280" style={{enableBackground: "new 0 0 1440 280"}} xmlSpace="preserve" className='absolute w-screen left-0 top-0 -translate-y-1/2'><g><path fill='#092b3f' d="M0,280V19.7c556.6-100.3,815.9,226.4,1440,0.6V280H0z" /></g></svg>
                         <Container className='items-center justify-center relative pt-16 text-white'>
                             <h1 className='grad-text grad-slide text-5xl font-bold max-[820px]:!text-left py-4'>BÔNUS</h1>
-                            <Divider color='white' className='my-4'/>
+                            <Divider color='white' className='my-4' />
                             <Grid className='grid-cols-2 max-[820px]:!grid-cols-1 gap-16 w-9/12 max-[820px]:!w-full max-[820px]:!gap-2'>
                                 <div className='w-full h-96 bg-contain bg-center bg-no-repeat order-1 max-[820px]:!order-[0]' style={{backgroundImage: url('img/svg/comunidade-ativa.svg')}}></div>
                                 <div className='flex flex-col justify-center max-[820px]:!text-center'>
@@ -238,21 +238,6 @@ export default function Home() {
                                     <div className="flex max-[820px]:!flex-col w-9/12 max-[820px]:!w-full h-[512px] max-[820px]:!h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:!justify-start">
                                         <div className="relative w-82 max-[820px]:!w-full overflow-hidden rounded-lg shadow-xl max-[820px]:!overflow-visible">
                                             <div className="card-shine-effect rounded-lg"></div>
-                                            <img src={ASSET_PREFIX + 'img/1.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:!hidden' />
-                                            <img src={ASSET_PREFIX + 'img/mobile/1.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
-                                        </div>
-                                        <div className='w-[55%] max-[820px]:!w-full ml-[2.5%] max-[820px]:!mx-auto max-[820px]:!pr-0 max-h-[80%] max-[820px]:!h-[80%] max-[820px]:!mt-8 overflow-y-auto textbox'>
-                                            <h2 className='grad-text text-3xl max-[426px]:text-xl'>PALMILHAS & NEGÓCIOS</h2>
-                                            <div className="divider left"></div>
-                                            <p className='font-light max-[820px]:!text-lg'>No mercado de trabalho tão dinâmico e competitivo, ser bom tecnicamente não basta. É preciso entender a estrutura do negócio e como gerar fontes de faturamento e gerar lucro ao final do mês. Nesse curso vamos te mostrar de maneira prática como criar ou evoluir o seu negócio com base em três pilares: marketing, gestão financeira e planejamento estratégico.</p>
-                                        </div>
-                                    </div>
-                                </Wrapper>
-
-                                <Wrapper className="w-full h-auto justify-center items-start">
-                                    <div className="flex max-[820px]:!flex-col w-9/12 max-[820px]:!w-full h-[512px] max-[820px]:!h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:!justify-start">
-                                        <div className="relative w-82 max-[820px]:!w-full overflow-hidden rounded-lg shadow-xl max-[820px]:!overflow-visible">
-                                            <div className="card-shine-effect rounded-lg"></div>
                                             <img src={ASSET_PREFIX + 'img/3.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:!hidden' />
                                             <img src={ASSET_PREFIX + 'img/mobile/3.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
                                         </div>
@@ -264,51 +249,12 @@ export default function Home() {
                                     </div>
                                 </Wrapper>
 
-                                <Wrapper className="w-full h-auto justify-center items-start">
-                                    <div className="flex max-[820px]:!flex-col w-9/12 max-[820px]:!w-full h-[512px] max-[820px]:!h-[90vh] bg-[linear-gradient(#0c6b96,#1E3050)] border-2 border-cyan-100 items-center justify-evenly rounded-xl shadow-xl p-[2.5%] max-[820px]:!justify-start">
-                                        <div className="relative w-82 max-[820px]:!w-full overflow-hidden rounded-lg shadow-xl max-[820px]:!overflow-visible">
-                                            <div className="card-shine-effect rounded-lg"></div>
-                                            <img src={ASSET_PREFIX + 'img/4.webp'} alt='' draggable='false' className='w-96 h-auto rounded-lg shadow-xl m-auto max-[820px]:!hidden' />
-                                            <img src={ASSET_PREFIX + 'img/mobile/4.webp'} width={720} height={400} alt='' draggable='false' className='w-full h-auto aspect-video rounded-lg shadow-xl m-auto min-[821px]:hidden' />
-                                        </div>
-                                        <div className='w-[55%] max-[820px]:!w-full ml-[2.5%] max-[820px]:!mx-auto max-[820px]:!pr-0 max-h-[80%] max-[820px]:!max-h-full max-[820px]:!h-auto max-[820px]:!mt-8 overflow-y-auto textbox'>
-                                            <h2 className='grad-text grad-slide text-3xl max-[426px]:text-xl'>MENTORIAS AO VIVO</h2>
-                                            <div className="divider left"></div>
-                                            <p className='font-light max-[820px]:!text-lg'>Uma vez por mês você terá uma aula ao vivo com o André, com o Clayton ou outro convidado incrível para discutir casos clínicos que você pode levar! Imagine poder compartilhar as suas dúvidas com aquele paciente complexo! Esse é o objetivo da mentoria, passarmos um tempo valioso juntos discutindo casos, sugerindo estratégias e mostrando como é a prática baseada em evidências no mundo real. Uma grande oportunidade!</p>
-                                        </div>
-                                    </div>
-                                </Wrapper>
-
                             </Carousel>
                         </ContentDefault>
                     </Content>
                     <Checkout className='my-8' />
                 </Section>
             </div>
-
-            {/* <Section className='bg-[#d7eeff] pt-0'>
-                <div className='w-full bg-[var(--cor-7)] p-4 text-center'>
-                    <h1 className='uppercase font-semibold text-lg'>Saber fazer uma palmilha básica é importante, mas não é o suficiente.</h1>
-                </div>
-                <Content>
-                    <ContentDefault className='pt-16'>
-                        <Grid className='grid-cols-2 max-[820px]:!grid-cols-1'>
-                            <p className='cor-4 m-4'>
-                                Claro, você precisa saber confeccionar uma palmilha de qualidade que atenda às necessidades do seu paciente.
-                                Mas para <mark className="cor-1 font-semibold">realmente colher os frutos do seu empreendimento, destacando-se dos demais, é preciso ter ESTRATÉGIA</mark>.
-                                <br /><br />
-                                Se você, profissional, não domina técnicas mais avançadas, não trata seu trabalho como um verdadeiro negócio e não tem contato com outros profissionais, há grandes chances de que seus resultados não atendam às suas expectativas.
-                            </p>
-                            <p className='cor-4 m-4'>
-                                Nossa <strong className="cor-1 font-semibold">imersão</strong> te oferece as ferramentas que você, enquanto clínico e empreendedor, precisa para <mark className="cor-1 font-semibold">elevar sua prática clínica</mark>, <mark className="cor-1 font-semibold">aumentar seu faturamento com as palmilhas</mark> e <mark className="cor-1 font-semibold">tornar-se autoridade na sua área de atuação</mark>.
-                                <br /><br />
-                                Não se engane, a imersão não é um material didático qualquer, mas sim um <mark className="cor-1 font-semibold">ecossistema projetado por clínicos como você</mark>, para te preparar para o mercado competitivo e fazer valer sua dedicação como profissional, convertendo seus esforços em resultados satisfatórios.
-                            </p>
-                        </Grid>
-
-                    </ContentDefault>
-                </Content>
-            </Section> */}
 
             <Section id='napratica'>
                 <Content>
@@ -443,125 +389,29 @@ export default function Home() {
                 </Content>
             </Section>
 
-            <Section id='seu-investimento' className='bg-[linear-gradient(#0c6b96,#1E3050)] border-y-2 border-y-cyan-100 z-30 max-[820px]:!pt-12'>
+            <Section id='seu-investimento' className='border-y-2 border-y-cyan-100 z-30 max-[820px]:!pt-12'>
                 <h1 className='z-20 text-center text-xl absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0c6b96] py-2 px-8 rounded-xl border-2 border-cyan-100 max-[820px]:!w-[90%]'><mark className="grad-text font-semibold">SEU INVESTIMENTO</mark></h1>
-                <Content className='mb-16'>
-                    {!isMobile && <Wrapper className='mb-12'>
-                        <table id='tabela-planos' className='shadow-lg text-lg max-w-[820px] w-[75%] max-[820px]:!hidden select-none'>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr className='bg-slate-200 bg-opacity-80 cor-4 rounded-md'>
-                                    <th className='rounded-tl-[inherit]'>Plano</th>
-                                    <th>Valor</th>
-                                    <th className='text-sky-700'>Conteúdo + Certificado</th>
-                                    <th className='text-sky-700'>TPC</th>
-                                    <th className='text-sky-700'>Palmilhas & Negócios</th>
-                                    <th className='text-sky-700 rounded-tr-[inherit]'>Mentoria</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className='bg-[#156d9f] border-b border-cyan-100'>
-                                    <td className='font-bold'>Básico</td>
-                                    <td className='font-bold'>R$ 1897</td>
-                                    <td className='text-green-500'>&#10004;</td>
-                                    <td className='text-green-500'>&#10004;</td>
-                                    <td className='text-rose-700'>&#10008;</td>
-                                    <td className='text-rose-700'>&#10008;</td>
-                                </tr>
-                                <tr className='bg-[#2e5064] border-b border-cyan-100'>
-                                    <td className='font-bold cor-3'>Business</td>
-                                    <td className='font-bold cor-3'>R$ 2397</td>
-                                    <td className='text-green-500'>&#10004;</td>
-                                    <td className='text-green-500'>&#10004;</td>
-                                    <td className='text-green-500'>&#10004;</td>
-                                    <td className='text-rose-700'>&#10008;</td>
-                                </tr>
-                                <tr className='bg-[#092b3f] rounded-md'>
-                                    <td className='font-bold grad-text grad-slide rounded-bl-[inherit]'>Premium</td>
-                                    <td className='font-bold grad-text grad-slide'>R$ 2897</td>
-                                    <td className='text-green-500'>&#10004;</td>
-                                    <td className='text-green-500'>&#10004;</td>
-                                    <td className='text-green-500'>&#10004;</td>
-                                    <td className='text-green-500 rounded-br-[inherit]'>&#10004;</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </Wrapper>}
+                <Content className='relative z-50'>
                     <ContentDefault id="investimento">
-                        <Grid className='grid-cols-3 max-[820px]:!grid-cols-1 gap-4 max-[820px]:!gap-8'>
-
-                            <Container className='w-full'>
-                                <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-125 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
-                                    <h1 className=' font-bold text-xl'>PLANO BÁSICO</h1>
-                                    <p className='font-extralight text-xs w-9/12 h-12'>O essencial para você se destacar como profissional</p>
-                                    <div className="divider"></div>
-                                    <br />
-                                    <h1 className='text-3xl font-bold'><mark className="font-light text-white">12x de</mark> R$ 196<sup><small>,19</small></sup></h1>
-                                    <h2 className='text-xs font-light my-4'>(R$ 1897 à vista)</h2>
-                                    <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90O0O8' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
-                                    <Pagamento />
-                                    <div className="divider"></div>
-                                    <h2 className='font-extralight'>Vantagens</h2>
-                                    <List className='text-left pt-4 px-[10%] checklist'>
-                                        <li className='include'>Acesso a todo conteúdo teórico e prático sobre palmilhas terapêuticas</li>
-                                        <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                        <li className='not-include'>Curso "Fazendo negócios com palmilhas"</li>
-                                        <li className='not-include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
-                                    </List>
+                        <Container className='w-full max-w-96 mx-auto'>
+                            <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-125 shadow-md text-center h-full relative bg-[linear-gradient(var(--cor-1),var(--cor-4))]">
+                                <div className='w-4/5'>
+                                    <img src={ASSET_PREFIX + "/img/svg/logo_palmilhando.svg"} alt="" draggable="false" className='m-4' />
+                                    <p className='font-light text-xs'>Tudo que você precisa saber, na prática.</p>
                                 </div>
-                            </Container>
-
-                            <Container className='w-full max-[820px]:!order-2'>
-                                <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-brightness-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
-                                    <div className="card-shine-effect rounded-lg top-0"></div>
-                                    <Badge className='border border-inherit rounded-full !w-max py-2 px-4 !bg-[color:rgb(7_49_69)]'>
-                                        <p className='grad-text grad-slide'>MAIS RECOMENDADO</p>
-                                    </Badge>
-                                    <h1 className='grad-text grad-slide font-bold text-xl'>PLANO PREMIUM</h1>
-                                    <p className='font-extralight text-xs w-9/12 h-12'>Tenha acesso a todas as vantagens de ser um membro premium do Palmilhando®</p>
-                                    <div className="divider"></div>
-                                    <br />
-                                    <h1 className='text-3xl font-bold'><mark className="font-light text-white">12x de</mark> R$ 299<sup><small>,62</small></sup></h1>
-                                    <h2 className='text-xs font-light my-4'>(R$ 2897 à vista)</h2>
-                                    <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90JO0J' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
-                                    <Pagamento />
-                                    <div className="divider"></div>
-                                    <h2 className='font-extralight'>Vantagens</h2>
-                                    <List className='text-left pt-4 px-[10%] checklist'>
-                                        <li className='include'>Acesso a todo conteúdo teórico e prático sobre palmilhas terapêuticas</li>
-                                        <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                        <li className='include'>Curso "Fazendo negócios com palmilhas"</li>
-                                        <li className='include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
-                                    </List>
-                                </div>
-                            </Container>
-
-                            <Container className='w-full'>
-                                <div className="flex flex-col items-center justify-between px-[1%] py-[10%] border border-cyan-100 rounded-xl backdrop-saturate-50 shadow-md text-center h-full relative hover:-translate-y-2 duration-200 ease-out">
-                                    <div className="card-shine-effect rounded-lg top-0 opacity-30"></div>
-                                    <h1 className='cor-3 font-bold text-xl'>PLANO BUSINESS</h1>
-                                    <p className='font-extralight text-xs w-9/12 h-12'>Para o profissional que deseja transformar sua prática em um negócio lucrativo</p>
-                                    <div className="divider"></div>
-                                    <br />
-                                    <h1 className=' text-3xl font-bold'><mark className="font-light text-white">12x de</mark> R$ 247<sup><small>,91</small></sup></h1>
-                                    <h2 className='text-xs font-light my-4'>(R$ 2397 à vista)</h2>
-                                    <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90JO08' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
-                                    <Pagamento />
-                                    <div className="divider"></div>
-                                    <h2 className='font-extralight'>Vantagens</h2>
-                                    <List className='text-left pt-4 px-[10%] checklist'>
-                                        <li className='include'>Acesso a todo conteúdo teórico e prático sobre palmilhas terapêuticas</li>
-                                        <li className='include'>Gravação das lives mensais e lançamentos</li>
-                                        <li className='include'>Curso "Fazendo negócios com palmilhas"</li>
-                                        <li className='not-include'>Mentorias ao vivo com casos clínicos e/ou convidados</li>
-                                    </List>
-                                </div>
-                            </Container>
-
-                        </Grid>
+                                <div className="divider"></div>
+                                <br />
+                                <h1 className='text-3xl font-bold'><mark className="font-light text-white">12x de</mark> R$ 196<sup><small>,19</small></sup></h1>
+                                <h2 className='text-xs font-light my-4'>(R$ 1897 à vista)</h2>
+                                <a href='https://secure.doppus.com/pay/PBOJJ9ZMBOJJ9ZG90O0O8' target="_blank" className='relative z-10 w-9/12 mx-auto py-2 px-4 rounded-xl border font-bold border-cyan-100 shadow-md bg-[linear-gradient(to_right,var(--grad-1))] bg-[length:150%] select-none cursor-pointer hover:brightness-110 duration-150 ease-out'>ASSINAR</a>
+                                <Pagamento />
+                                <div className="divider"></div>
+                                <List className='text-left pt-4 px-[10%] checklist'>
+                                    <li className='include'>Acesso a todo conteúdo teórico e prático sobre palmilhas terapêuticas</li>
+                                    <li className='include'>Gravação das lives mensais e lançamentos</li>
+                                </List>
+                            </div>
+                        </Container>
                     </ContentDefault>
                 </Content>
             </Section>

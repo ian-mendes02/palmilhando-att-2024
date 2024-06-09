@@ -416,6 +416,24 @@ button:focus, input:focus, select:focus {
     background-image: url(../img/chuva-palmilhas.webp);
 }
 
+#seu-investimento {
+    background-image: linear-gradient(#0c6b96,#1E3050)
+}
+
+#seu-investimento::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+    background-image: url(../img/chuva-palmilhas.webp);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+    filter: blur(10px);
+}
+
 #header {
     background: url(../img/palmilhando-header-bg.webp);
     background-size: cover;
